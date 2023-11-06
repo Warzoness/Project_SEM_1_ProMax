@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Sales\StoreCategoriesRequest;
+use App\Http\Requests\Admin\Sales\UpdateCategoriesRequest;
+use App\Models\Admin\Sales\Brand;
 use App\Models\Admin\Sales\Category;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoriesController extends Controller
 {
@@ -29,7 +32,8 @@ class CategoriesController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view("admin.pages.sales.categories.add",compact("categories"));
+        $brands = Brand::all();
+        return view("admin.pages.sales.categories.add",compact("categories","brands"));
     }
 
     /**
@@ -38,21 +42,22 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoriesRequest $request)
     {
-        dd($request->all());
         $filename = $request->photo->getClientOriginalName();
-        $request->photo->storeAs("public/assets/imgs/admin/categories", $filename);
+        $request->photo->storeAs("public/upload/admin/categories", $filename);
         $request->merge(['image'=>$filename]);
         try {
             $category = Category::create($request->all());
             if($category){
+                alert()->success('success','Add new category success !');
                 return redirect()->route('category.index');
             }else{
+                alert()->error('error','Add new category has error !');
                 return redirect()->back();
             }
-
         } catch (\Throwable $th) {
+                alert()->error('error','Add new category has error !');
                 return redirect()->back();
         }
     }
@@ -74,9 +79,13 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($item)
     {
-        //
+        $categories = Category::all();
+        $brands = Brand::all();
+        $category = Category::find($item);
+
+        return view('admin.pages.sales.categories.edit', compact('category','categories','brands'));
     }
 
     /**
@@ -86,9 +95,30 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCategoriesRequest $request, Category $category)
     {
-        //
+        if($request->photo){
+            $filename = $request->photo->getClientOriginalName();
+            $request->photo->storeAs("public/assets/imgs/admin/categories", $filename);
+            $request->merge(['image'=>$filename]);
+        }else{
+            $filename = $category->image;
+            $request->merge(['image'=>$filename]);
+        }
+        
+        try {
+            $update = $category->update($request->all());
+            if($update){
+                alert()->success('success','Update Successfully !');
+                return redirect()->route('category.index');
+            }else{
+                alert()->error('error','Update Fail !');
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            alert()->error('error','Update Fail !');
+            dd($th);
+        }
     }
 
     /**
@@ -97,8 +127,58 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        try {
+            if($category->delete()) {
+                alert()->success('success','Chuyển thành công vào thùng rác !');
+                return redirect()->route('category.index');
+            }else{
+                alert()->error('error','Chuyển vào thùng rác thất bại !');
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            alert()->error('error','Chuyển vào thùng rác thất bại !');
+            return redirect()->back();
+        }
+    }
+
+    public function trash(){
+        $trash = Category::onlyTrashed()->get();
+        return view('admin.pages.sales.categories.trash',compact('trash'));
+    }
+
+    public function restore($id){
+        $restore = Category::withTrashed()->find($id)->restore();
+        try {
+            if($restore){
+                alert()->success('Congratulations','Restore Item Successfully !');
+                return redirect()->route('categories.trashIndex');
+            }else{
+                alert()->error('Fail','Restore Item Fail !');
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+                alert()->error('Fail','Restore Item Fail !');
+                return redirect()->back();
+        }
+    }
+
+    public function forceDelete($id){
+        $delete = Category::withTrashed()->find($id)->forceDelete();
+        try {
+            if($delete){
+                alert()->success('Thành Công','Xóa vĩnh viễn thành công !');
+                return redirect()->route('categories.trashIndex');
+            }else{
+                alert()->error('Lỗi !','Xóa vĩnh viễn thất bại !');
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+                alert()->error('Lỗi !','Xóa vĩnh viễn thất bại !');
+                return redirect()->back();
+        }
+
     }
 }

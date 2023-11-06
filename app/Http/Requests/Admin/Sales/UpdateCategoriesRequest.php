@@ -13,7 +13,7 @@ class UpdateCategoriesRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,22 @@ class UpdateCategoriesRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'required|unique:categories,id,'.$this->request->get('id'),
+            'tags' => 'required',
+            'brand_id'=>'required',
+            'status'=>'required',
+            'description'=>'required'
         ];
+    }
+
+    public function messages(){
+        return [
+            'name.required' => 'Name not allow to null !',
+            'name.unique'=> $this->name.' already exist !',
+            'tags.required'=>'Tags not allow to null !',
+            'brand_id.required' => 'Brand not allow to null !',
+            'status.required' => 'Status not allow to null !',
+            'description.required' => 'Description not allow to null !'
+        ] ;
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Sales\Category;
+use App\Models\Admin\Sales\Product;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -14,7 +16,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        return view("admin.pages.sales.products.index", compact("products"));
     }
 
     /**
@@ -24,7 +27,8 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view("admin.pages.sales.products.add", compact("categories"));
     }
 
     /**
@@ -35,7 +39,7 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

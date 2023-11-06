@@ -25,7 +25,22 @@
                                                     id="title" onkeyup="ChangeToSlug()">
                                             </div>
                                             @error('name')
-                                                <small>{{ $message }}</small>
+                                                <div class="alert alert-dismissible fade show alert-danger">
+                                                    <div class="alert-content">
+                                                        <div>{{ $message }}</div>
+                                                    </div>
+                                                    <button type="button" data-bs-dismiss="alert">
+                                                        <span class="close-btn">
+                                                            <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                                viewBox="0 0 20 20" aria-hidden="true" height="1em"
+                                                                width="1em" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                    clip-rule="evenodd"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </div>
                                             @enderror
                                         </div>
                                         <div class="form-item vertical">
@@ -39,7 +54,22 @@
                                             </textarea>
                                         </div>
                                         @error('description')
-                                            <small>{{ $message }}</small>
+                                            <div class="alert alert-dismissible fade show alert-danger">
+                                                <div class="alert-content">
+                                                    <div>{{ $message }}</div>
+                                                </div>
+                                                <button type="button" data-bs-dismiss="alert">
+                                                    <span class="close-btn">
+                                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                            viewBox="0 0 20 20" aria-hidden="true" height="1em" width="1em"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+                                            </div>
                                         @enderror
                                     </div>
                                 </div>
@@ -51,74 +81,133 @@
                                         <div class="form-item vertical">
                                             <label class="form-label mb-2">Parent Category</label>
                                             <div>
-                                                <select class="input js-example-basic-single" style="padding: 10px">
+                                                <select class="input js-example-basic-single" style="padding: 10px"
+                                                    name="parent_id">
+                                                    <option value="">Danh Mục Cha</option>
                                                     @foreach ($categories as $item)
-                                                        <option value="{{ $item->parent_id ?? '' }}">
-                                                            {{ $item->parent->name ?? '' }}</option>
+                                                        <option value="{{ $item->id }}">
+                                                            {{ $item->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
-
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div class="col-span-1">
-                                                <div class="form-item vertical">
-                                                    <label class="form-label mb-2">Brand</label>
-                                                    <div>
-                                                        <select class="input js-example-basic-single" style="padding: 10px">
-                                                            @foreach ($categories as $item)
-                                                                <option value="{{ $item->brand_id ?? '' }}">
-                                                                    {{ $item->brand->name ?? '' }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
+                                        <div class="col-span-1">
+                                            <div class="form-item vertical">
+                                                <label class="form-label mb-2">Brand</label>
+                                                <div>
+                                                    <select class="input js-example-basic-single" style="padding: 10px"
+                                                        name="brand_id">
+                                                        @foreach ($brands as $item)
+                                                            <option value="{{ $item->id }}">
+                                                                {{ $item->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('brand_id')
+                                                        <div class="alert alert-dismissible fade show alert-danger">
+                                                            <div class="alert-content">
+                                                                <div>{{ $message }}</div>
+                                                            </div>
+                                                            <button type="button" data-bs-dismiss="alert">
+                                                                <span class="close-btn">
+                                                                    <svg stroke="currentColor" fill="currentColor"
+                                                                        stroke-width="0" viewBox="0 0 20 20" aria-hidden="true"
+                                                                        height="1em" width="1em"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                            clip-rule="evenodd"></path>
+                                                                    </svg>
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div class="col-span-1">
                                                 <div class="form-item vertical">
                                                     <label class="form-label mb-2">Tags</label>
                                                     <div class="flex gap-4 items-center ">
                                                         <label class="radio-label inline-flex">
-                                                            <input type="radio" class="radio" name="groupRadioExample"
+                                                            <input type="radio" class="radio" name="tags"
                                                                 value="1" checked>
-                                                            <span>In Stock</span>
+                                                            <span>Fearture</span>
                                                         </label>
                                                         <label class="radio-label inline-flex">
-                                                            <input type="radio" class="radio" name="groupRadioExample"
+                                                            <input type="radio" class="radio" name="tags"
                                                                 value="0">
-                                                            <span>Out Stock</span>
+                                                            <span>Normal</span>
                                                         </label>
                                                         <label class="radio-label inline-flex">
-                                                            <input type="radio" class="radio" name="groupRadioExample"
+                                                            <input type="radio" class="radio" name="tags"
                                                                 value="2">
-                                                            <span>Limited</span>
+                                                            <span>Trending</span>
                                                         </label>
                                                     </div>
 
                                                 </div>
+                                                @error('tags')
+                                                    <div class="alert alert-dismissible fade show alert-danger">
+                                                        <div class="alert-content">
+                                                            <div>{{ $message }}</div>
+                                                        </div>
+                                                        <button type="button" data-bs-dismiss="alert">
+                                                            <span class="close-btn">
+                                                                <svg stroke="currentColor" fill="currentColor"
+                                                                    stroke-width="0" viewBox="0 0 20 20" aria-hidden="true"
+                                                                    height="1em" width="1em"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                        clip-rule="evenodd"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                @enderror
                                             </div>
                                             <div class="col-span-1">
                                                 <div class="form-item vertical">
                                                     <label class="form-label mb-2">Status</label>
                                                     <div class="flex gap-4 items-center ">
                                                         <label class="radio-label inline-flex">
-                                                            <input type="radio" class="radio" name="groupRadioExample"
+                                                            <input type="radio" class="radio" name="status"
                                                                 value="1" checked>
                                                             <span>In Stock</span>
                                                         </label>
                                                         <label class="radio-label inline-flex">
-                                                            <input type="radio" class="radio" name="groupRadioExample"
+                                                            <input type="radio" class="radio" name="status"
                                                                 value="0">
                                                             <span>Out Stock</span>
                                                         </label>
                                                         <label class="radio-label inline-flex">
-                                                            <input type="radio" class="radio" name="groupRadioExample"
+                                                            <input type="radio" class="radio" name="status"
                                                                 value="2">
                                                             <span>Limited</span>
                                                         </label>
                                                     </div>
 
                                                 </div>
+                                                @error('status')
+                                                    <div class="alert alert-dismissible fade show alert-danger">
+                                                        <div class="alert-content">
+                                                            <div>{{ $message }}</div>
+                                                        </div>
+                                                        <button type="button" data-bs-dismiss="alert">
+                                                            <span class="close-btn">
+                                                                <svg stroke="currentColor" fill="currentColor"
+                                                                    stroke-width="0" viewBox="0 0 20 20" aria-hidden="true"
+                                                                    height="1em" width="1em"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                        clip-rule="evenodd"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                @enderror
                                             </div>
 
                                         </div>
@@ -131,13 +220,13 @@
                                         <h5>Category Image</h5>
                                         <p class="mb-6">Add or change image for the category</p>
                                         <div class="form-item vertical">
-                                            <label class="form-label"></label>
                                             <div>
                                                 <div class="upload upload-draggable hover:border-primary-600">
                                                     <input class="upload-input draggable" type="file"
                                                         onchange="showImg(this,'preview')" name="photo">
                                                     <div class="my-16 text-center">
-                                                        <img src="" id="preview" alt="" class="mx-auto">
+                                                        <img src="" id="preview" alt=""
+                                                            class="mx-auto">
                                                         <p class="font-semibold">
                                                             <span class="text-gray-800 dark:text-white">Drop your image
                                                                 here, or</span>
@@ -147,6 +236,24 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @error('photo')
+                                                <div class="alert alert-dismissible fade show alert-danger">
+                                                    <div class="alert-content">
+                                                        <div>{{ $message }}</div>
+                                                    </div>
+                                                    <button type="button" data-bs-dismiss="alert">
+                                                        <span class="close-btn">
+                                                            <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                                viewBox="0 0 20 20" aria-hidden="true" height="1em"
+                                                                width="1em" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                    clip-rule="evenodd"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>

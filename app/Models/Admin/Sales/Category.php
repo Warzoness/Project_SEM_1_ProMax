@@ -9,11 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
     use HasFactory;
-
     use SoftDeletes;
 
-
-    protected $fillable = ['name','status','brand_id','parent_id','image','description'] ;
+    protected $fillable = ['name','status','brand_id','parent_id','image','description','tags','slug'] ;
 
     /**
      * Get the user that owns the Category
@@ -22,7 +20,7 @@ class Category extends Model
      */
     public function parent()
     {
-        return $this->belongsTo(Category::class, 'parent_id', 'id');
+        return $this->belongsTo(Category::class);
     }
 
     public function products(){

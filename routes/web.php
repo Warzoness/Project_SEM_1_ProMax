@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CRM\CustomerController;
 use App\Http\Controllers\Admin\CRM\MainController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\Sales\BrandsController;
 use App\Http\Controllers\Admin\Sales\CategoriesController;
 use App\Http\Controllers\Admin\Sales\ProductsController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,18 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('sales')->group(function () {
         Route::resource('category', CategoriesController::class);
+        Route::get('/categories/trash',[CategoriesController::class,'trash'])->name('categories.trashIndex');
+        Route::get('/categories/restore/{id}',[CategoriesController::class,'restore'])->name('categories.restore');
+        Route::delete('/categories/{id}/forceDelete',[CategoriesController::class,'forceDelete'])->name('categories.forceDelete');
+
+        //
         Route::resource('products', ProductsController::class);
+
+        //
+        Route::resource('brands', BrandsController::class);
+        Route::get('brands/trash',[BrandsController::class,'trash'])->name('brands.trashIndex');
+        Route::get('brands/restore',[BrandsController::class,'restore'])->name('brands.restore');
+        Route::get('brands/forceDelete',[BrandsController::class,'forceDelete'])->name('brands.forceDelete');
+        
     });
 });

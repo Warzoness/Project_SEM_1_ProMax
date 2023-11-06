@@ -88,27 +88,22 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                             </svg>
-                            <span class="menu-item-text">Sales</span>
+                            <span class="menu-item-text">Bán Hàng</span>
                         </div>
                         <ul>
                             <li data-menu-item="modern-sales-dashboard" class="menu-item">
-                                <a class="h-full w-full flex items-center" href="modern-sales-dashboard.html">
-                                    <span>Dashboard</span>
+                                <a class="h-full w-full flex items-center" href="{{ route('brands.index') }}">
+                                    <span>Nhãn Hàng</span>
                                 </a>
                             </li>
                             <li data-menu-item="modern-product-list" class="menu-item">
                                 <a class="h-full w-full flex items-center" href="{{ route('category.index') }}">
-                                    <span>Category List</span>
+                                    <span>Danh Mục</span>
                                 </a>
                             </li>
                             <li data-menu-item="modern-product-edit" class="menu-item">
-                                <a class="h-full w-full flex items-center" href="">
-                                    <span>Product Edit</span>
-                                </a>
-                            </li>
-                            <li data-menu-item="modern-new-product" class="menu-item">
-                                <a class="h-full w-full flex items-center" href="{{ route('category.create') }}">
-                                    <span>New Product</span>
+                                <a class="h-full w-full flex items-center" href="{{ route('products.index') }}">
+                                    <span>Sản Phẩm</span>
                                 </a>
                             </li>
                             <li data-menu-item="modern-order-list" class="menu-item">

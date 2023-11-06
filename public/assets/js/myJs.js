@@ -31,3 +31,82 @@ function ChangeToSlug() {
     //In slug ra textbox có id “slug”
     document.getElementById('slug').value = slug;
 }
+
+$('.show-alert-delete-box').click(function (event) {
+    event.preventDefault();
+    var form = $(this).closest("form")
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'This will delete the selected record!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    })
+});
+$('.show-alert-force-delete').click(function (event) {
+    event.preventDefault();
+    var form = $(this).closest("form")
+    Swal.fire({
+        title: 'Bạn có chắc chắn không ?',
+        text: 'Mục bạn chọn sẽ bị xóa vĩnh viễn, không thể khôi phục !',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Vâng , xóa bỏ!',
+        cancelButtonText: 'Quay lại'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    })
+});
+
+
+// $('#show-alert-delete-box').click(function (event) {
+
+//     event.preventDefault();
+//     Swal.fire({
+//         title: "Are you sure you want move this category to trash can?",
+//         text: "If you move, it maybe gone forever.",
+//         icon: "warning",
+//         type: "warning",
+//         buttons: ["Cancel", "Yes!"],
+//         confirmButtonColor: '#3085d6',
+//         cancelButtonColor: '#d33',
+//         confirmButtonText: 'Yes, delete it!'
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             form.submit();
+//         }
+//     });
+// });
+
+
+$('.show-alert-delete-box-1').click(function (event) {
+    var form = $(this).closest("form");
+    var name = $(this).data("name");
+    event.preventDefault();
+    swal({
+        title: "Are you sure you want permanently delete this?",
+        text: "If you delete this, it will be gone forever.",
+        icon: "warning",
+        type: "warning",
+        buttons: ["Cancel", "Yes!"],
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((willDelete) => {
+        if (willDelete) {
+            form.submit();
+        }
+    });
+});
+

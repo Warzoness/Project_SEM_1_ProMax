@@ -9,10 +9,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="img/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    @yield('tittle')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @yield('title')
 
     @yield('customCss')
     <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets') }}/vendors/sweetalert2/dist/sweetalert2.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/style.css">
 </head>
 
@@ -1169,10 +1173,10 @@
             </div>
         </div>
     </div>
-
+    @include('sweetalert::alert')
     <!-- Core Vendors JS -->
     <script src="{{ asset('assets') }}/js/vendors.min.js"></script>
-
+    <script src="{{ asset('assets') }}/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
     <!-- Other Vendors JS -->
 
     @yield('customJs')
@@ -1180,6 +1184,7 @@
     <!-- Core JS -->
     <script src="{{ asset('assets') }}/js/app.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ asset('assets') }}/js/myJs.js"></script>
 
 
 </body>

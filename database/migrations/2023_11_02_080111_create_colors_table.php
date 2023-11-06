@@ -13,19 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('colors', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->unique();
-            $table->string('slug',100)->unique();
-            $table->float('price');
-            $table->float('sale_price')->nullable();
+            $table->string('name')->unique();
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->tinyInteger('color');
-            
-            $table->tinyInteger('type');
-            $table->tinyInteger('status');
-            $table->text('description');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -38,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('colors');
     }
 };
