@@ -15,8 +15,13 @@
   src: url('../fonts/Gilroy-Regular.ttf');
 }
 
+@font-face {
+  font-family: "okok";
+  src: url('../fonts/Manrope-Regular.ttf');
+}
+
 * {
-  font-family: 'gilroy';
+  font-family: 'okok';
 }
 
 .alert-info {
@@ -9410,7 +9415,7 @@ hr {
 }
 
 .pl-8 {
-  padding-left: 2rem;
+  padding-left: 3rem;
 }
 
 .pr-4 {

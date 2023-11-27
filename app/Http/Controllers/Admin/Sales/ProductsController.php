@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Sales\Products\StoreProductsRequest;
+use App\Http\Requests\Admin\Sales\Products\UpdateProductsRequest;
 use App\Models\Admin\Sales\Category;
+use App\Models\Admin\Sales\Color;
+use App\Models\Admin\Sales\EachTypeProduct;
 use App\Models\Admin\Sales\Product;
 use Illuminate\Http\Request;
 
@@ -17,7 +21,8 @@ class ProductsController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view("admin.pages.sales.products.index", compact("products"));
+        $categories = Category::all();
+        return view("admin.pages.sales.products.index", compact("products","categories"));
     }
 
     /**
@@ -28,7 +33,8 @@ class ProductsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view("admin.pages.sales.products.add", compact("categories"));
+        $colors = Color::all();
+        return view("admin.pages.sales.products.add", compact("categories","colors"));
     }
 
     /**
@@ -37,9 +43,24 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductsRequest $request)
     {
-        
+        $filename = $request->photo->getClientOriginalName();
+        $request->photo->storeAs("public/upload/admin/products", $filename);
+        $image = $request->merge(['image'=>$filename]);
+        try {
+            $product = Product::create($request->all());
+            if($product){
+                alert()->success('Thành Công','Thêm mới sản phẩm thành công !');
+                return redirect()->route('products.index');
+            }else{
+                alert()->error('Thất Bại','Thêm mới thất bại !');
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            alert()->error('Thất Bại','Thêm mới thất bại !');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -59,9 +80,10 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        return view('admin.pages.sales.products.edit', compact('product','categories'));
     }
 
     /**
@@ -71,9 +93,31 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductsRequest $request, Product $product)
     {
-        //
+        if($request->photo){
+            $filename = $request->photo->getClientOriginalName();
+            $request->photo->storeAs("public/upload/admin/products", $filename);
+            $image = $request->merge(['image'=>$filename]);
+        }else{
+            $filename = $product->image;
+            $image = $request->merge(['image'=>$filename]);
+        };
+
+        try {
+            $update = $product->update($request->all());
+            if($update){
+                alert()->success('Thành Công','Cập nhập sản phẩm thành công !');
+                return redirect()->route('products.index');
+            }else{
+                alert()->error('Thất Bại','Cập nhập thất bại !');
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+            alert()->error('Thất Bại','Cập nhập thất bại !');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -82,8 +126,67 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        try {
+            $delete = $product->delete();
+            if($delete){
+                alert()->success('Xóa thành công','1 sản phẩm đã được chuyển vào thùng rác!');
+                return redirect()->route('products.index');
+            }else{
+                alert()->error('Xóa thất bại','Gặp lỗi trong quá trình xóa sản phẩm !');
+                return redirect()->back();
+            }
+            
+        } catch (\Throwable $th) {
+                alert()->error('Xóa thất bại','Gặp lỗi trong quá trình xóa sản phẩm !');
+                return redirect()->back();
+        }   
     }
+
+    public function trash(){
+        $categories  = Category::onlyTrashed()->get();
+        $trash = Product::onlyTrashed()->get();
+        return view('admin.pages.sales.products.trash',compact('trash','categories'));
+    }
+
+    public function restore($id){
+        try {
+            $restore = Product::withTrashed()->find($id)->restore();
+            if($restore){
+                alert()->success('Khôi phục thành công','Loại sản phẩm và các sản phẩm liên quan đã khôi phục thành công !');
+                return redirect()->route('products.index');
+            }else{
+                alert()->error('Khôi phục thất bại','Gặp lỗi trong quá trình khôi phục, vui lòng thử lại !');
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+            alert()->error('Khôi phục thất bại','Gặp lỗi trong quá trình khôi phục, vui lòng thử lại !');
+            return redirect()->back();
+        }
+    }
+
+    public function forceDelete($id){
+        try {
+            $forceDelete = Product::onlyTrashed()->find($id)->forceDelete();
+            if($forceDelete){
+                alert()->success('Xóa thành công','Loại sản phẩm và các sản phẩm liên quan đã bị xóa vĩnh viễn !');
+                return redirect()->route('products.index');
+            }else{
+                alert()->error('Xóa thất bại','Gặp lỗi trong quá trình xóa, vui lòng thử lại !');
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+            alert()->error('Xóa thất bại','Gặp lỗi trong quá trình xóa, vui lòng thử lại !');
+            return redirect()->back();
+        }
+    }
+
+    public function detail($id){
+        $etproducts = EachTypeProduct::where('product_id',$id)->get();
+        return view('admin.pages.sales.products.detailProduct',compact('etproducts'));
+    }
+    
 }

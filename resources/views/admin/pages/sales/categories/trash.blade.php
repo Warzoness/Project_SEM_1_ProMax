@@ -39,7 +39,6 @@
                                         <th>Name</th>
                                         <th>Parent Category</th>
                                         <th>Product Quantity</th>
-                                        <th>Brand</th>
                                         <th>Status</th>
                                         <th></th>
                                     </tr>
@@ -51,7 +50,7 @@
                                                 <div class="flex items-center">
                                                     <span class="avatar avatar-rounded avatar-md">
                                                         <img class="avatar-img avatar-rounded"
-                                                            src="{{ asset('storage/assets/imgs/admin/categories') }}/{{ $item->image }}">
+                                                            src="{{ asset('storage/upload/admin/categories') }}/{{ $item->image }}">
                                                     </span>
                                                     <span class="ml-2 rtl:mr-2 font-semibold">{{ $item->name }}</span>
                                                 </div>
@@ -62,17 +61,7 @@
                                             <td>
                                                 {{ $item->products ? $item->products->count() : 0 }}
                                             </td>
-                                            <td>
-                                                <div class="flex items-center">
-                                                    <span class="avatar avatar-rounded avatar-md">
-                                                        <img class="avatar-img avatar-rounded"
-                                                            src="{{ asset('assets') }}/img/logo/{{ $item->brand->logo }}"
-                                                            loading="lazy">
-                                                    </span>
-                                                    <span class="ml-2 rtl:mr-2 font-semibold">{{ $item->brand->name }}
-                                                    </span>
-                                                </div>
-                                            </td>
+
                                             <td>
                                                 <div class="flex items-center gap-2">
                                                     @if ($item->status == 1)

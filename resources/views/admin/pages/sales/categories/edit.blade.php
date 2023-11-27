@@ -252,7 +252,7 @@
                                                         <input class="upload-input draggable" type="file"
                                                             onchange="showImg(this,'preview')" name="photo">
                                                         <div class="my-16 text-center">
-                                                            <img src="{{ asset('storage/assets/imgs/admin/categories') }}/{{ $category->image }}"
+                                                            <img src="{{ asset('storage/upload/admin/categories') }}/{{ $category->image }}"
                                                                 id="preview" alt="" class="mx-auto">
                                                             <p class="font-semibold">
                                                                 <span class="text-gray-800 dark:text-white">Drop your image

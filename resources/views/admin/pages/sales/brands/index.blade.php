@@ -72,12 +72,11 @@
                                             <td>
                                                 <div class="flex justify-end text-lg">
                                                     <div class="flex justify-end text-lg align-center items-center gap-3">
-                                                        <a href="{{ route('category.edit', $item) }}">
+                                                        <a href="{{ route('brands.edit', $item) }}">
                                                             <i class="fa-regular fa-pen-to-square fa-lg"
                                                                 style="color: #8d6102;" title="Chỉnh Sửa"></i>
                                                         </a>
-                                                        <form action="{{ route('category.destroy', $item) }}"
-                                                            method="POST">
+                                                        <form action="{{ route('brands.destroy', $item) }}" method="POST">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button class="show-alert-delete-box">

@@ -12,5 +12,21 @@ class Product extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['name','category_id','tag','description'] ;
+    protected $fillable = ['name','category_id','slug','tag','description',',main_img','price','sale_price','color_id','fearture'] ;
+
+    /**
+     * Get the user that owns the Product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function quantity(){
+        return $this->hasMany(EachTypeProduct::class,'product_id','id');
+    }
+
+    
 }

@@ -8,7 +8,7 @@
     <main class="h-full">
         <div class="page-container relative h-full flex flex-auto flex-col px-4 sm:px-6 md:px-8 py-4 sm:py-6">
             <div class="container mx-auto">
-                <h1 class="mb-4">THÊM MỚI NHÃN HÀNG</h1>
+                <h1 class="mb-4 text-center">THÊM MỚI NHÃN HÀNG</h1>
                 <form action="{{ route('brands.store') }}" enctype="multipart/form-data" method="POST">
                     @csrf
                     <div class="form-container vertical">
@@ -24,9 +24,28 @@
                                                     placeholder="Tên" value="">
                                             </div>
                                         </div>
+                                        @error('name')
+                                            <div class="alert alert-dismissible fade show alert-danger">
+                                                <div class="alert-content">
+                                                    <div>{{ $message }}</div>
+                                                </div>
+                                                <button type="button" data-bs-dismiss="alert">
+                                                    <span class="close-btn">
+                                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                            viewBox="0 0 20 20" aria-hidden="true" height="1em" width="1em"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
+
                             <div class="lg:col-span-1">
                                 <div class="card adaptable-card mb-4">
                                     <div class="card-body">
@@ -56,6 +75,24 @@
                                         </div>
                                     </div>
                                 </div>
+                                @error('photo')
+                                    <div class="alert alert-dismissible fade show alert-danger">
+                                        <div class="alert-content">
+                                            <div>{{ $message }}</div>
+                                        </div>
+                                        <button type="button" data-bs-dismiss="alert">
+                                            <span class="close-btn">
+                                                <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                    viewBox="0 0 20 20" aria-hidden="true" height="1em" width="1em"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div id="stickyFooter" class="sticky -bottom-1 -mx-8 px-8 flex items-center justify-end py-4">

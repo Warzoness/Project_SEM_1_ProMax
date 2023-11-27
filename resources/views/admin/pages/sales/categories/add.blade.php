@@ -1,14 +1,14 @@
 @extends('admin.masterview')
 
 @section('tittle')
-    <title>Admin | Sales | Add New Category</title>
+    <title>Admin | Bán Hàng | Thêm Mới Danh Mục</title>
 @endsection
 
 @section('main-content')
     <main class="h-full">
         <div class="page-container relative h-full flex flex-auto flex-col px-4 sm:px-6 md:px-8 py-4 sm:py-6">
             <div class="container mx-auto">
-                <h3 class="mb-4">Add New Category</h3>
+                <h3 class="mb-4">Thêm Mới Danh Mục</h3>
                 <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-container vertical">
@@ -16,13 +16,13 @@
                             <div class="lg:col-span-2">
                                 <div class="card adaptable-card !border-b pb-6 py-4 rounded-br-none rounded-bl-none">
                                     <div class="card-body">
-                                        <h5>Basic Information</h5>
-                                        <p class="mb-6">Section to config basic category information</p>
+                                        <h5>Thông Tin Cơ Bản</h5>
                                         <div class="form-item vertical">
-                                            <label class="form-label mb-2">Category Name</label>
+                                            <label class="form-label mb-2">Tên Danh Mục</label>
                                             <div>
-                                                <input class="input" type="text" name="name" placeholder="Name"
-                                                    id="title" onkeyup="ChangeToSlug()">
+                                                <input class="input" type="text" name="name"
+                                                    placeholder="Điền tên danh mục tại đây.." id="title"
+                                                    onkeyup="ChangeToSlug()">
                                             </div>
                                             @error('name')
                                                 <div class="alert alert-dismissible fade show alert-danger">
@@ -48,9 +48,9 @@
                                             <input class="input" type="text" name="slug" id="slug">
                                         </div>
                                         <div class="form-item vertical">
-                                            <label class="form-label mb-2">Description</label>
+                                            <label class="form-label mb-2">Mô Tả</label>
                                             <textarea name="description" id="editor1" rows="10" cols="80">
-                                                This is my textarea to be replaced with CKEditor 4.
+                                                Thêm mô tả ....
                                             </textarea>
                                         </div>
                                         @error('description')
@@ -76,14 +76,13 @@
 
                                 <div class="card adaptable-card pb-6 py-4 ">
                                     <div class="card-body">
-                                        <h5>Organizations</h5>
-                                        <p class="mb-6">Section to config the product attribute</p>
+                                        <h5>Phần Liên Quan</h5>
                                         <div class="form-item vertical">
-                                            <label class="form-label mb-2">Parent Category</label>
+                                            <label class="form-label mb-2">Tên Danh Mục Cha</label>
                                             <div>
                                                 <select class="input js-example-basic-single" style="padding: 10px"
                                                     name="parent_id">
-                                                    <option value="">Danh Mục Cha</option>
+                                                    <option value="">Đây Là Danh Mục Cha</option>
                                                     @foreach ($categories as $item)
                                                         <option value="{{ $item->id }}">
                                                             {{ $item->name }}</option>
@@ -93,7 +92,7 @@
                                         </div>
                                         <div class="col-span-1">
                                             <div class="form-item vertical">
-                                                <label class="form-label mb-2">Brand</label>
+                                                <label class="form-label mb-2">Nhãn Hàng</label>
                                                 <div>
                                                     <select class="input js-example-basic-single" style="padding: 10px"
                                                         name="brand_id">
@@ -132,17 +131,17 @@
                                                         <label class="radio-label inline-flex">
                                                             <input type="radio" class="radio" name="tags"
                                                                 value="1" checked>
-                                                            <span>Fearture</span>
+                                                            <span>Nổi Bật</span>
                                                         </label>
                                                         <label class="radio-label inline-flex">
                                                             <input type="radio" class="radio" name="tags"
                                                                 value="0">
-                                                            <span>Normal</span>
+                                                            <span>Thông Thường</span>
                                                         </label>
                                                         <label class="radio-label inline-flex">
                                                             <input type="radio" class="radio" name="tags"
                                                                 value="2">
-                                                            <span>Trending</span>
+                                                            <span>Bán Chạy</span>
                                                         </label>
                                                     </div>
 
@@ -169,22 +168,22 @@
                                             </div>
                                             <div class="col-span-1">
                                                 <div class="form-item vertical">
-                                                    <label class="form-label mb-2">Status</label>
+                                                    <label class="form-label mb-2">Trạng Thái</label>
                                                     <div class="flex gap-4 items-center ">
                                                         <label class="radio-label inline-flex">
                                                             <input type="radio" class="radio" name="status"
                                                                 value="1" checked>
-                                                            <span>In Stock</span>
+                                                            <span>Còn Hàng</span>
                                                         </label>
                                                         <label class="radio-label inline-flex">
                                                             <input type="radio" class="radio" name="status"
                                                                 value="0">
-                                                            <span>Out Stock</span>
+                                                            <span>Hết Hàng</span>
                                                         </label>
                                                         <label class="radio-label inline-flex">
                                                             <input type="radio" class="radio" name="status"
                                                                 value="2">
-                                                            <span>Limited</span>
+                                                            <span>Giới Hạn</span>
                                                         </label>
                                                     </div>
 
@@ -217,8 +216,8 @@
                             <div class="lg:col-span-1">
                                 <div class="card adaptable-card mb-4">
                                     <div class="card-body">
-                                        <h5>Category Image</h5>
-                                        <p class="mb-6">Add or change image for the category</p>
+                                        <h5>Ảnh Danh Mục</h5>
+                                        <p class="mb-6">Thêm mới ảnh mô tả cho danh mục</p>
                                         <div class="form-item vertical">
                                             <div>
                                                 <div class="upload upload-draggable hover:border-primary-600">
@@ -228,11 +227,11 @@
                                                         <img src="" id="preview" alt=""
                                                             class="mx-auto">
                                                         <p class="font-semibold">
-                                                            <span class="text-gray-800 dark:text-white">Drop your image
-                                                                here, or</span>
+                                                            <span class="text-gray-800 dark:text-white">Kéo thả ảnh vào
+                                                                đây, hoặc</span>
                                                             <span class="text-blue-500">browse</span>
                                                         </p>
-                                                        <p class="mt-1 opacity-60 dark:text-white">Support: jpeg, png</p>
+                                                        <p class="mt-1 opacity-60 dark:text-white">Hỗ trợ: jpeg, png</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -262,7 +261,7 @@
                         </div>
                         <div id="stickyFooter" class="sticky -bottom-1 -mx-8 px-8 flex items-center justify-end py-4">
                             <div class="md:flex items-center">
-                                <button class="btn btn-default btn-sm ltr:mr-2 rtl:ml-2" type="button">Discard</button>
+                                <button class="btn btn-default btn-sm ltr:mr-2 rtl:ml-2" type="button">Loại Bỏ</button>
                                 <button class="btn btn-solid btn-sm" type="submit">
                                     <span class="flex items-center justify-center">
                                         <span class="text-lg">
@@ -274,7 +273,7 @@
                                                 </path>
                                             </svg>
                                         </span>
-                                        <span class="ltr:ml-1 rtl:mr-1">Save</span>
+                                        <span class="ltr:ml-1 rtl:mr-1">Lưu</span>
                                     </span>
                                 </button>
                             </div>

@@ -36,20 +36,62 @@ $('.show-alert-delete-box').click(function (event) {
     event.preventDefault();
     var form = $(this).closest("form")
     Swal.fire({
-        title: 'Are you sure?',
-        text: 'This will delete the selected record!',
+        title: 'Bạn chắc chứ ?',
+        text: 'Mục này sẽ bị chuyển vào trong thùng rác !',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Cancel'
+        confirmButtonText: 'Đồng Ý !',
+        cancelButtonText: 'Quay Lại'
     }).then((result) => {
         if (result.isConfirmed) {
             form.submit();
         }
     })
 });
+
+$('.show-alert-delete-box-product').click(function (event) {
+    event.preventDefault();
+    var form = $(this).closest("form")
+    Swal.fire({
+        title: 'Bạn chắc chứ ?',
+        text: 'Loại sản phẩm này và các sản phẩm của sản phẩm này sẽ bị chuyển vào trong thùng rác !',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Đồng Ý !',
+        cancelButtonText: 'Quay Lại'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    })
+});
+
+$('.show-alert-force-delete-product').click(function (event) {
+    event.preventDefault();
+    var form = $(this).closest("form")
+    Swal.fire({
+        title: 'Bạn có chắc chắn không ?',
+        text: 'Loại sản phẩm và các sản phẩm liên quan sẽ bị xóa vĩnh viễn, không thể khôi phục !',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Vâng , xóa bỏ!',
+        cancelButtonText: 'Quay lại'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    })
+});
+
+
+
+
 $('.show-alert-force-delete').click(function (event) {
     event.preventDefault();
     var form = $(this).closest("form")
@@ -69,44 +111,47 @@ $('.show-alert-force-delete').click(function (event) {
     })
 });
 
-
-// $('#show-alert-delete-box').click(function (event) {
-
-//     event.preventDefault();
-//     Swal.fire({
-//         title: "Are you sure you want move this category to trash can?",
-//         text: "If you move, it maybe gone forever.",
-//         icon: "warning",
-//         type: "warning",
-//         buttons: ["Cancel", "Yes!"],
-//         confirmButtonColor: '#3085d6',
-//         cancelButtonColor: '#d33',
-//         confirmButtonText: 'Yes, delete it!'
-//     }).then((result) => {
-//         if (result.isConfirmed) {
-//             form.submit();
-//         }
-//     });
-// });
-
-
-$('.show-alert-delete-box-1').click(function (event) {
-    var form = $(this).closest("form");
-    var name = $(this).data("name");
+$('.show-alert-restore').click(function (event) {
     event.preventDefault();
-    swal({
-        title: "Are you sure you want permanently delete this?",
-        text: "If you delete this, it will be gone forever.",
-        icon: "warning",
-        type: "warning",
-        buttons: ["Cancel", "Yes!"],
+    var form = $(this).closest("form")
+    Swal.fire({
+        title: 'Bạn có chắc chắn không ?',
+        text: 'Mục bạn chọn và các mục liên quan sẽ được khôi phục !',
+        icon: 'warning',
+        showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((willDelete) => {
-        if (willDelete) {
+        confirmButtonText: 'Vâng , xóa bỏ!',
+        cancelButtonText: 'Quay lại'
+    }).then((result) => {
+        if (result.isConfirmed) {
             form.submit();
         }
-    });
+    })
+});
+
+$('.show-alert-delete-box-brand').click(function (event) {
+    event.preventDefault();
+    var form = $(this).closest("form")
+    Swal.fire({
+        title: 'Bạn có chắc chắn không ?',
+        text: 'Hành động này sẽ xóa vĩnh viễn tất cả các sản phẩm liên quan đến nhãn hàng !',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Vâng , xóa bỏ!',
+        cancelButtonText: 'Quay lại'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    })
+});
+
+
+
+$('body').on('click', "#close-img-btn", function (e) {
+    $(this).parent().parent().remove();
 });
 

@@ -80,8 +80,8 @@
                                                 <div class="flex items-center">
                                                     <span class="avatar avatar-rounded avatar-md">
                                                         <img class="avatar-img avatar-rounded"
-                                                            src="{{ asset('assets') }}/img/logo/{{ $item->brand->logo }}"
-                                                            loading="lazy">
+                                                            src="{{ asset('storage/upload/admin/brands') }}/{{ $item->brand->logo }}"
+                                                            style="object-fit: fill">
                                                     </span>
                                                     <span class="ml-2 rtl:mr-2 font-semibold">{{ $item->brand->name }}
                                                     </span>

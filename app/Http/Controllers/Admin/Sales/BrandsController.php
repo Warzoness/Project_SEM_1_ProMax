@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Sales\Brands\StoreBrandsRequest;
+use App\Http\Requests\Admin\Sales\Brands\UpdateBrandsRequest;
+use App\Models\Admin\Sales\Category;
+use App\Models\Admin\Sales\Product;
 use Illuminate\Http\Request;
 use App\Models\Admin\Sales\Brand;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -38,13 +42,11 @@ class BrandsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBrandsRequest $request)
     {
         $filename = $request->photo->getClientOriginalName();
         $request->photo->storeAs("public/upload/admin/brands", $filename);
         $request->merge(["logo"=>$filename]);
-
-        
         $brand = Brand::create($request->all());
         try {
             if($brand){
@@ -77,9 +79,9 @@ class BrandsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Brand $brand)
     {
-        //
+        return view("admin.pages.sales.brands.edit",compact("brand"));
     }
 
     /**
@@ -89,9 +91,30 @@ class BrandsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateBrandsRequest $request, Brand $brand)
     {
-        //
+        if($request->photo){
+            $filename = $request->photo->getClientOriginalName();
+            $request->photo->storeAs("public/upload/admin/brands", $filename);
+            $request->merge(["logo"=>$filename]);
+        }else{
+            $request->merge(["logo"=>$brand->logo]);
+        }
+
+        try {
+            $update = $brand->update($request->all());
+            if($update){
+                alert()->success("Thành Công ! ","Update nhãn hàng thành công");
+                return redirect()->route("brands.index");
+            }else{
+                alert()->error("Thất Bại !","Update nhãn hàng thất bại");
+                return redirect()->back();
+            }
+
+        } catch (\Throwable $th) {
+            alert()->error("Thất Bại !","Update nhãn hàng thất bại");
+            return redirect()->back();
+        }
     }
 
     /**
@@ -100,21 +123,86 @@ class BrandsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Brand $brand)
     {
-        //
+
+        $category = $brand->categories()->get();
+        
+        foreach ($category as $key => $value) {
+            Product::where("category_id",$value->id)->delete();
+        };
+
+        $categories = $brand->categories()->delete();
+
+        $delete = $brand->delete();
+
+
+         
+
+        try {
+            if($delete){
+                alert()->success("Thành Công !","Xóa nhãn hàng thành công");
+                return redirect()->route("brands.index");
+            }else{
+                alert()->error("Thất Bại!","Xóa nhãn hàng thất bại");
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+                alert()->error("Thất Bại!","Xóa nhãn hàng thất bại");
+                return redirect()->back();
+        }        
     }
 
     public function trash(){
-        return view("admin.pages.sales.brands.trash");
+        $trashes = Brand::onlyTrashed()->get();
+        return view("admin.pages.sales.brands.trash",compact('trashes'));
     }
 
-    public function restore(){
-        return view("admin.pages.sales.brands.restore");
+    public function restore($id){
+        $brand = Brand::withTrashed()->where("id",$id);
+
+        $categories = Category::withTrashed()->where("brand_id",$id)->get();
+
+        foreach ($categories as $key => $value) {
+            Product::withTrashed()->where("category_id",$value->id)->restore();
+        }
+
+        Category::withTrashed()->where("brand_id",$id)->restore();
+        $restore = $brand->restore();
+        try {
+            if($restore){
+                alert()->success("Thành Công","Khôi phục nhãn hàng thành công!");
+                return redirect()->route("brands.index");
+            }else{
+                alert()->error("Thất Bại","Khôi phục nhãn hàng thất bại!");
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            alert()->error("Thất Bại","Khôi phục nhãn hàng thất bại !");
+            return redirect()->back();
+        }
     }
 
-    public function forceDelete(){
-        return view("admin.pages.sales.brands.forceDelete");
+    public function forceDelete($id){
+           
+        try {
+            $categories = Category::withTrashed()->where("id",$id)->get();
+            foreach ($categories as $key => $value) {
+                $value->products()->forceDelete();
+            }
+            $deleteCategories = Brand::onlyTrashed()->find($id)->categories()->forceDelete();
+            $forceDelete = Brand::withTrashed()->where("id",$id)->forceDelete();
+            if($forceDelete){
+                alert()->success("Thành Công","Xóa vĩnh viễn nhãn hàng thành công!");
+                return redirect()->route("brands.index");
+            }else{
+                alert()->error("Thất Bại","Xóa vĩnh viễn nhãn hàng thất bại!");
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            alert()->error("Thất Bại","Xóa vĩnh viễn nhãn hàng thất bại !");
+            return redirect()->back();
+        }
     }
     
 }

@@ -12,5 +12,6 @@ class ImgProducts extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['eachTypeProduct_id','role','image'];
+    protected $fillable = ['eachTypeProduct_id','image'];
+    
 }

@@ -23,4 +23,10 @@ class Brand extends Model
     {
         return $this->hasMany(Category::class, 'brand_id', 'id');
     }
+
+    /**
+     * Get all of the comments for the Brand
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
 }

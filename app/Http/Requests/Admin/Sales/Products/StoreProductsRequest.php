@@ -13,7 +13,7 @@ class StoreProductsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,25 @@ class StoreProductsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "name"=>"required|min:3|unique:products",
+            "category_id"=>"required",
+            "tag"=>"required",
+            "description"=>"required",
+            "photo"=>"required|image"
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            "name.required"=>"Tên sản phẩm không được để trống",
+            "name.min"=>"Tên sản phẩm quá ngắn",
+            "name.unique"=>"required",
+            "category_id.required"=>"Danh mục không để trống",
+            "tag.required"=>"Tag không được để trống",
+            "description.required"=>"Mô tả không để trống",
+            "photo.required"=>"Ảnh không được để trống",
+            "photo.image"=>"Ảnh sai định dạng !"
         ];
     }
 }

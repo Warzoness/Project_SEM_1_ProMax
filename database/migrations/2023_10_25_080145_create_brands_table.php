@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255)->unique();
             $table->string('logo', 255);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

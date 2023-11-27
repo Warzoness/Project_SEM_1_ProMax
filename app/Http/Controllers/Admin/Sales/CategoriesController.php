@@ -7,7 +7,9 @@ use App\Http\Requests\Admin\Sales\StoreCategoriesRequest;
 use App\Http\Requests\Admin\Sales\UpdateCategoriesRequest;
 use App\Models\Admin\Sales\Brand;
 use App\Models\Admin\Sales\Category;
+use File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoriesController extends Controller
@@ -95,11 +97,16 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
+    
     public function update(UpdateCategoriesRequest $request, Category $category)
     {
+        $img_path = public_path('storage/upload/admin/categories/'.$category->image);
         if($request->photo){
+            unlink($img_path);
             $filename = $request->photo->getClientOriginalName();
-            $request->photo->storeAs("public/assets/imgs/admin/categories", $filename);
+            $request->photo->storeAs("public/upload/admin/categories", $filename);
             $request->merge(['image'=>$filename]);
         }else{
             $filename = $category->image;
@@ -146,23 +153,31 @@ class CategoriesController extends Controller
 
     public function trash(){
         $trash = Category::onlyTrashed()->get();
-        return view('admin.pages.sales.categories.trash',compact('trash'));
+        $brands = Brand::withTrashed()->get();
+        return view('admin.pages.sales.categories.trash',compact('trash','brands'));
     }
 
     public function restore($id){
-        $restore = Category::withTrashed()->find($id)->restore();
-        try {
-            if($restore){
-                alert()->success('Congratulations','Restore Item Successfully !');
-                return redirect()->route('categories.trashIndex');
-            }else{
-                alert()->error('Fail','Restore Item Fail !');
-                return redirect()->back();
+        $category = Category::onlyTrashed()->where('id',$id)->first();
+        $brand = Brand::withTrashed()->where('id',$category->brand_id)->first();
+        if($brand->trashed()){
+            alert()->error('Lỗi','Vui lòng khôi phục nhãn hàng trước !');
+            return redirect()->back();
+        }else{
+            $restore = Category::withTrashed()->find($id)->restore();
+            try {
+                if($restore){
+                    alert()->success('Congratulations','Restore Item Successfully !');
+                    return redirect()->route('categories.trashIndex');
+                }else{
+                    alert()->error('Fail','Restore Item Fail !');
+                    return redirect()->back();
+                }
+            } catch (\Throwable $th) {
+                    alert()->error('Fail','Restore Item Fail !');
+                    return redirect()->back();
             }
-        } catch (\Throwable $th) {
-                alert()->error('Fail','Restore Item Fail !');
-                return redirect()->back();
-        }
+        }  
     }
 
     public function forceDelete($id){
