@@ -72,13 +72,6 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="flex justify-between mb-6">
-                                                        <label class="checkbox-label mb-0">
-                                                            <input class="checkbox" type="checkbox" value="true"
-                                                                checked>
-                                                            <span class="ltr:ml-2 rtl:mr-2">Nhớ Đăng Nhập</span>
-                                                        </label>
-                                                    </div>
                                                     <button class="btn btn-solid w-full" type="submit">Sign In</button>
                                                 </div>
                                             </form>

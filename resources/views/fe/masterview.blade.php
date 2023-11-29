@@ -405,6 +405,8 @@
     </div>
     <div class="closeMask"></div>
     @include('fe.layouts.footer')
+    @include('sweetalert::alert')
+
 
     <!-- JS
 ============================================ -->
@@ -417,7 +419,7 @@
     <script src="{{ asset('assets') }}/fe/js/vendor/bootstrap.min.js"></script>
     <script src="{{ asset('assets') }}/fe/js/vendor/slick.min.js"></script>
     <script src="{{ asset('assets') }}/fe/js/vendor/js.cookie.js"></script>
-    <!-- <script src="{{ asset('assets') }}/fe/js/vendor/jquery.style.switcher.js"></script> -->
+    <script src="{{ asset('assets') }}/fe/js/vendor/jquery.style.switcher.js"></script>
     <script src="{{ asset('assets') }}/fe/js/vendor/jquery-ui.min.js"></script>
     <script src="{{ asset('assets') }}/fe/js/vendor/jquery.ui.touch-punch.min.js"></script>
     <script src="{{ asset('assets') }}/fe/js/vendor/jquery.countdown.min.js"></script>

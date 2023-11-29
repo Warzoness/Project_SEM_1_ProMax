@@ -12,5 +12,5 @@ class paymentMethod extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['name','logo','number'] ;
+    protected $fillable = ['name','logo'];
 }

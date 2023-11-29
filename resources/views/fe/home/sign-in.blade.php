@@ -33,6 +33,7 @@
 
 
 <body>
+
     <div class="axil-signin-area">
 
         <!-- Start Header -->
@@ -45,7 +46,7 @@
                 <div class="col-sm-8">
                     <div class="singin-header-btn">
                         <p>Chưa là thành viên?</p>
-                        <a href="{{ route('home.sign-up') }}" class="axil-btn btn-bg-secondary sign-up-btn">Đăng ký
+                        <a href="{{ route('user.create') }}" class="axil-btn btn-bg-secondary sign-up-btn">Đăng ký
                             ngay</a>
                     </div>
                 </div>
@@ -60,18 +61,19 @@
                 </div>
             </div>
             <div class="col-lg-6 offset-xl-2">
-                <div class="axil-signin-form-wrap">
+                <form class="axil-signin-form-wrap" method="POST" action="{{ route('login') }}">
+                    @csrf
                     <div class="axil-signin-form">
                         <h3 class="title">Đăng nhập vào eTrade.</h3>
                         <p class="b2 mb--55">Nhập thông tin chi tiết của bạn dưới đây</p>
                         <form class="singin-form">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" class="form-control" name="email" value="annie@example.com">
+                                <input type="email" class="form-control" name="email" value="">
                             </div>
                             <div class="form-group">
                                 <label>Mật khẩu</label>
-                                <input type="password" class="form-control" name="password" value="123456789">
+                                <input type="password" class="form-control" name="password" value="">
                             </div>
                             <div class="form-group d-flex align-items-center justify-content-between">
                                 <button type="submit" class="axil-btn btn-bg-primary submit-btn">Đăng nhập</button>
@@ -79,10 +81,12 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
+    @include('sweetalert::alert')
+
 
     <!-- JS
 ============================================ -->

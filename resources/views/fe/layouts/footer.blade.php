@@ -106,7 +106,7 @@
                         <div class="inner">
                             <ul>
                                 <li><a href="{{ route('home.myAccount') }}">Tài khoản của tôi</a></li>
-                                <li><a href="{{ route('home.sign-up') }}">Đăng nhập / Đăng ký</a></li>
+                                <li><a href="{{ route('user.create') }}">Đăng nhập / Đăng ký</a></li>
                                 <li><a href="{{ route('home.cart') }}">Giỏ hàng</a></li>
                                 <li><a href="{{ route('home.wishlist') }}">Yêu thích</a></li>
                                 <li><a href="{{ route('fe-product.index') }}">Cửa hàng</a></li>

@@ -1,7 +1,7 @@
 @extends('admin.masterview')
 
 @section('title')
-    <title>Admin | Bán Hàng | Nhãn Hàng</title>
+    <title>Admin | Bán Hàng | Phương Thức Thanh Toán</title>
 @endsection
 
 @section('main-content')
@@ -9,12 +9,12 @@
         <div class="page-container relative h-full flex flex-auto flex-col px-4 sm:px-6 md:px-8 py-4 sm:py-6">
             <div class="container mx-auto">
                 <div class="card adaptable-card">
-                    <h1 class="text-center">BẢNG MÀU</h1>
+                    <h1 class="text-center">NHÃN HÀNG</h1>
                     <div class="card-body">
                         <div class="lg:flex items-center justify-end mb-4">
                             <div class="flex-wrap inline-flex xl:flex items-center gap-2">
                                 <a class="btn btn-default mr-2 bg-rose-600 hover:bg-rose-500 active:bg-rose-700 text-white"
-                                    href="{{ route('colors.create') }}">
+                                    href="{{ route('paymentMethods.create') }}">
                                     <span class="flex items-center justify-center gap-2">
                                         <span class="text-lg">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -23,10 +23,10 @@
                                                     d="M12 4.5v15m7.5-7.5h-15"></path>
                                             </svg>
                                         </span>
-                                        <span>Thêm Mới Mã Màu</span>
+                                        <span>Thêm Mới Phương Thức Thanh Toán</span>
                                     </span>
                                 </a>
-                                <a class="btn btn-two-tune" href="{{ route('color.trashIndex') }}">
+                                <a class="btn btn-two-tune" href="{{ route('paymentMethods.trashIndex') }}">
                                     <span class="flex items-center justify-center gap-2">
                                         <span class="text-lg">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -45,14 +45,14 @@
                             <table id="product-list-data-table" class="table-default table-hover data-table">
                                 <thead>
                                     <tr>
-                                        <th>Tên Màu</th>
-                                        <th>Hình Minh Họa Màu</th>
+                                        <th>Tên Phương Thức Thanh Toán</th>
+                                        <th>Hình Ảnh Logo</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($colors as $item)
+                                    @foreach ($paymentMethods as $item)
                                         <tr>
                                             <td>
                                                 <div class="flex items-center">
@@ -62,17 +62,18 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <img src="{{ asset('storage/upload/admin/colors') }}/{{ $item->image }}"
+                                                <img src="{{ asset('storage/upload/admin/paymentMethods') }}/{{ $item->logo }}"
                                                     alt="" width="100px">
                                             </td>
                                             <td>
                                                 <div class="flex justify-end text-lg">
                                                     <div class="flex justify-end text-lg align-center items-center gap-3">
-                                                        <a href="{{ route('colors.edit', $item) }}">
+                                                        <a href="{{ route('paymentMethods.edit', $item) }}">
                                                             <i class="fa-regular fa-pen-to-square fa-lg"
                                                                 style="color: #8d6102;" title="Chỉnh Sửa"></i>
                                                         </a>
-                                                        <form action="{{ route('colors.destroy', $item) }}" method="POST">
+                                                        <form action="{{ route('paymentMethods.destroy', $item) }}"
+                                                            method="POST">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button class="show-alert-delete-box">

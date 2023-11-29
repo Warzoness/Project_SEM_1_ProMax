@@ -52,8 +52,6 @@
                                         <th>Tên Danh Mục</th>
                                         <th>Danh Mục Cha</th>
                                         <th>Số Lượng Sản Phẩm</th>
-                                        <th>Nhãn Hàng</th>
-                                        <th>Trạng Thái</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -75,33 +73,6 @@
                                             </td>
                                             <td>
                                                 {{ $item->products ? $item->products->count() : 0 }}
-                                            </td>
-                                            <td>
-                                                <div class="flex items-center">
-                                                    <span class="avatar avatar-rounded avatar-md">
-                                                        <img class="avatar-img avatar-rounded"
-                                                            src="{{ asset('storage/upload/admin/brands') }}/{{ $item->brand->logo }}"
-                                                            style="object-fit: fill">
-                                                    </span>
-                                                    <span class="ml-2 rtl:mr-2 font-semibold">{{ $item->brand->name }}
-                                                    </span>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="flex items-center gap-2">
-                                                    @if ($item->status == 1)
-                                                        <span class="badge-dot bg-emerald-500"></span>
-                                                        <span class="capitalize font-semibold text-emerald-500"> Còn Hàng
-                                                        </span>
-                                                    @elseif($item->status == 0)
-                                                        <span class="badge-dot bg-red-500"></span>
-                                                        <span class="capitalize font-semibold text-red-500">Hết Hàng</span>
-                                                    @else
-                                                        <span class="badge-dot bg-amber-500"></span>
-                                                        <span class="capitalize font-semibold text-amber-500">Giới
-                                                            Hạn</span>
-                                                    @endif
-                                                </div>
                                             </td>
                                             <td>
                                                 <div class="flex justify-end text-lg align-center items-center gap-3">

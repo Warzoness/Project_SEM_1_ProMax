@@ -124,7 +124,8 @@ class AdminAccountController extends Controller
         return view('admin.pages.accounts.setting',compact('user'));
     }
     public function logon(Request $req){
-        if(Auth::attempt(['email' => $req->email, 'password' => $req->password])){
+        $user = User::where('email',$req->email)->first();
+        if(Auth::attempt(['email' => $req->email, 'password' => $req->password]) && $user->role == 0 ){
             return redirect()->route('category.index');
         }else{
             alert()->error('Oops!', 'Đăng nhập thất bại,sai email hoặc mật khẩu !');

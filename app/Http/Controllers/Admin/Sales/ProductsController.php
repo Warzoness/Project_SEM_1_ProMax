@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin\Sales;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Sales\Products\StoreProductsRequest;
 use App\Http\Requests\Admin\Sales\Products\UpdateProductsRequest;
+use App\Models\Admin\Sales\Brand;
 use App\Models\Admin\Sales\Category;
 use App\Models\Admin\Sales\Color;
 use App\Models\Admin\Sales\EachTypeProduct;
 use App\Models\Admin\Sales\Product;
+use App\Models\Admin\Sales\ImgProducts;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -33,8 +35,8 @@ class ProductsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $colors = Color::all();
-        return view("admin.pages.sales.products.add", compact("categories","colors"));
+        $brands = Brand::all();
+        return view("admin.pages.sales.products.add", compact("categories","brands"));
     }
 
     /**
@@ -45,19 +47,30 @@ class ProductsController extends Controller
      */
     public function store(StoreProductsRequest $request)
     {
-        $filename = $request->photo->getClientOriginalName();
-        $request->photo->storeAs("public/upload/admin/products", $filename);
-        $image = $request->merge(['image'=>$filename]);
         try {
-            $product = Product::create($request->all());
-            if($product){
-                alert()->success('Thành Công','Thêm mới sản phẩm thành công !');
+            
+            $filename = $request->photo->getClientOriginalName();
+            $request->photo->storeAs("public/upload/admin/products", $filename);
+            $main_img = $request->merge(['main_img'=>$filename]);
+            
+            $products  = Product::create($request->all());
+            if($products && $request->hasFile("photos")) {
+                foreach ($request->photos as $key => $value) {
+                    $filenames = $value->getClientOriginalName();
+                    $value->storeAs("public/upload/admin/productImg", $filenames);
+                    ImgProducts::create([
+                        'product_id'=> $products->id,
+                        'image'=> $filenames
+                    ]);
+                }
+                alert()->success('Thành Công','Thêm mới sản phẩm thành công!');
                 return redirect()->route('products.index');
             }else{
-                alert()->error('Thất Bại','Thêm mới thất bại !');
+                alert()->error('Thất Bại','Xảy ra lỗi trong quá trình thêm mới !');
                 return redirect()->back();
             }
         } catch (\Throwable $th) {
+            dd($th);
             alert()->error('Thất Bại','Thêm mới thất bại !');
             return redirect()->back();
         }
@@ -83,7 +96,8 @@ class ProductsController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
-        return view('admin.pages.sales.products.edit', compact('product','categories'));
+        $brands = Brand::all();
+        return view('admin.pages.sales.products.edit', compact('brands','product','categories'));
     }
 
     /**

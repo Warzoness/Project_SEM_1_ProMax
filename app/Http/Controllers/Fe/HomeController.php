@@ -13,8 +13,7 @@ class HomeController extends Controller
     {
         $categories = Category::all();
         $products = Product::all();
-        $etProducts = EachTypeProduct::all();
-        return view('fe.home.index',compact('categories','products','etProducts'));
+        return view('fe.home.index',compact('categories','products'));
     }
 
     public function aboutUs()

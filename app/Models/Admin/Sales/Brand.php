@@ -14,19 +14,9 @@ class Brand extends Model
 
     protected $fillable = ['name','logo'] ;
 
-    /**
-     * Get all of the comments for the Brand
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function categories()
+    
+    public function products()
     {
-        return $this->hasMany(Category::class, 'brand_id', 'id');
+        return $this->hasMany(Product::class, 'brand_id', 'id');
     }
-
-    /**
-     * Get all of the comments for the Brand
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
 }

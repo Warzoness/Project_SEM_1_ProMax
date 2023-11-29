@@ -9,7 +9,7 @@
         <div class="page-container relative h-full flex flex-auto flex-col px-4 sm:px-6 md:px-8 py-4 sm:py-6">
             <div class="container mx-auto">
                 <h1 class="mb-4">THÊM MỚI NHÃN HÀNG</h1>
-                <form action="{{ route('brands.update', $brand) }}" enctype="multipart/form-data" method="POST">
+                <form action="{{ route('colors.update', $color) }}" enctype="multipart/form-data" method="POST">
                     @method('PUT')
                     @csrf
                     <div class="form-container vertical">
@@ -22,7 +22,7 @@
                                             <label class="form-label mb-2">Tên Nhãn Hàng</label>
                                             <div>
                                                 <input class="input" type="text" name="name" placeholder="Tên"
-                                                    value="{{ $brand->name }}">
+                                                    value="{{ $color->name }}">
                                             </div>
                                             @error('name')
                                                 <div class="alert alert-dismissible fade show alert-danger">
@@ -60,7 +60,7 @@
                                                         <input class="upload-input draggable" type="file"
                                                             onchange="showImg(this,'preview')" name="photo">
                                                         <div class="my-16 text-center">
-                                                            <img src="{{ asset('storage/upload/admin/brands') }}/{{ $brand->logo }}"
+                                                            <img src="{{ asset('storage/upload/admin/colors') }}/{{ $color->image }}"
                                                                 id="preview" alt="" class="mx-auto">
                                                             <p class="font-semibold">
                                                                 <span class="text-gray-800 dark:text-white">Kéo thả ảnh vào

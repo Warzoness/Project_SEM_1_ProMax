@@ -47,7 +47,7 @@
                                     <tr>
                                         <th>Tên Nhãn Hàng</th>
                                         <th>Hình Ảnh Logo</th>
-                                        <th>Tổng Số Danh Mục</th>
+                                        <th>Tổng Số Sản Phẩm</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -67,7 +67,7 @@
                                                     alt="" width="100px">
                                             </td>
                                             <td>
-                                                {{ $item->categories->count() }}
+                                                {{ $item->products->count() }}
                                             </td>
                                             <td>
                                                 <div class="flex justify-end text-lg">

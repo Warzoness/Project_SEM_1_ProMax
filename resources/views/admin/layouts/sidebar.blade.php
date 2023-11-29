@@ -67,6 +67,11 @@
                         </div>
                         <ul>
                             <li data-menu-item="modern-sales-dashboard" class="menu-item">
+                                <a class="h-full w-full flex items-center" href="{{ route('paymentMethods.index') }}">
+                                    <span>Phương Thức Thanh Toán</span>
+                                </a>
+                            </li>
+                            <li data-menu-item="modern-sales-dashboard" class="menu-item">
                                 <a class="h-full w-full flex items-center" href="{{ route('brands.index') }}">
                                     <span>Nhãn Hàng</span>
                                 </a>

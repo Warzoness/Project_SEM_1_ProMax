@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('fullname');
-            $table->string('avatar', 255);
+            $table->string('avatar', 255)->nullable();
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('phone');
-            $table->char('sex');
+            $table->char('sex')->nullable();
             $table->tinyInteger('role');
             $table->unsignedBigInteger('paymentMethod_id')->nullable();
             $table->foreign('paymentMethod_id')->references('id')->on('payment_methods');

@@ -40,30 +40,20 @@ class ColorsController extends Controller
      */
     public function store(Request $request)
     {
+        $filename = $request->photo->getClientOriginalName();
+        $request->photo->storeAs("public/upload/admin/colors", $filename);
+        $request->merge(['image'=>$filename]);
         try {
-            $filename = $request->photo->getClientOriginalName();
-            $request->photo->storeAs('public/upload/admin/products',$filename);
-            $request->merge(['main_img'=>$filename]);
-
-            $products = Product::create($request->all());
-            if($products && $request->hasFile("photos")) {
-                foreach ($request->photos as $key => $value) {
-                    $filenames = $value->getClientOriginalName();
-                    $value->storeAs("public/upload/admin/productImgs", $filenames);
-                    ImgProducts::create([
-                        'product_id'=> $products->id,
-                        'image'=> $filenames
-                    ]);
-                }
-                alert()->success('Thành Công','Thêm mới sản phẩm thành công!');
-                return redirect()->route('etproducts.index');
+            $color = Color::create($request->all());
+            if($color){
+                alert()->success('Thành Công','Thêm Mới Màu Thành Công !');
+                return redirect()->route('colors.index');
             }else{
-                alert()->error('Thất Bại','Xảy ra lỗi trong quá trình thêm mới !');
+                alert()->error('Oops','Xảy ra lỗi trong quá trình thêm mới !');
                 return redirect()->back();
             }
         } catch (\Throwable $th) {
-                dd($th);
-                alert()->error('Thất Bại','Xảy ra lỗi trong quá trình thêm mới !');
+                alert()->error('Oops','Xảy ra lỗi trong quá trình thêm mới !');
                 return redirect()->back();
         }
     }
@@ -153,7 +143,6 @@ class ColorsController extends Controller
 
     public function restore($id){
         $color = Color::withTrashed()->where("id",$id);
-        Color::withTrashed()->where("color_id",$id)->restore();
         $restore = $color->restore();
         try {
             if($restore){

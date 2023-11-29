@@ -12,7 +12,7 @@ class Category extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['name','status','brand_id','parent_id','image','description','tags','slug'] ;
+    protected $fillable = ['name','status','parent_id','image','slug'] ;
 
     /**
      * Get the user that owns the Category
@@ -27,15 +27,5 @@ class Category extends Model
 
     public function products(){
         return $this->hasMany(Product::class,'category_id','id');
-    }
-
-    /**
-     * Get the user that owns the Category
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function brand()
-    {
-        return $this->belongsTo(Brand::class, 'brand_id', 'id');
     }
 }

@@ -61,44 +61,17 @@
                                                     </div>
                                                 @enderror
                                             </div>
-                                            <div class="form-item vertical">
-                                                <label class="form-label mb-2">Slug</label>
-                                                <input class="input" type="text" name="slug" id="slug"
-                                                    value="{{ $category->slug }}">
-                                            </div>
-                                            <div class="form-item vertical">
-                                                <label class="form-label mb-2">Description</label>
-                                                <textarea name="description" id="editor1" rows="10" cols="80">
-                                                {{ $category->description }}
-                                            </textarea>
-                                            </div>
-                                            @error('description')
-                                                <div class="alert alert-dismissible fade show alert-danger">
-                                                    <div class="alert-content">
-                                                        <div>{{ $message }}</div>
-                                                    </div>
-                                                    <button type="button" data-bs-dismiss="alert">
-                                                        <span class="close-btn">
-                                                            <svg stroke="currentColor" fill="currentColor" stroke-width="0"
-                                                                viewBox="0 0 20 20" aria-hidden="true" height="1em"
-                                                                width="1em" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                    clip-rule="evenodd"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                            @enderror
+
+                                            <input class="input" type="text" name="slug" id="slug"
+                                                value="{{ $category->slug }}" hidden>
                                         </div>
                                     </div>
 
                                     <div class="card adaptable-card pb-6 py-4 ">
                                         <div class="card-body">
-                                            <h5>Organizations</h5>
-                                            <p class="mb-6">Section to config the product attribute</p>
+                                            <h5>Phần Liên Quan</h5>
                                             <div class="form-item vertical">
-                                                <label class="form-label mb-2">Parent Category</label>
+                                                <label class="form-label mb-2">Danh Mục Cha</label>
                                                 <div>
                                                     <select class="input js-example-basic-single" style="padding: 10px"
                                                         name="parent_id">
@@ -111,131 +84,6 @@
                                                 </div>
                                             </div>
                                             <div class="col-span-1">
-                                                <div class="form-item vertical">
-                                                    <label class="form-label mb-2">Brand</label>
-                                                    <div>
-                                                        <select class="input js-example-basic-single" style="padding: 10px"
-                                                            name="brand_id">
-                                                            @foreach ($brands as $item)
-                                                                <option value="{{ $item->id }}"
-                                                                    {{ $item->id == $category->brand_id ? 'selected' : '' }}>
-                                                                    {{ $item->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('brand_id')
-                                                            <div class="alert alert-dismissible fade show alert-danger">
-                                                                <div class="alert-content">
-                                                                    <div>{{ $message }}</div>
-                                                                </div>
-                                                                <button type="button" data-bs-dismiss="alert">
-                                                                    <span class="close-btn">
-                                                                        <svg stroke="currentColor" fill="currentColor"
-                                                                            stroke-width="0" viewBox="0 0 20 20"
-                                                                            aria-hidden="true" height="1em" width="1em"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path fill-rule="evenodd"
-                                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                                clip-rule="evenodd"></path>
-                                                                        </svg>
-                                                                    </span>
-                                                                </button>
-                                                            </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                <div class="col-span-1">
-                                                    <div class="form-item vertical">
-                                                        <label class="form-label mb-2">Tags</label>
-                                                        <div class="flex gap-4 items-center ">
-                                                            <label class="radio-label inline-flex">
-                                                                <input type="radio" class="radio" name="tags"
-                                                                    value="1"
-                                                                    {{ $category->tags == 1 ? 'checked' : '' }}>
-                                                                <span>Fearture</span>
-                                                            </label>
-                                                            <label class="radio-label inline-flex">
-                                                                <input type="radio" class="radio" name="tags"
-                                                                    value="0"
-                                                                    {{ $category->tags == 0 ? 'checked' : '' }}>
-                                                                <span>Normal</span>
-                                                            </label>
-                                                            <label class="radio-label inline-flex">
-                                                                <input type="radio" class="radio" name="tags"
-                                                                    value="2"
-                                                                    {{ $category->tags == 2 ? 'checked' : '' }}>
-                                                                <span>Trending</span>
-                                                            </label>
-                                                        </div>
-
-                                                    </div>
-                                                    @error('tags')
-                                                        <div class="alert alert-dismissible fade show alert-danger">
-                                                            <div class="alert-content">
-                                                                <div>{{ $message }}</div>
-                                                            </div>
-                                                            <button type="button" data-bs-dismiss="alert">
-                                                                <span class="close-btn">
-                                                                    <svg stroke="currentColor" fill="currentColor"
-                                                                        stroke-width="0" viewBox="0 0 20 20"
-                                                                        aria-hidden="true" height="1em" width="1em"
-                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                        <path fill-rule="evenodd"
-                                                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                            clip-rule="evenodd"></path>
-                                                                    </svg>
-                                                                </span>
-                                                            </button>
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                                <div class="col-span-1">
-                                                    <div class="form-item vertical">
-                                                        <label class="form-label mb-2">Status</label>
-                                                        <div class="flex gap-4 items-center ">
-                                                            <label class="radio-label inline-flex">
-                                                                <input type="radio" class="radio" name="status"
-                                                                    value="1"
-                                                                    {{ $category->status == 1 ? 'checked' : '' }}>
-                                                                <span>In Stock</span>
-                                                            </label>
-                                                            <label class="radio-label inline-flex">
-                                                                <input type="radio" class="radio" name="status"
-                                                                    value="0"
-                                                                    {{ $category->status == 0 ? 'checked' : '' }}>
-                                                                <span>Out Stock</span>
-                                                            </label>
-                                                            <label class="radio-label inline-flex">
-                                                                <input type="radio" class="radio" name="status"
-                                                                    value="2"
-                                                                    {{ $category->status == 2 ? 'checked' : '' }}>
-                                                                <span>Limited</span>
-                                                            </label>
-                                                        </div>
-
-                                                    </div>
-                                                    @error('status')
-                                                        <div class="alert alert-dismissible fade show alert-danger">
-                                                            <div class="alert-content">
-                                                                <div>{{ $message }}</div>
-                                                            </div>
-                                                            <button type="button" data-bs-dismiss="alert">
-                                                                <span class="close-btn">
-                                                                    <svg stroke="currentColor" fill="currentColor"
-                                                                        stroke-width="0" viewBox="0 0 20 20"
-                                                                        aria-hidden="true" height="1em" width="1em"
-                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                        <path fill-rule="evenodd"
-                                                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                            clip-rule="evenodd"></path>
-                                                                    </svg>
-                                                                </span>
-                                                            </button>
-                                                        </div>
-                                                    @enderror
-                                                </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -271,10 +119,9 @@
                                                         </div>
                                                         <button type="button" data-bs-dismiss="alert">
                                                             <span class="close-btn">
-                                                                <svg stroke="currentColor" fill="currentColor"
-                                                                    stroke-width="0" viewBox="0 0 20 20" aria-hidden="true"
-                                                                    height="1em" width="1em"
-                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                                    viewBox="0 0 20 20" aria-hidden="true" height="1em"
+                                                                    width="1em" xmlns="http://www.w3.org/2000/svg">
                                                                     <path fill-rule="evenodd"
                                                                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                                                                         clip-rule="evenodd"></path>

@@ -6,37 +6,20 @@
             <div class="row align-items-center">
                 <div class="col-sm-6">
                     <div class="header-top-dropdown">
-                        <div class="dropdown">
-                            <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Tiếng Việt
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Tiếng Việt</a></li>
-                                <li><a class="dropdown-item" href="#">English</a></li>
-                                <li><a class="dropdown-item" href="#">Spanish</a></li>
-                            </ul>
-                        </div>
-                        <div class="dropdown">
-                            <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                VND
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">VND</a></li>
-                                <li><a class="dropdown-item" href="#">USD</a></li>
-                                <li><a class="dropdown-item" href="#">EUR</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="header-top-link">
-                        <ul class="quick-link">
-                            <li><a href="#">Trợ giúp</a></li>
-                            <li><a href="{{ route('home.sign-up') }}">Đăng ký</a></li>
-                            <li><a href="{{ route('home.sign-in') }}">Đăng nhập</a></li>
-                        </ul>
+                        @if (!Auth::user())
+                            <ul class="quick-link">
+                                <li><a href="{{ route('user.create') }}">Đăng ký</a></li>
+                                <li><a href="{{ route('user.index') }}">Đăng nhập</a></li>
+                            </ul>
+                        @else
+                            <ul class="quick-link">
+                                <li>Xin chào, <strong class="text-danger">{{ Auth::user()->fullname }}</strong></li>
+                            </ul>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -71,7 +54,7 @@
                             <li class="menu-item">
                                 <a href="{{ route('fe-product.index') }}">Cửa hàng</a>
                             </li>
-                            <li class="menu-item-has-children">
+                            {{-- <li class="menu-item-has-children">
                                 <a href="#">Trang</a>
                                 <ul class="axil-submenu">
                                     <li><a href="{{ route('home.wishlist') }}">Wishlist</a></li>
@@ -79,7 +62,7 @@
                                     <li><a href="{{ route('home.checkout') }}">Checkout</a></li>
                                     <li><a href="{{ route('home.myAccount') }}">Account</a></li>
                                     <li><a href="{{ route('home.sign-up') }}">Sign Up</a></li>
-                                    <li><a href="{{ route('home.sign-in') }}">Sign In</a></li>
+                                    <li><a href="{{ route('user.index') }}">Sign In</a></li>
                                     <li><a href="forgot-password.html">Forgot Password</a></li>
                                     <li><a href="reset-password.html">Reset Password</a></li>
                                     <li><a href="{{ route('home.privacy-policy') }}">Privacy Policy</a></li>
@@ -88,7 +71,7 @@
                                     <li><a href="404.html">404 Error</a></li>
                                     <li><a href="typography.html">Typography</a></li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <li><a href="{{ route('home.about') }}">Giới thiệu</a></li>
                             <li class="menu-item">
                                 <a href="{{ route('home.blogs') }}">Bài viết</a>
@@ -122,22 +105,26 @@
                             </a>
                             <div class="my-account-dropdown">
                                 <ul>
-                                    <li>
-                                        <a href="{{ route('home.myAccount') }}">Tài khoản của tôi</a>
-                                    </li>
+                                    @if (Auth::user())
+                                        <li>
+                                            <a href="{{ route('home.myAccount') }}">Tài khoản của tôi</a>
+                                        </li>
+                                    @endif
                                     <li>
                                         <a href="#">Hỗ trợ</a>
                                     </li>
                                     <li>
-                                        <a href="#">Ngôn ngữ</a>
+                                        <a href="{{ route('user.logout') }}">Đăng Xuất</a>
                                     </li>
                                 </ul>
-                                <div class="login-btn">
-                                    <a href="{{ route('home.sign-in') }}" class="axil-btn btn-bg-primary">Đăng
-                                        nhập</a>
-                                </div>
-                                <div class="reg-footer text-center">Chưa có tài khoản? <a
-                                        href="{{ route('home.sign-up') }}" class="btn-link">ĐĂNG KÝ</a></div>
+                                @if (!Auth::user())
+                                    <div class="login-btn">
+                                        <a href="{{ route('user.index') }}" class="axil-btn btn-bg-primary">Đăng
+                                            nhập</a>
+                                    </div>
+                                    <div class="reg-footer text-center">Chưa có tài khoản? <a
+                                            href="{{ route('user.create') }}" class="btn-link">ĐĂNG KÝ</a></div>
+                                @endif
                             </div>
                         </li>
                         <li class="axil-mobile-toggle">

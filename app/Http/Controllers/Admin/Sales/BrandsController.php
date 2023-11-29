@@ -126,19 +126,7 @@ class BrandsController extends Controller
     public function destroy(Brand $brand)
     {
 
-        $category = $brand->categories()->get();
-        
-        foreach ($category as $key => $value) {
-            Product::where("category_id",$value->id)->delete();
-        };
-
-        $categories = $brand->categories()->delete();
-
         $delete = $brand->delete();
-
-
-         
-
         try {
             if($delete){
                 alert()->success("Thành Công !","Xóa nhãn hàng thành công");
@@ -160,14 +148,6 @@ class BrandsController extends Controller
 
     public function restore($id){
         $brand = Brand::withTrashed()->where("id",$id);
-
-        $categories = Category::withTrashed()->where("brand_id",$id)->get();
-
-        foreach ($categories as $key => $value) {
-            Product::withTrashed()->where("category_id",$value->id)->restore();
-        }
-
-        Category::withTrashed()->where("brand_id",$id)->restore();
         $restore = $brand->restore();
         try {
             if($restore){
@@ -184,13 +164,7 @@ class BrandsController extends Controller
     }
 
     public function forceDelete($id){
-           
         try {
-            $categories = Category::withTrashed()->where("id",$id)->get();
-            foreach ($categories as $key => $value) {
-                $value->products()->forceDelete();
-            }
-            $deleteCategories = Brand::onlyTrashed()->find($id)->categories()->forceDelete();
             $forceDelete = Brand::withTrashed()->where("id",$id)->forceDelete();
             if($forceDelete){
                 alert()->success("Thành Công","Xóa vĩnh viễn nhãn hàng thành công!");
@@ -200,6 +174,7 @@ class BrandsController extends Controller
                 return redirect()->back();
             }
         } catch (\Throwable $th) {
+            dd($th);
             alert()->error("Thất Bại","Xóa vĩnh viễn nhãn hàng thất bại !");
             return redirect()->back();
         }

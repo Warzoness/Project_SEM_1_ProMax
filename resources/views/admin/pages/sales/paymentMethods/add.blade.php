@@ -1,15 +1,15 @@
 @extends('admin.masterview')
 
 @section('title')
-    <title>Admin | Bán Hàng | Thêm Mới Nhãn Hàng</title>
+    <title>Admin | Bán Hàng | Thêm Mới Phương Thức Thanh Toán</title>
 @endsection
 
 @section('main-content')
     <main class="h-full">
         <div class="page-container relative h-full flex flex-auto flex-col px-4 sm:px-6 md:px-8 py-4 sm:py-6">
             <div class="container mx-auto">
-                <h1 class="mb-4 text-center">THÊM MỚI MÀU SẢN PHẨM</h1>
-                <form action="{{ route('colors.store') }}" enctype="multipart/form-data" method="POST">
+                <h1 class="mb-4 text-center">THÊM MỚI PHƯƠNG THỨC THANH TOÁN</h1>
+                <form action="{{ route('paymentMethods.store') }}" enctype="multipart/form-data" method="POST">
                     @csrf
                     <div class="form-container vertical">
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -18,7 +18,7 @@
                                     <div class="card-body">
                                         <h5>THÔNG TIN CƠ BẢN</h5>
                                         <div class="form-item vertical">
-                                            <label class="form-label mb-2">Tên Màu</label>
+                                            <label class="form-label mb-2">Tên Phương Thức Thanh Toán</label>
                                             <div>
                                                 <input class="input" type="text" name="name" autocomplete="off"
                                                     placeholder="Tên" value="">
@@ -49,7 +49,7 @@
                             <div class="lg:col-span-1">
                                 <div class="card adaptable-card mb-4">
                                     <div class="card-body">
-                                        <h5>ẢNH MINH HỌA MÀU</h5>
+                                        <h5>Logo Phương Thức Thanh Toán</h5>
                                         <p class="mb-6">Thêm mới ảnh nhãn hàng</p>
                                         <div class="form-item vertical">
                                             <label class="form-label"></label>

@@ -12,6 +12,12 @@ class ImgProducts extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['eachTypeProduct_id','image'];
+    protected $table = 'image_products';
+    protected $fillable = ['product_id','image'];
+
+    public function user()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
     
 }

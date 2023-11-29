@@ -1,28 +1,29 @@
 @extends('admin.masterview')
 
 @section('title')
-    <title>Admin | Bán Hàng | Thêm Mới Danh Mục</title>
+    <title>Admin | Bán Hàng | Sửa Phương Thức Thanh Toán</title>
 @endsection
 
 @section('main-content')
     <main class="h-full">
         <div class="page-container relative h-full flex flex-auto flex-col px-4 sm:px-6 md:px-8 py-4 sm:py-6">
             <div class="container mx-auto">
-                <h3 class="mb-4">Thêm Mới Danh Mục</h3>
-                <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
+                <h1 class="mb-4">THÊM MỚI NHÃN HÀNG</h1>
+                <form action="{{ route('paymentMethods.update', $paymentMethod) }}" enctype="multipart/form-data"
+                    method="POST">
+                    @method('PUT')
                     @csrf
                     <div class="form-container vertical">
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
                             <div class="lg:col-span-2">
-                                <div class="card adaptable-card !border-b pb-6 py-4 rounded-br-none rounded-bl-none">
+                                <div class="card adaptable-card pb-6 py-4 rounded-br-none rounded-bl-none">
                                     <div class="card-body">
-                                        <h5>Thông Tin Cơ Bản</h5>
+                                        <h5>THÔNG TIN CƠ BẢN</h5>
                                         <div class="form-item vertical">
-                                            <label class="form-label mb-2">Tên Danh Mục</label>
+                                            <label class="form-label mb-2">Tên Phương Thức Thanh Toán</label>
                                             <div>
-                                                <input class="input" type="text" name="name"
-                                                    placeholder="Điền tên danh mục tại đây.." id="title"
-                                                    onkeyup="ChangeToSlug()">
+                                                <input class="input" type="text" name="name" placeholder="Tên"
+                                                    value="{{ $paymentMethod->name }}">
                                             </div>
                                             @error('name')
                                                 <div class="alert alert-dismissible fade show alert-danger">
@@ -43,73 +44,57 @@
                                                 </div>
                                             @enderror
                                         </div>
-
-                                        <input class="input" type="text" name="slug" id="slug" hidden>
-                                    </div>
-                                </div>
-
-                                <div class="card adaptable-card pb-6 py-4 ">
-                                    <div class="card-body">
-                                        <h5>Phần Liên Quan</h5>
-                                        <div class="form-item vertical">
-                                            <label class="form-label mb-2">Tên Danh Mục Cha</label>
-                                            <div>
-                                                <select class="input js-example-basic-single" style="padding: 10px"
-                                                    name="parent_id">
-                                                    <option value="">Đây Là Danh Mục Cha</option>
-                                                    @foreach ($categories as $item)
-                                                        <option value="{{ $item->id }}">
-                                                            {{ $item->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="lg:col-span-1">
                                 <div class="card adaptable-card mb-4">
                                     <div class="card-body">
-                                        <h5>Ảnh Danh Mục</h5>
-                                        <p class="mb-6">Thêm mới ảnh mô tả cho danh mục</p>
+                                        <h5>Logo Phương Thức Thanh Toán</h5>
+                                        <p class="mb-6">Thêm mới ảnh nhãn hàng</p>
                                         <div class="form-item vertical">
+                                            <label class="form-label"></label>
                                             <div>
-                                                <div class="upload upload-draggable hover:border-primary-600">
-                                                    <input class="upload-input draggable" type="file"
-                                                        onchange="showImg(this,'preview')" name="photo">
-                                                    <div class="my-16 text-center">
-                                                        <img src="" id="preview" alt="" class="mx-auto">
-                                                        <p class="font-semibold">
-                                                            <span class="text-gray-800 dark:text-white">Kéo thả ảnh vào
-                                                                đây, hoặc</span>
-                                                            <span class="text-blue-500">browse</span>
-                                                        </p>
-                                                        <p class="mt-1 opacity-60 dark:text-white">Hỗ trợ: jpeg, png</p>
+                                                <div>
+                                                    <div class="upload upload-draggable hover:border-primary-600">
+                                                        <input class="upload-input draggable" type="file"
+                                                            onchange="showImg(this,'preview')" name="photo">
+                                                        <div class="my-16 text-center">
+                                                            <img src="{{ asset('storage/upload/admin/paymentMethods') }}/{{ $paymentMethod->logo }}"
+                                                                id="preview" alt="" class="mx-auto">
+                                                            <p class="font-semibold">
+                                                                <span class="text-gray-800 dark:text-white">Kéo thả ảnh vào
+                                                                    đây, hoặc</span>
+                                                                <span class="text-blue-500">tìm kiếm</span>
+                                                            </p>
+                                                            <p class="mt-1 opacity-60 dark:text-white">Hỗ trợ: jpeg, png
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            @error('photo')
-                                                <div class="alert alert-dismissible fade show alert-danger">
-                                                    <div class="alert-content">
-                                                        <div>{{ $message }}</div>
-                                                    </div>
-                                                    <button type="button" data-bs-dismiss="alert">
-                                                        <span class="close-btn">
-                                                            <svg stroke="currentColor" fill="currentColor" stroke-width="0"
-                                                                viewBox="0 0 20 20" aria-hidden="true" height="1em"
-                                                                width="1em" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                    clip-rule="evenodd"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                            @enderror
                                         </div>
+                                        @error('photo')
+                                            <div class="alert alert-dismissible fade show alert-danger">
+                                                <div class="alert-content">
+                                                    <div>{{ $message }}</div>
+                                                </div>
+                                                <button type="button" data-bs-dismiss="alert">
+                                                    <span class="close-btn">
+                                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                            viewBox="0 0 20 20" aria-hidden="true" height="1em" width="1em"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         <div id="stickyFooter" class="sticky -bottom-1 -mx-8 px-8 flex items-center justify-end py-4">
@@ -145,23 +130,17 @@
     <!-- Page js -->
     <script src="{{ asset('assets') }}/js/pages/new-product.js"></script>
 
-    <script type="">
+    <script>
         function showImg(input, target) {
             let file = input.files[0];
             let reader = new FileReader();
+
             reader.readAsDataURL(file);
             reader.onload = function() {
                 let img = document.getElementById(target);
+                // can also use "this.result"
                 img.src = reader.result;
             }
         }
     </script>
-
-
-    <script src="{{ asset('assets') }}/vendors/ckeditor/ckeditor.js"></script>
-
-    <script>
-        CKEDITOR.replace('editor1');
-    </script>
 @endsection
-<script src="{{ asset('assets') }}/js/myJs.js"></script>

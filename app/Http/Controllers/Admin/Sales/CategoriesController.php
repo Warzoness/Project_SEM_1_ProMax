@@ -34,8 +34,7 @@ class CategoriesController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $brands = Brand::all();
-        return view("admin.pages.sales.categories.add",compact("categories","brands"));
+        return view("admin.pages.sales.categories.add",compact("categories"));
     }
 
     /**
@@ -59,6 +58,7 @@ class CategoriesController extends Controller
                 return redirect()->back();
             }
         } catch (\Throwable $th) {
+                dd($th);
                 alert()->error('error','Add new category has error !');
                 return redirect()->back();
         }
@@ -81,13 +81,10 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($item)
+    public function edit(Category $category)
     {
-        $categories = Category::all();
-        $brands = Brand::all();
-        $category = Category::find($item);
-
-        return view('admin.pages.sales.categories.edit', compact('category','categories','brands'));
+        $categories = Category::where('id','!=',$category->id)->get();
+        return view('admin.pages.sales.categories.edit', compact('category','categories'));
     }
 
     /**

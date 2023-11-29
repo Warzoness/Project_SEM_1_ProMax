@@ -51,79 +51,31 @@
                                             <div class="card-body">
                                                 <h5></h5>
                                                 <p class="mb-6"></p>
-                                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                    <div class="col-span-1">
-                                                        <div class="form-item vertical">
-                                                            <label class="form-label mb-2">Màu Sắc</label>
-                                                            <div>
-                                                                <div>
-                                                                    <span class="input-wrapper undefined">
-                                                                        <input class="input" type="text" name="color"
-                                                                            autocomplete="off"
-                                                                            placeholder="Nhập vào màu sắc" value=""
-                                                                            inputmode="numeric">
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            @error('color')
-                                                                <div class="alert alert-dismissible fade show alert-danger">
-                                                                    <div class="alert-content">
-                                                                        <div>{{ $message }}</div>
-                                                                    </div>
-                                                                    <button type="button" data-bs-dismiss="alert">
-                                                                        <span class="close-btn">
-                                                                            <svg stroke="currentColor" fill="currentColor"
-                                                                                stroke-width="0" viewBox="0 0 20 20"
-                                                                                aria-hidden="true" height="1em" width="1em"
-                                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                                <path fill-rule="evenodd"
-                                                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                                    clip-rule="evenodd"></path>
-                                                                            </svg>
-                                                                        </span>
-                                                                    </button>
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-span-1">
-                                                        <div class="form-item vertical">
-                                                            <label class="form-label mb-2">Kiểu / Thông Số</label>
-                                                            <div class="form-item vertical">
-                                                                <div>
-                                                                    <span class="input-wrapper undefined">
-                                                                        <input class="input" type="text" name="type"
-                                                                            autocomplete="off"
-                                                                            placeholder="Nhập vào kiểu loại" value=""
-                                                                            inputmode="numeric">
-                                                                    </span>
-                                                                </div>
-                                                                @error('type')
-                                                                    <div class="alert alert-dismissible fade show alert-danger">
-                                                                        <div class="alert-content">
-                                                                            <div>{{ $message }}</div>
-                                                                        </div>
-                                                                        <button type="button" data-bs-dismiss="alert">
-                                                                            <span class="close-btn">
-                                                                                <svg stroke="currentColor" fill="currentColor"
-                                                                                    stroke-width="0" viewBox="0 0 20 20"
-                                                                                    aria-hidden="true" height="1em"
-                                                                                    width="1em"
-                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                    <path fill-rule="evenodd"
-                                                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                                        clip-rule="evenodd"></path>
-                                                                                </svg>
-                                                                            </span>
-                                                                        </button>
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
+                                        <h5>Mô Tả Sản Phẩm </h5>
+                                        <br>
+                                        <div>
+                                            <textarea name="description" id="editor1" cols="30" rows="10"></textarea>
+                                        </div>
+                                        @error('description')
+                                            <div class="alert alert-dismissible fade show alert-danger">
+                                                <div class="alert-content">
+                                                    <div>{{ $message }}</div>
+                                                </div>
+                                                <button type="button" data-bs-dismiss="alert">
+                                                    <span class="close-btn">
+                                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                            viewBox="0 0 20 20" aria-hidden="true" height="1em" width="1em"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="card adaptable-card !border-b pb-6 py-4 rounded-br-none rounded-bl-none">
@@ -138,8 +90,8 @@
                                                         <span class="input-wrapper undefined">
                                                             <div class="input-suffix-start"> VND</div>
                                                             <input class="input pl-8" type="text" name="price"
-                                                                autocomplete="off" placeholder="Nhập giá gốc"
-                                                                value="" inputmode="numeric">
+                                                                autocomplete="off" placeholder="Nhập giá gốc" value=""
+                                                                inputmode="numeric">
                                                         </span>
                                                     </div>
                                                     @error('price')
@@ -150,8 +102,8 @@
                                                             <button type="button" data-bs-dismiss="alert">
                                                                 <span class="close-btn">
                                                                     <svg stroke="currentColor" fill="currentColor"
-                                                                        stroke-width="0" viewBox="0 0 20 20"
-                                                                        aria-hidden="true" height="1em" width="1em"
+                                                                        stroke-width="0" viewBox="0 0 20 20" aria-hidden="true"
+                                                                        height="1em" width="1em"
                                                                         xmlns="http://www.w3.org/2000/svg">
                                                                         <path fill-rule="evenodd"
                                                                             d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -200,7 +152,7 @@
                                                     <label class="form-label mb-2">Số Lượng</label>
                                                     <div>
                                                         <span class="input-wrapper undefined">
-                                                            <input class="input" type="text" name="quantity"
+                                                            <input class="input" type="number" name="quantity"
                                                                 autocomplete="off"
                                                                 placeholder="Nhập vào số lượng trong kho" value=""
                                                                 inputmode="numeric">
@@ -237,9 +189,9 @@
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div class="col-span-1">
                                                 <div class="form-item vertical">
-                                                    <label class="form-label mb-2">Loại Sản Phẩm</label>
+                                                    <label class="form-label mb-2">Danh Mục</label>
                                                     <div>
-                                                        <select class="input js-example-basic-single" name="product_id">
+                                                        <select class="input js-example-basic-single" name="category_id">
                                                             @foreach ($categories as $item)
                                                                 <option value="{{ $item->id }}">{{ $item->name }}
                                                                 </option>
@@ -250,13 +202,46 @@
                                             </div>
                                             <div class="col-span-1">
                                                 <div class="form-item vertical">
-                                                    <label class="form-label mb-2">Trạng Thái</label>
+                                                    <label class="form-label mb-2">Nhãn Hàng</label>
                                                     <div>
-                                                        <select class="input" name="tag">
-                                                            <option value="1">Mới</option>
-                                                            <option value="0">Hot</option>
+                                                        <select class="input js-example-basic-single" name="brand_id">
+                                                            @foreach ($brands as $item)
+                                                                <option value="{{ $item->id }}">{{ $item->name }}
+                                                                </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-span-1">
+                                                <div class="form-item vertical">
+                                                    <label class="form-label mb-2">Tag</label>
+                                                    <div>
+                                                        <select class="input js-example-basic-single" name="tag">
+                                                            <option value="0">Normal</option>
+                                                            <option value="1">Trending</option>
+                                                            <option value="2">Should Try</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div class="col-span-1">
+                                                <div class="form-item vertical gap-2">
+                                                    <label class="switcher gap-2">
+                                                        <input type="checkbox" name="fearture">
+                                                        <span class="switcher-toggle"></span>
+                                                        <strong for="">Nổi Bật</strong>
+                                                    </label>
+                                                </div>
+                                                <div class="form-item vertical gap-2">
+                                                    <label class="switcher gap-2">
+                                                        <input type="checkbox" name="banner">
+                                                        <span class="switcher-toggle"></span>
+                                                        <strong for="">Chuyển lên Banner</strong>
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -271,9 +256,9 @@
                                             <div>
                                                 <div class="upload upload-draggable hover:border-primary-600">
                                                     <input class="upload-input draggable" type="file"
-                                                        onchange="showImg(this,'preview')" name="photo">
+                                                        onchange="showImg(this,'main-image-preview')" name="photo">
                                                     <div class="my-16 text-center">
-                                                        <img src="" id="preview" alt=""
+                                                        <img src="" id="main-image-preview" alt=""
                                                             class="mx-auto">
                                                         <p class="font-semibold">
                                                             <span class="text-gray-800 dark:text-white">Kéo thả ảnh vào
@@ -387,40 +372,34 @@
                             <span
                                 class="text-gray-100 hover:text-gray-300 cursor-pointer p-1.5">
                                 <svg stroke="currentColor" fill="currentColor"
-                                                                        stroke-width="0" viewBox="0 0 20 20" aria-hidden="true"
-                                                                        height="1em" width="1em"
-                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-                                                                        <path fill-rule="evenodd"
-                                                                            d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                                                                            clip-rule="evenodd"></path>
-                                                                    </svg>
-                                                                </span>
-                                                                <span
-                                                                    class="text-gray-100 hover:text-gray-300 cursor-pointer p-1.5" id="close-img-btn">
-                                                                    <svg stroke="currentColor" fill="currentColor"
-                                                                        stroke-width="0" viewBox="0 0 20 20"
-                                                                        aria-hidden="true" height="1em" width="1em"
-                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                        <path fill-rule="evenodd"
-                                                                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                                            clip-rule="evenodd"></path>
-                                                                    </svg>
-                                                                </span>
-                                                            </div>
-                                                        </div>`
+                                    stroke-width="0" viewBox="0 0 20 20" aria-hidden="true"
+                                    height="1em" width="1em"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                    <path fill-rule="evenodd"
+                                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                                         clip-rule="evenodd"></path>
+                                 </svg>
+                             </span>
+                             <span
+                                class="text-gray-100 hover:text-gray-300 cursor-pointer p-1.5" id="close-img-btn">
+                                <svg stroke="currentColor" fill="currentColor"
+                                stroke-width="0" viewBox="0 0 20 20"
+                                aria-hidden="true" height="1em" width="1em"
+                                xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                    clip-rule="evenodd"></path>
+                                 </svg>
+                            </span>
+                        </div>
+                     </div>`
             })
             document.getElementById('sub-image-preview').innerHTML += output
         }
     </script>
-    <script type="">
-        
-    </script>
-
-
     <script src="{{ asset('assets') }}/vendors/ckeditor/ckeditor.js"></script>
     <script src="vendors/quill/quill.min.js"></script>
-
     <!-- Page js -->
     <script src="js/pages/product-edit.js"></script>
     <script>

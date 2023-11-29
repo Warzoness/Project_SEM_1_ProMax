@@ -25,21 +25,15 @@ class UpdateCategoriesRequest extends FormRequest
     {
         return [
             'name'=>'required|unique:categories,id,'.$this->request->get('id'),
-            'tags' => 'required',
-            'brand_id'=>'required',
-            'status'=>'required',
-            'description'=>'required'
+            'photo' => 'image',
         ];
     }
 
     public function messages(){
         return [
-            'name.required' => 'Name not allow to null !',
-            'name.unique'=> $this->name.' already exist !',
-            'tags.required'=>'Tags not allow to null !',
-            'brand_id.required' => 'Brand not allow to null !',
-            'status.required' => 'Status not allow to null !',
-            'description.required' => 'Description not allow to null !'
+            'name.required' => 'Tên nhãn hàng không được để trống !',
+            'name.unique'=> $this->name.' đã tồn tại !',
+            'photo.image' => 'Ảnh nhãn hàng sai định dạng !',
         ] ;
     }
 }

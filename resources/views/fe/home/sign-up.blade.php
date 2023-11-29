@@ -33,6 +33,7 @@
 
 
 <body>
+
     <div class="axil-signin-area">
 
         <!-- Start Header -->
@@ -45,7 +46,7 @@
                 <div class="col-md-6">
                     <div class="singin-header-btn">
                         <p>Đã là thành viên?</p>
-                        <a href="{{ route('home.sign-in') }}" class="axil-btn btn-bg-secondary sign-up-btn">Đăng
+                        <a href="{{ route('user.index') }}" class="axil-btn btn-bg-secondary sign-up-btn">Đăng
                             nhập</a>
                     </div>
                 </div>
@@ -56,7 +57,7 @@
         <div class="row">
             <div class="col-xl-4 col-lg-6">
                 <div class="axil-signin-banner bg_image bg_image--10">
-                    <h3 class="title">We Offer the Best Products</h3>
+                    <h3 class="title">Chúng tôi cung cấp những sản phẩm tốt nhất</h3>
                 </div>
             </div>
             <div class="col-lg-6 offset-xl-2">
@@ -64,28 +65,40 @@
                     <div class="axil-signin-form">
                         <h3 class="title">ĐĂNG KÝ</h3>
                         <p class="b2 mb--55">Nhập thông tin chi tiết của bạn dưới đây</p>
-                        <form class="singin-form">
+                        <form class="singin-form" method="POST" action="{{ route('user.store') }}">
+                            @csrf
                             <div class="form-group">
-                                <label>Tên người dùng</label>
-                                <input type="text" class="form-control" name="username" value="anniemario">
+                                <label>Họ Tên</label>
+                                <input type="text" class="form-control" name="fullname" value="">
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" class="form-control" name="email" value="annie@example.com">
+                                <input type="email" class="form-control" name="email" value="">
+                            </div>
+                            <div class="form-group">
+                                <label>SDT</label>
+                                <input type="text" class="form-control" name="phone" value="">
                             </div>
                             <div class="form-group">
                                 <label>Mật khẩu</label>
-                                <input type="password" class="form-control" name="password" value="123456789">
+                                <input type="password" class="form-control" name="password" value="">
+                            </div>
+                            <div class="form-group">
+                                <label>Nhập Lại Mật khẩu</label>
+                                <input type="password" class="form-control" name="repassword" value="">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="axil-btn btn-bg-primary submit-btn">Tạo tài khoản</button>
                             </div>
+                            <input type="text" value="1" name="role" hidden>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @include('sweetalert::alert')
+
 
     <!-- JS
 ============================================ -->

@@ -18,12 +18,7 @@ return new class extends Migration
             $table->string('name',100)->unique();
             $table->string('slug',100)->unique();
             $table->string('image', 100)->nullable();
-            $table->tinyInteger('tags');
-            $table->unsignedBigInteger('brand_id');
             $table->bigInteger('parent_id')->nullable();
-            $table->foreign('brand_id')->references('id')->on('brands');
-            $table->tinyInteger('status')->default(1);
-            $table->text('description');    
             $table->softDeletes();
             $table->timestamps();
         });

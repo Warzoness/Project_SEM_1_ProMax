@@ -304,9 +304,10 @@
                                     alt="">
                             </span>
                             <div>
-                                <div class="font-bold text-gray-900 dark:text-gray-100">Carolyn
-                                    Perkins</div>
-                                <div class="text-xs">carolyn.p@elstar.com</div>
+                                <div class="font-bold text-gray-900 dark:text-gray-100">
+                                    {{ Auth::user()->fullname ?? '' }}
+                                </div>
+                                <div class="text-xs">{{ Auth::user()->email ?? '' }}</div>
                             </div>
                         </div>
                     </li>
@@ -354,15 +355,7 @@
                     </li>
                     <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
                     <li class="menu-item menu-item-hoverable gap-2 h-[35px]">
-                        <a href="">
-                            <span class="text-xl opacity-50">
-                                <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24"
-                                    height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
-                                    </path>
-                                </svg>
-                            </span>
+                        <a href="{{ route('admin.logout') }}">
                             <span>Sign Out</span>
                         </a>
                     </li>
