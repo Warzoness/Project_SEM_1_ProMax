@@ -150,6 +150,13 @@ $('.show-alert-delete-box-brand').click(function (event) {
 });
 
 
+$('#gat1').on('click', function () {
+    let box1 = document.getElementById('box1');
+
+    console.log(document.getElementById('gat1').classList.toggle('on'));
+})
+
+
 
 $('body').on('click', "#close-img-btn", function (e) {
     $(this).parent().parent().remove();

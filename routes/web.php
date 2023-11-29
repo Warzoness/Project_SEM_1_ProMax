@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Sales\ColorsController;
 use App\Http\Controllers\Admin\Sales\EachTypeProductsController;
 use App\Http\Controllers\Admin\Sales\PaymentMethodsController;
 use App\Http\Controllers\Admin\Sales\ProductsController;
+use App\Http\Controllers\Fe\Controller;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Fe\CategoryController; 
@@ -106,4 +107,6 @@ Route::prefix('customer')->group(function(){
     Route::resource('fe-category', CategoryController::class);
     Route::resource('fe-product', ProductController::class);
     Route::get('/product-detail', [ProductController::class, 'detail'])->name('product.detail');
+
+    Route::get('/masterview',[Controller::class,'masterview'])->name('okok');
 });

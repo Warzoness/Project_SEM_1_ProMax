@@ -1,6 +1,150 @@
 @extends('fe.masterview')
 @section('tittle', 'HOME')
+
 @section('main-content')
+    @foreach ($pr as $items)
+        <div class="modal fade quick-view-product" id="quick-view-modal-{{ $items->id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                                class="far fa-times"></i></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="single-product-thumb">
+                            <div class="row">
+                                <div class="col-lg-7 mb--40">
+                                    <div class="row">
+                                        <div class="col-lg-10 order-lg-2">
+                                            <div
+                                                class="single-product-thumbnail product-large-thumbnail axil-product thumbnail-badge zoom-gallery">
+                                                @foreach ($items->images as $item)
+                                                    <div class="thumbnail">
+                                                        <img src="{{ asset('storage/upload/admin/productImg') }}/{{ $item->image }}"
+                                                            alt="Product Images">
+                                                        <div class="label-block label-right">
+                                                            <div class="product-badget">20% OFF</div>
+                                                        </div>
+                                                        <div class="product-quick-view position-view">
+                                                            <a href="{{ asset('storage/upload/admin/productImg') }}/{{ $item->image }}"
+                                                                class="popup-zoom">
+                                                                <i class="far fa-search-plus"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 order-lg-1">
+                                            <div class="product-small-thumb small-thumb-wrapper">
+                                                @foreach ($items->images as $item)
+                                                    <div class="small-thumb-img">
+                                                        <img src="{{ asset('storage/upload/admin/productImg') }}/{{ $item->image }}"
+                                                            alt="thumb image">
+                                                    </div>
+                                                @endforeach
+                                                {{-- <div class="small-thumb-img">
+                                                    <img src="{{ asset('assets') }}/fe/images/product/product-thumb/thumb-07.png"
+                                                        alt="thumb image">
+                                                </div>
+                                                <div class="small-thumb-img">
+                                                    <img src="{{ asset('assets') }}/fe/images/product/product-thumb/thumb-09.png"
+                                                        alt="thumb image">
+                                                </div> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 mb--40">
+                                    <div class="single-product-content">
+                                        <div class="inner">
+                                            <div class="product-rating">
+                                                <div class="star-rating">
+                                                    <img src="{{ asset('assets') }}/fe/images/icons/rate.png"
+                                                        alt="Rate Images">
+                                                </div>
+                                                <div class="review-link">
+                                                    <a href="#">(<span>1</span> customer reviews)</a>
+                                                </div>
+                                            </div>
+                                            <h3 class="product-title">{{ $items->name }}</h3>
+                                            <del>{{ number_format($items->price) }}</del>
+                                            <p class="price-amount">{{ number_format($items->sale_price) }}</p>
+
+                                            <ul class="product-meta">
+                                                <li><i class="fal fa-check"></i>In stock</li>
+                                                <li><i class="fal fa-check"></i>Free delivery available</li>
+                                                <li><i class="fal fa-check"></i>Sales 30% Off Use Code: MOTIVE30</li>
+                                            </ul>
+                                            <p class="description">In ornare lorem ut est dapibus, ut tincidunt nisi
+                                                pretium. Integer ante est, elementum eget magna. Pellentesque sagittis
+                                                dictum libero, eu dignissim tellus.</p>
+
+                                            <div class="product-variations-wrapper">
+
+                                                <!-- Start Product Variation  -->
+                                                <div class="product-variation">
+                                                    <h6 class="title">Colors:</h6>
+                                                    <div class="color-variant-wrapper">
+                                                        <ul class="color-variant mt--0">
+                                                            <li class="color-extra-01 active"><span><span
+                                                                        class="color"></span></span>
+                                                            </li>
+                                                            <li class="color-extra-02"><span><span
+                                                                        class="color"></span></span>
+                                                            </li>
+                                                            <li class="color-extra-03"><span><span
+                                                                        class="color"></span></span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- End Product Variation  -->
+
+                                                <!-- Start Product Variation  -->
+                                                <div class="product-variation">
+                                                    <h6 class="title">Size:</h6>
+                                                    <ul class="range-variant">
+                                                        <li>xs</li>
+                                                        <li>s</li>
+                                                        <li>m</li>
+                                                        <li>l</li>
+                                                        <li>xl</li>
+                                                    </ul>
+                                                </div>
+                                                <!-- End Product Variation  -->
+
+                                            </div>
+
+                                            <!-- Start Product Action Wrapper  -->
+                                            <div class="product-action-wrapper d-flex-center">
+                                                <!-- Start Quentity Action  -->
+                                                <div class="pro-qty"><input type="text" value="1"></div>
+                                                <!-- End Quentity Action  -->
+
+                                                <!-- Start Product Action  -->
+                                                <ul class="product-action d-flex-center mb--0">
+                                                    <li class="add-to-cart"><a href="cart.html"
+                                                            class="axil-btn btn-bg-primary">Add to Cart</a></li>
+                                                    <li class="wishlist"><a href="wishlist.html"
+                                                            class="axil-btn wishlist-btn"><i class="far fa-heart"></i></a>
+                                                    </li>
+                                                </ul>
+                                                <!-- End Product Action  -->
+
+                                            </div>
+                                            <!-- End Product Action Wrapper  -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
     <main class="main-wrapper">
         <div class="axil-main-slider-area main-slider-style-1">
             <div class="container">
@@ -8,185 +152,85 @@
                     <div class="col-lg-5 col-sm-6">
                         <div class="main-slider-content">
                             <div class="slider-content-activation-one">
-                                <div class="single-slide slick-slide" data-sal="slide-up" data-sal-delay="400"
-                                    data-sal-duration="800">
-                                    <span class="subtitle"><i class="fas fa-fire"></i> Ưu đãi hấp dẫn tuần này</span>
-                                    <h1 class="title">Roco Wireless Headphone</h1>
-                                    <div class="slide-action">
-                                        <div class="shop-btn">
-                                            <a href="shop.html" class="axil-btn btn-bg-white"><i
-                                                    class="fal fa-shopping-cart"></i>Mua ngay</a>
-                                        </div>
-                                        <div class="item-rating">
-                                            <div class="thumb">
-                                                <ul>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author1.png"
-                                                            alt="Author"></li>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author2.png"
-                                                            alt="Author"></li>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author3.png"
-                                                            alt="Author"></li>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author4.png"
-                                                            alt="Author"></li>
-                                                </ul>
+                                @foreach ($banner as $item)
+                                    <div class="single-slide slick-slide">
+                                        <span class="subtitle"><i class="fas fa-fire"></i> Ưu đãi hấp dẫn tuần này</span>
+                                        <h1 class="title">{{ $item->name }}</h1>
+                                        <div class="slide-action">
+                                            <div class="shop-btn">
+                                                <a href="shop.html" class="axil-btn btn-bg-white"><i
+                                                        class="fal fa-shopping-cart"></i>Mua ngay</a>
                                             </div>
-                                            <div class="content">
-                                                <span class="rating-icon">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                </span>
-                                                <span class="review-text">
-                                                    <span>100+</span> đánh giá
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="single-slide slick-slide">
-                                    <span class="subtitle"><i class="fas fa-fire"></i> Ưu đãi hấp dẫn tuần này</span>
-                                    <h1 class="title">Smart Digital Watch</h1>
-                                    <div class="slide-action">
-                                        <div class="shop-btn">
-                                            <a href="shop.html" class="axil-btn btn-bg-white"><i
-                                                    class="fal fa-shopping-cart"></i>Mua ngay</a>
-                                        </div>
-                                        <div class="item-rating">
-                                            <div class="thumb">
-                                                <ul>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author1.png"
-                                                            alt="Author"></li>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author2.png"
-                                                            alt="Author"></li>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author3.png"
-                                                            alt="Author"></li>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author4.png"
-                                                            alt="Author"></li>
-                                                </ul>
-                                            </div>
-                                            <div class="content">
-                                                <span class="rating-icon">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                </span>
-                                                <span class="review-text">
-                                                    <span>100+</span> đánh giá
-                                                </span>
+                                            <div class="item-rating">
+                                                <div class="thumb">
+                                                    <ul>
+                                                        <li><img src="{{ asset('assets') }}/fe/images/others/author1.png"
+                                                                alt="Author"></li>
+                                                        <li><img src="{{ asset('assets') }}/fe/images/others/author2.png"
+                                                                alt="Author"></li>
+                                                        <li><img src="{{ asset('assets') }}/fe/images/others/author3.png"
+                                                                alt="Author"></li>
+                                                        <li><img src="{{ asset('assets') }}/fe/images/others/author4.png"
+                                                                alt="Author"></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="content">
+                                                    <span class="rating-icon">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fal fa-star"></i>
+                                                    </span>
+                                                    <span class="review-text">
+                                                        <span>100+</span> đánh giá
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="single-slide slick-slide">
-                                    <span class="subtitle"><i class="fas fa-fire"></i> Ưu đãi hấp dẫn tuần này</span>
-                                    <h1 class="title">Roco Wireless Headphone</h1>
-                                    <div class="slide-action">
-                                        <div class="shop-btn">
-                                            <a href="shop.html" class="axil-btn btn-bg-white"><i
-                                                    class="fal fa-shopping-cart"></i>Mua ngay</a>
-                                        </div>
-                                        <div class="item-rating">
-                                            <div class="thumb">
-                                                <ul>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author1.png"
-                                                            alt="Author"></li>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author2.png"
-                                                            alt="Author"></li>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author3.png"
-                                                            alt="Author"></li>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author4.png"
-                                                            alt="Author"></li>
-                                                </ul>
-                                            </div>
-                                            <div class="content">
-                                                <span class="rating-icon">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                </span>
-                                                <span class="review-text">
-                                                    <span>100+</span> đánh giá
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="single-slide slick-slide">
-                                    <span class="subtitle"><i class="fas fa-fire"></i> Ưu đãi hấp dẫn tuần này</span>
-                                    <h1 class="title">Smart Digital Watch</h1>
-                                    <div class="slide-action">
-                                        <div class="shop-btn">
-                                            <a href="shop.html" class="axil-btn btn-bg-white"><i
-                                                    class="fal fa-shopping-cart"></i>Mua ngay</a>
-                                        </div>
-                                        <div class="item-rating">
-                                            <div class="thumb">
-                                                <ul>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author1.png"
-                                                            alt="Author"></li>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author2.png"
-                                                            alt="Author"></li>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author3.png"
-                                                            alt="Author"></li>
-                                                    <li><img src="{{ asset('assets') }}/fe/images/others/author4.png"
-                                                            alt="Author"></li>
-                                                </ul>
-                                            </div>
-                                            <div class="content">
-                                                <span class="rating-icon">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                </span>
-                                                <span class="review-text">
-                                                    <span>100+</span> đánh giá
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-7 col-sm-6">
                         <div class="main-slider-large-thumb">
                             <div class="slider-thumb-activation-one axil-slick-dots">
-                                <div class="single-slide slick-slide" data-sal="slide-up" data-sal-delay="600"
-                                    data-sal-duration="1500">
-                                    <img src="{{ asset('assets') }}/fe/images/product/product-38.png" alt="Product">
-                                    <div class="product-price">
-                                        <span class="text">Chỉ từ</span>
-                                        <span class="price-amount">$49.00</span>
+                                {{-- @foreach ($banner as $item)
+                                    <div class="single-slide slick-slide" data-sal-duration="1000">
+                                        <img src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
+                                            alt="Product">
+                                        <div class="product-price">
+                                            <span class="text">Chỉ từ</span>
+                                            @if ($item->sale_price)
+                                                <span class="price-amount">{{ number_format($item->sale_price) }} VND</span>
+                                            @else
+                                                <span class="price-amount">{{ number_format($item->price) }} VND</span>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="single-slide slick-slide" data-sal="slide-up" data-sal-delay="600"
+                                @endforeach --}}
+                                {{-- <div class="single-slide slick-slide" data-sal="slide-up" data-sal-delay="600"
                                     data-sal-duration="1500">
                                     <img src="{{ asset('assets') }}/fe/images/product/product-39.png" alt="Product">
                                     <div class="product-price">
                                         <span class="text">Chỉ từ</span>
                                         <span class="price-amount">$49.00</span>
                                     </div>
-                                </div>
-                                <div class="single-slide slick-slide">
-                                    <img src="{{ asset('assets') }}/fe/images/product/product-38.png" alt="Product">
-                                    <div class="product-price">
-                                        <span class="text">Chỉ từ</span>
-                                        <span class="price-amount">$49.00</span>
+                                </div> --}}
+                                @foreach ($banner as $item)
+                                    <div class="single-slide slick-slide">
+                                        <img src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
+                                            alt="Product">
+                                        <div class="product-price">
+                                            <span class="text">Chỉ từ</span>
+                                            <span class="price-amount">$49.00</span>
+                                        </div>
                                     </div>
-                                </div>
+                                @endforeach
+
                                 <div class="single-slide slick-slide">
-                                    <img src="{{ asset('assets') }}/fe/images/product/product-39.png" alt="Product">
                                     <div class="product-price">
-                                        <span class="text">Chỉ từ</span>
-                                        <span class="price-amount">$49.00</span>
                                     </div>
                                 </div>
                             </div>
@@ -273,17 +317,17 @@
                     class="explore-product-activation slick-layout-wrapper slick-layout-wrapper--15 axil-slick-arrow arrow-top-slide">
                     <div class="slick-single-layout">
                         <div class="row row--15">
-                            @foreach ($products as $item)
+                            @foreach ($productSide1 as $item)
                                 <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
                                     <div class="axil-product product-style-one">
                                         <div class="thumbnail">
                                             <a href="{{ route('product.detail') }}">
                                                 <img data-sal="zoom-out" data-sal-delay="200" data-sal-duration="800"
                                                     loading="lazy" class="main-img"
-                                                    src="{{ asset('storage/upload/admin/mainImgProducts') }}/{{ $item->main_img }}"
+                                                    src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
                                                     alt="Product Images">
                                                 <img class="hover-img"
-                                                    src="{{ asset('storage/upload/admin/mainImgProducts') }}/{{ $item->main_img }}"
+                                                    src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
                                                     alt="Product Images">
                                             </a>
                                             @if ($item->sale_price)
@@ -343,339 +387,70 @@
                     <!-- End .slick-single-layout -->
                     <div class="slick-single-layout">
                         <div class="row row--15">
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="{{ asset('assets') }}/fe/images/product/electric/product-01.png"
-                                                alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% Off</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li class="select-option"><a href="single-product.html">Thêm vào giỏ
-                                                        hàng</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                            class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">Yantiti Leather & Canvas
-                                                    Bags</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">$29.99</span>
-                                                <span class="price old-price">$49.99</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="{{ asset('assets') }}/fe/images/product/electric/product-02.png"
-                                                alt="Product Images">
-                                        </a>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li class="select-option"><a href="single-product.html">Thêm vào giỏ
-                                                        hàng</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                            class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">3D™ wireless headset</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">$29.99</span>
-                                                <span class="price old-price">$49.99</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                                class="color"></span></span>
+                            @foreach ($productSide2 as $item)
+                                <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
+                                    <div class="axil-product product-style-one">
+                                        <div class="thumbnail">
+                                            <a href="{{ route('product.detail') }}">
+                                                <img data-sal="zoom-out" data-sal-delay="200" data-sal-duration="800"
+                                                    loading="lazy" class="main-img"
+                                                    src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
+                                                    alt="Product Images">
+                                                <img class="hover-img"
+                                                    src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
+                                                    alt="Product Images">
+                                            </a>
+                                            @if ($item->sale_price)
+                                                <div class="label-block label-right">
+                                                    <div class="product-badget">20% Off</div>
+                                                </div>
+                                            @endif
+                                            <div class="product-hover-action">
+                                                <ul class="cart-action">
+                                                    <li class="quickview"><a href="#" data-bs-toggle="modal"
+                                                            data-bs-target="#quick-view-modal"><i
+                                                                class="far fa-eye"></i></a>
                                                     </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
+                                                    <li class="select-option">
+                                                        <a href="single-product.html">
+                                                            Thêm vào giỏ hàng
+                                                        </a>
                                                     </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
+                                                    <li class="wishlist"><a href="wishlist.html"><i
+                                                                class="far fa-heart"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="{{ asset('assets') }}/fe/images/product/electric/product-03.png"
-                                                alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% Off</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li class="select-option"><a href="single-product.html">Thêm vào giỏ
-                                                        hàng</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                            class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">3D™ wireless headset</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">$29.99</span>
-                                                <span class="price old-price">$49.99</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                                class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
+                                        <div class="product-content">
+                                            <div class="inner">
+                                                <div class="product-rating">
+                                                    <span class="icon">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </span>
+                                                    <span class="rating-number">(64)</span>
+                                                </div>
+                                                <h5 class="title"><a href="single-product.html">{{ $item->name }}</a>
+                                                </h5>
+                                                @if ($item->sale_price)
+                                                    <div class="product-price-variant">
+                                                        <span class="price current-price">{{ $item->sale_price }}
+                                                            VND</span>
+                                                        <span class="price old-price">{{ $item->price }} VND</span>
+                                                    </div>
+                                                @else
+                                                    <div class="product-price-variant">
+                                                        <span class="price current-price">{{ $item->price }} VND</span>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="{{ asset('assets') }}/fe/images/product/electric/product-04.png"
-                                                alt="Product Images">
-                                        </a>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li class="select-option"><a href="single-product.html">Thêm vào giỏ
-                                                        hàng</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                            class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">3D™ wireless headset</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">$29.99</span>
-                                                <span class="price old-price">$49.99</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="{{ asset('assets') }}/fe/images/product/electric/product-05.png"
-                                                alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% Off</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li class="select-option"><a href="single-product.html">Thêm vào giỏ
-                                                        hàng</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                            class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">3D™ wireless headset</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">$29.99</span>
-                                                <span class="price old-price">$49.99</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                                class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="{{ asset('assets') }}/fe/images/product/electric/product-06.png"
-                                                alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% Off</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li class="select-option"><a href="single-product.html">Thêm vào giỏ
-                                                        hàng</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                            class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">3D™ wireless headset</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">$29.99</span>
-                                                <span class="price old-price">$49.99</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                                class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="{{ asset('assets') }}/fe/images/product/electric/product-07.png"
-                                                alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% Off</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li class="select-option"><a href="single-product.html">Thêm vào giỏ
-                                                        hàng</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                            class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">3D™ wireless headset</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">$29.99</span>
-                                                <span class="price old-price">$49.99</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                                class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="{{ asset('assets') }}/fe/images/product/electric/product-08.png"
-                                                alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% Off</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li class="select-option"><a href="single-product.html">Thêm vào giỏ
-                                                        hàng</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                            class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">3D™ wireless headset</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">$29.99</span>
-                                                <span class="price old-price">$49.99</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                                class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
+                            @endforeach
 
                         </div>
                     </div>
@@ -801,235 +576,65 @@
                     </div>
                     <div
                         class="new-arrivals-product-activation slick-layout-wrapper--30 axil-slick-arrow  arrow-top-slide">
-                        <div class="slick-single-layout">
-                            <div class="axil-product product-style-two">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-out" data-sal-delay="200" data-sal-duration="500"
-                                            src="{{ asset('assets') }}/fe/images/product/electric/product-05.png"
-                                            alt="Product Images">
-                                    </a>
-                                    <div class="label-block label-right">
-                                        <div class="product-badget">10% OFF</div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <div class="inner">
-                                        <div class="color-variant-wrapper">
-                                            <ul class="color-variant">
-                                                <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-02"><span><span class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-03"><span><span class="color"></span></span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h5 class="title"><a href="single-product.html">Demon's Souls</a></h5>
-                                        <div class="product-price-variant">
-                                            <span class="price old-price">$40</span>
-                                            <span class="price current-price">$30</span>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li class="select-option"><a href="single-product.html">Thêm vào giỏ
-                                                        hàng</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                            class="far fa-heart"></i></a></li>
-                                            </ul>
+                        @foreach ($new as $item)
+                            <div class="slick-single-layout">
+                                <div class="axil-product product-style-two">
+                                    <div class="thumbnail">
+                                        <a href="single-product.html">
+                                            <img data-sal="zoom-out" data-sal-delay="200" data-sal-duration="500"
+                                                src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
+                                                alt="Product Images">
+                                        </a>
+                                        <div class="label-block label-right">
+                                            <div class="product-badget">
+                                                {{ number_format((1 - $item->sale_price / $item->price) * 100, 2) }}
+                                                %
+                                                OFF</div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End .slick-single-layout -->
-                        <div class="slick-single-layout">
-                            <div class="axil-product product-style-two">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-out" data-sal-delay="300" data-sal-duration="500"
-                                            src="{{ asset('assets') }}/fe/images/product/electric/product-06.png"
-                                            alt="Product Images">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="inner">
-                                        <div class="color-variant-wrapper">
-                                            <ul class="color-variant">
-                                                <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-02"><span><span class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-03"><span><span class="color"></span></span>
-                                                </li>
-                                            </ul>
+                                    <div class="product-content">
+                                        <div class="inner">
+                                            <div class="color-variant-wrapper">
+                                                <ul class="color-variant">
+                                                    <li class="color-extra-01 active"><span><span
+                                                                class="color"></span></span>
+                                                    </li>
+                                                    <li class="color-extra-02"><span><span class="color"></span></span>
+                                                    </li>
+                                                    <li class="color-extra-03"><span><span class="color"></span></span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <h5 class="title"><a href="single-product.html">{{ $item->name }}</a></h5>
+                                            <div class="product-price-variant">
+                                                @if ($item->sale_price)
+                                                    <del class="price old-price">{{ number_format($item->price) }}
+                                                        VND</del>
+                                                    <p class="price current-price">{{ number_format($item->sale_price) }}
+                                                        VND</p>
+                                                @else
+                                                    <p class="price current-price">{{ number_format($item->price) }}
+                                                        VND</p>
+                                                @endif
+                                            </div>
+                                            <div class="product-hover-action">
+                                                <ul class="cart-action">
+                                                    <li class="quickview"><a href="#" data-bs-toggle="modal"
+                                                            data-bs-target="#quick-view-modal-{{ $item->id }}"><i
+                                                                class="far fa-eye"></i></a>
+                                                    </li>
+                                                    <li class="select-option"><a href="single-product.html">Thêm vào giỏ
+                                                            hàng</a></li>
+                                                    <li class="wishlist"><a href="wishlist.html"><i
+                                                                class="far fa-heart"></i></a></li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <h5 class="title"><a href="single-product.html">Google Home</a></h5>
-                                        <div class="product-price-variant">
-                                            <span class="price old-price">$50</span>
-                                            <span class="price current-price">$40</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-hover-action">
-                                        <ul class="cart-action">
-                                            <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                            </li>
-                                            <li class="select-option"><a href="single-product.html">Thêm vào giỏ
-                                                    hàng</a></li>
-                                            <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- End .slick-single-layout -->
-                        <div class="slick-single-layout">
-                            <div class="axil-product product-style-two">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-out" data-sal-delay="400" data-sal-duration="500"
-                                            src="{{ asset('assets') }}/fe/images/product/electric/product-07.png"
-                                            alt="Product Images">
-                                    </a>
-                                    <div class="label-block label-right">
-                                        <div class="product-badget">15% OFF</div>
-                                    </div>
+                        @endforeach
 
-                                </div>
-                                <div class="product-content">
-                                    <div class="inner">
-                                        <div class="color-variant-wrapper">
-                                            <ul class="color-variant">
-                                                <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-02"><span><span class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-03"><span><span class="color"></span></span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h5 class="title"><a href="single-product.html">Netfilx Remot</a></h5>
-                                        <div class="product-price-variant">
-                                            <span class="price old-price">$60</span>
-                                            <span class="price current-price">$45</span>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li class="select-option"><a href="single-product.html">Thêm vào giỏ
-                                                        hàng</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                            class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End .slick-single-layout -->
-                        <div class="slick-single-layout">
-                            <div class="axil-product product-style-two">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-out" data-sal-delay="500" data-sal-duration="500"
-                                            src="{{ asset('assets') }}/fe/images/product/electric/product-08.png"
-                                            alt="Product Images">
-                                    </a>
-                                    <div class="label-block label-right">
-                                        <div class="product-badget">30% OFF</div>
-                                    </div>
-
-                                </div>
-                                <div class="product-content">
-                                    <div class="inner">
-                                        <div class="color-variant-wrapper">
-                                            <ul class="color-variant">
-                                                <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-02"><span><span class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-03"><span><span class="color"></span></span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h5 class="title"><a href="single-product.html">Digital Accessories</a></h5>
-                                        <div class="product-price-variant">
-                                            <span class="price old-price">$30</span>
-                                            <span class="price current-price">$20</span>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li class="select-option"><a href="single-product.html">Thêm vào giỏ
-                                                        hàng</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                            class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End .slick-single-layout -->
-                        <div class="slick-single-layout">
-                            <div class="axil-product product-style-two">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-out" data-sal-delay="100" data-sal-duration="500"
-                                            src="{{ asset('assets') }}/fe/images/product/electric/product-04.png"
-                                            alt="Product Images">
-                                    </a>
-                                    <div class="label-block label-right">
-                                        <div class="product-badget">50% OFF</div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <div class="inner">
-                                        <div class="color-variant-wrapper">
-                                            <ul class="color-variant">
-                                                <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-02"><span><span class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-03"><span><span class="color"></span></span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h5 class="title"><a href="single-product.html">PS5 Smart Remote</a></h5>
-                                        <div class="product-price-variant">
-                                            <span class="price old-price">$50</span>
-                                            <span class="price current-price">$25</span>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li class="select-option"><a href="single-product.html">Thêm vào giỏ
-                                                        hàng</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                            class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End .slick-single-layout -->
                     </div>
                 </div>
             </div>
@@ -1369,8 +974,7 @@
                                 <div class="poster-content">
                                     <div class="inner">
                                         <h3 class="title">Rich sound, <br> for less.</h3>
-                                        <span class="sub-title">Collections <i
-                                                class="fal fa-long-arrow-right"></i></span>
+                                        <span class="sub-title">Collections <i class="fal fa-long-arrow-right"></i></span>
                                     </div>
                                 </div>
                                 <!-- End .poster-content -->

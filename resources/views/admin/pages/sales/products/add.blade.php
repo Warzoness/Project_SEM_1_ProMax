@@ -190,7 +190,7 @@
                                             <div class="col-span-1">
                                                 <div class="form-item vertical">
                                                     <label class="form-label mb-2">Danh Mục</label>
-                                                    <div>
+                                                    <div class="w-100">
                                                         <select class="input js-example-basic-single" name="category_id">
                                                             @foreach ($categories as $item)
                                                                 <option value="{{ $item->id }}">{{ $item->name }}
@@ -203,7 +203,7 @@
                                             <div class="col-span-1">
                                                 <div class="form-item vertical">
                                                     <label class="form-label mb-2">Nhãn Hàng</label>
-                                                    <div>
+                                                    <div class="w-100">
                                                         <select class="input js-example-basic-single" name="brand_id">
                                                             @foreach ($brands as $item)
                                                                 <option value="{{ $item->id }}">{{ $item->name }}
@@ -230,17 +230,17 @@
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div class="col-span-1">
                                                 <div class="form-item vertical gap-2">
-                                                    <label class="switcher gap-2">
-                                                        <input type="checkbox" name="fearture">
-                                                        <span class="switcher-toggle"></span>
-                                                        <strong for="">Nổi Bật</strong>
+                                                    <label class="checkbox-label">
+                                                        <input class="checkbox" type="checkbox" name="fearture"
+                                                            value="1">
+                                                        <span>Fearture</span>
                                                     </label>
                                                 </div>
                                                 <div class="form-item vertical gap-2">
-                                                    <label class="switcher gap-2">
-                                                        <input type="checkbox" name="banner">
-                                                        <span class="switcher-toggle"></span>
-                                                        <strong for="">Chuyển lên Banner</strong>
+                                                    <label class="checkbox-label">
+                                                        <input class="checkbox" type="checkbox" name="banner"
+                                                            value="1">
+                                                        <span>Banner</span>
                                                     </label>
                                                 </div>
                                             </div>

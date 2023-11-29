@@ -28,7 +28,7 @@ class UpdateProductsRequest extends FormRequest
             "category_id"=>"required",
             "tag"=>"required",
             'price'=>'required|numeric',
-            'sale_price'=>'numeric',
+            'sale_price'=>'numeric|nullable',
             "description"=>"required",
             "photo"=>"required|image"
         ];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Fe;
 
 use App\Models\Admin\Sales\Category;
 use App\Models\Admin\Sales\EachTypeProduct;
+use App\Models\Admin\Sales\ImgProducts;
 use App\Models\Admin\Sales\Product;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,13 @@ class HomeController extends Controller
     {
         $categories = Category::all();
         $products = Product::all();
-        return view('fe.home.index',compact('categories','products'));
+        $productSide1 = Product::skip(0)->take(8)->get();
+        $productSide2 = Product::skip(8)->take(8)->get();
+        $banner = Product::where('banner',1)->get();
+        $new = Product::all()->sortByDesc('created_at')->take(16);
+        $imgProducts = ImgProducts::all();
+        $pr = Product::all();
+        return view('fe.home.index',compact('categories','products','banner','new','pr','productSide1','productSide2'));
     }
 
     public function aboutUs()

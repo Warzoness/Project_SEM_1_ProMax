@@ -27,7 +27,7 @@ return new class extends Migration
             $table->tinyInteger('banner')->nullable();
             $table->string('main_img', 100);
             $table->text('description');
-            $table->string('fearture');
+            $table->tinyInteger('fearture')->nullable();
             $table->unsignedInteger('quantity');
             $table->softDeletes();
             $table->timestamps();
