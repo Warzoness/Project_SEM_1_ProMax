@@ -42,24 +42,20 @@
                                  <h6 class="title">DANH MỤC</h6>
                                  <div class="shop-submenu">
                                      <ul>
-                                         <li class="current-cat"><a href="#">Sun Care</a></li>
-                                         <li><a href="#">Night Care</a></li>
-                                         <li><a href="#">Treatments</a></li>
-                                         <li><a href="#">Moisturizers</a></li>
-                                         <li><a href="#">Eye Care</a></li>
-                                         <li><a href="#">Masks</a></li>
-                                         <li><a href="#">Featured</a></li>
-                                         <li><a href="#">On Sale</a></li>
+                                         @foreach ($categories as $item)
+                                             <li><a href="#">{{ $item->name }}</a></li>
+                                         @endforeach
                                      </ul>
                                  </div>
                              </div>
                              <div class="toggle-list product-categories product-gender active">
-                                 <h6 class="title">GIỚI TÍNH</h6>
+                                 <h6 class="title">TAG</h6>
                                  <div class="shop-submenu">
                                      <ul>
-                                         <li class="chosen"><a href="#">Nam (40)</a></li>
-                                         <li><a href="#">Nữ (56)</a></li>
-                                         <li><a href="#">Cả Nam và Nữ (18)</a></li>
+                                         <li class="chosen"><a href="#">Thông Thường</a></li>
+                                         <li><a href="#">Đang Giảm Giá</a></li>
+                                         <li><a href="#">Nổi Bật</a></li>
+                                         <li><a href="#">Trending</a></li>
                                      </ul>
                                  </div>
                              </div>
@@ -67,17 +63,9 @@
                                  <h6 class="title">MÀU SẮC</h6>
                                  <div class="shop-submenu">
                                      <ul>
-                                         <li class="chosen"><a href="#" class="color-extra-01"></a></li>
-                                         <li><a href="#" class="color-extra-02"></a></li>
-                                         <li><a href="#" class="color-extra-03"></a></li>
-                                         <li><a href="#" class="color-extra-04"></a></li>
-                                         <li><a href="#" class="color-extra-05"></a></li>
-                                         <li><a href="#" class="color-extra-06"></a></li>
-                                         <li><a href="#" class="color-extra-07"></a></li>
-                                         <li><a href="#" class="color-extra-08"></a></li>
-                                         <li><a href="#" class="color-extra-09"></a></li>
-                                         <li><a href="#" class="color-extra-10"></a></li>
-                                         <li><a href="#" class="color-extra-11"></a></li>
+                                         @foreach ($colors as $item)
+                                             <li><a href="#" class="color-extra-06">{{ $item->name }}</a></li>
+                                         @endforeach
                                      </ul>
                                  </div>
                              </div>
@@ -142,295 +130,58 @@
                          </div>
                          <!-- End .row -->
                          <div class="row row--15">
-                             <div class="col-xl-4 col-sm-6">
-                                 <div class="axil-product product-style-one mb--30">
-                                     <div class="thumbnail">
-                                         <a href="{{ route('product.detail') }}">
-                                             <img src="{{ asset('assets') }}/fe/images/product/electric/product-01.png"
-                                                 alt="Product Images">
-                                         </a>
-                                         <div class="label-block label-right">
-                                             <div class="product-badget">10% OFF</div>
+                             @foreach ($products as $item)
+                                 <form class="col-xl-4 col-sm-6" method="POST" action="{{ route('cart.add') }}">
+                                     @csrf
+                                     <input type="number" name="quantity" hidden value="1">
+                                     <input type="text" name="id" hidden value="{{ $item->id }}">
+                                     <div class="axil-product product-style-one mb--30">
+                                         <div class="thumbnail">
+                                             <a href="{{ route('product.detail', $item) }}">
+                                                 <img src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
+                                                     alt="Product Images">
+                                             </a>
+                                             <div class="label-block label-right">
+                                                 <div class="product-badget">10% OFF</div>
+                                             </div>
+                                             <div class="product-hover-action">
+                                                 <ul class="cart-action">
+                                                     <li class="wishlist"><a href="wishlist.html"><i
+                                                                 class="far fa-heart"></i></a></li>
+                                                     <li class="select-option">
+                                                         <a href="#"><button class="text-white"
+                                                                 style="background: transparent" type="submit"
+                                                                 href="{{ route('cart.add') }}">
+                                                                 Thêm vào giỏ hàng
+                                                             </button>
+                                                         </a>
+                                                     </li>
+                                                     <li class="quickview"><a href="#" data-bs-toggle="modal"
+                                                             data-bs-target="#quick-view-modal-{{ $item->id }}"><i
+                                                                 class="far fa-eye"></i></a>
+                                                     </li>
+                                                 </ul>
+                                             </div>
                                          </div>
-                                         <div class="product-hover-action">
-                                             <ul class="cart-action">
-                                                 <li class="wishlist"><a href="wishlist.html"><i
-                                                             class="far fa-heart"></i></a></li>
-                                                 <li class="select-option"><a href="cart.html">Thêm vào giỏ hàng</a></li>
-                                                 <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                         data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                 </li>
-                                             </ul>
-                                         </div>
-                                     </div>
-                                     <div class="product-content">
-                                         <div class="inner">
-                                             <h5 class="title"><a href="single-product.html">3D™ wireless headset</a>
-                                             </h5>
-                                             <div class="product-price-variant">
-                                                 <span class="price current-price">$30</span>
-                                                 <span class="price old-price">$30</span>
+                                         <div class="product-content">
+                                             <div class="inner">
+                                                 <h5 class="title"><a href="single-product.html">{{ $item->name }}</a>
+                                                 </h5>
+                                                 <div class="product-price-variant">
+                                                     @if ($item->sale_price)
+                                                         <del>{{ number_format($item->price) }} VND</del>
+                                                         <strong>{{ number_format($item->sale_price) }} VND</strong>
+                                                     @else
+                                                         <strong>{{ number_format($item->price) }} VND</strong>
+                                                     @endif
+                                                 </div>
                                              </div>
                                          </div>
                                      </div>
-                                 </div>
-                             </div>
+                                 </form>
+                             @endforeach
                              <!-- End Single Product  -->
-                             <div class="col-xl-4 col-sm-6">
-                                 <div class="axil-product product-style-one mb--30">
-                                     <div class="thumbnail">
-                                         <a href="single-product.html">
-                                             <img src="{{ asset('assets') }}/fe/images/product/electric/product-02.png"
-                                                 alt="Product Images">
-                                         </a>
-                                         <div class="product-hover-action">
-                                             <ul class="cart-action">
-                                                 <li class="wishlist"><a href="wishlist.html"><i
-                                                             class="far fa-heart"></i></a></li>
-                                                 <li class="select-option"><a href="cart.html">Thêm vào giỏ hàng</a></li>
-                                                 <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                         data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                 </li>
-                                             </ul>
-                                         </div>
-                                     </div>
-                                     <div class="product-content">
-                                         <div class="inner">
-                                             <h5 class="title"><a href="single-product.html">Media remote</a></h5>
-                                             <div class="product-price-variant">
-                                                 <span class="price current-price">$40</span>
-                                                 <span class="price old-price">$50</span>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <!-- End Single Product  -->
-                             <div class="col-xl-4 col-sm-6">
-                                 <div class="axil-product product-style-one mb--30">
-                                     <div class="thumbnail">
-                                         <a href="single-product.html">
-                                             <img src="{{ asset('assets') }}/fe/images/product/electric/product-03.png"
-                                                 alt="Product Images">
-                                         </a>
-                                         <div class="label-block label-right">
-                                             <div class="product-badget">25% OFF</div>
-                                         </div>
-                                         <div class="product-hover-action">
-                                             <ul class="cart-action">
-                                                 <li class="wishlist"><a href="wishlist.html"><i
-                                                             class="far fa-heart"></i></a></li>
-                                                 <li class="select-option"><a href="cart.html">Thêm vào giỏ hàng</a></li>
-                                                 <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                         data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                 </li>
-                                             </ul>
-                                         </div>
-                                     </div>
-                                     <div class="product-content">
-                                         <div class="inner">
-                                             <h5 class="title"><a href="single-product.html">HD camera</a></h5>
-                                             <div class="product-price-variant">
-                                                 <span class="price current-price">$45</span>
-                                                 <span class="price old-price">$60</span>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <!-- End Single Product  -->
-                             <div class="col-xl-4 col-sm-6">
-                                 <div class="axil-product product-style-one mb--30">
-                                     <div class="thumbnail">
-                                         <a href="single-product.html">
-                                             <img src="{{ asset('assets') }}/fe/images/product/electric/product-04.png"
-                                                 alt="Product Images">
-                                         </a>
-                                         <div class="label-block label-right">
-                                             <div class="product-badget">5% OFF</div>
-                                         </div>
-                                         <div class="product-hover-action">
-                                             <ul class="cart-action">
-                                                 <li class="wishlist"><a href="wishlist.html"><i
-                                                             class="far fa-heart"></i></a></li>
-                                                 <li class="select-option"><a href="cart.html">Thêm vào giỏ hàng</a></li>
-                                                 <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                         data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                 </li>
-                                             </ul>
-                                         </div>
-                                     </div>
-                                     <div class="product-content">
-                                         <div class="inner">
-                                             <h5 class="title"><a href="single-product.html">Guys Bomber Jacket</a></h5>
-                                             <div class="product-price-variant">
-                                                 <span class="price current-price">$50</span>
-                                                 <span class="price old-price">$60</span>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <!-- End Single Product  -->
-                             <div class="col-xl-4 col-sm-6">
-                                 <div class="axil-product product-style-one mb--30">
-                                     <div class="thumbnail">
-                                         <a href="single-product.html">
-                                             <img src="{{ asset('assets') }}/fe/images/product/electric/product-05.png"
-                                                 alt="Product Images">
-                                         </a>
-                                         <div class="product-hover-action">
-                                             <ul class="cart-action">
-                                                 <li class="wishlist"><a href="wishlist.html"><i
-                                                             class="far fa-heart"></i></a></li>
-                                                 <li class="select-option"><a href="cart.html">Thêm vào giỏ hàng</a></li>
-                                                 <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                         data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                 </li>
-                                             </ul>
-                                         </div>
-                                     </div>
-                                     <div class="product-content">
-                                         <div class="inner">
-                                             <h5 class="title"><a href="single-product.html">Level 20 RGB Cherry</a></h5>
-                                             <div class="product-price-variant">
-                                                 <span class="price current-price">$38</span>
-                                                 <span class="price old-price">$50</span>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <!-- End Single Product  -->
-                             <div class="col-xl-4 col-sm-6">
-                                 <div class="axil-product product-style-one mb--30">
-                                     <div class="thumbnail">
-                                         <a href="single-product.html">
-                                             <img src="{{ asset('assets') }}/fe/images/product/electric/product-06.png"
-                                                 alt="Product Images">
-                                         </a>
-                                         <div class="label-block label-right">
-                                             <div class="product-badget">5% OFF</div>
-                                         </div>
-                                         <div class="product-hover-action">
-                                             <ul class="cart-action">
-                                                 <li class="wishlist"><a href="wishlist.html"><i
-                                                             class="far fa-heart"></i></a></li>
-                                                 <li class="select-option"><a href="cart.html">Thêm vào giỏ hàng</a></li>
-                                                 <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                         data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                 </li>
-                                             </ul>
-                                         </div>
-                                     </div>
-                                     <div class="product-content">
-                                         <div class="inner">
-                                             <h5 class="title"><a href="single-product.html">Level 20 RGB Cherry</a></h5>
-                                             <div class="product-price-variant">
-                                                 <span class="price current-price">$25</span>
-                                                 <span class="price old-price">$40</span>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <!-- End Single Product  -->
-                             <div class="col-xl-4 col-sm-6">
-                                 <div class="axil-product product-style-one mb--30">
-                                     <div class="thumbnail">
-                                         <a href="single-product.html">
-                                             <img src="{{ asset('assets') }}/fe/images/product/electric/product-07.png"
-                                                 alt="Product Images">
-                                         </a>
-                                         <div class="label-block label-right">
-                                             <div class="product-badget">15% OFF</div>
-                                         </div>
-                                         <div class="product-hover-action">
-                                             <ul class="cart-action">
-                                                 <li class="wishlist"><a href="wishlist.html"><i
-                                                             class="far fa-heart"></i></a></li>
-                                                 <li class="select-option"><a href="cart.html">Thêm vào giỏ hàng</a></li>
-                                                 <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                         data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                 </li>
-                                             </ul>
-                                         </div>
-                                     </div>
-                                     <div class="product-content">
-                                         <div class="inner">
-                                             <h5 class="title"><a href="single-product.html">Logitech Streamcam</a></h5>
-                                             <div class="product-price-variant">
-                                                 <span class="price current-price">$15</span>
-                                                 <span class="price old-price">$20</span>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <!-- End Single Product  -->
-                             <div class="col-xl-4 col-sm-6">
-                                 <div class="axil-product product-style-one mb--30">
-                                     <div class="thumbnail">
-                                         <a href="single-product.html">
-                                             <img src="{{ asset('assets') }}/fe/images/product/electric/product-08.png"
-                                                 alt="Product Images">
-                                         </a>
-                                         <div class="product-hover-action">
-                                             <ul class="cart-action">
-                                                 <li class="wishlist"><a href="wishlist.html"><i
-                                                             class="far fa-heart"></i></a></li>
-                                                 <li class="select-option"><a href="cart.html">Thêm vào giỏ hàng</a></li>
-                                                 <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                         data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                 </li>
-                                             </ul>
-                                         </div>
-                                     </div>
-                                     <div class="product-content">
-                                         <div class="inner">
-                                             <h5 class="title"><a href="single-product.html">Bass Meets Clarity</a></h5>
-                                             <div class="product-price-variant">
-                                                 <span class="price current-price">$60</span>
-                                                 <span class="price old-price">$80</span>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <!-- End Single Product  -->
-                             <div class="col-xl-4 col-sm-6">
-                                 <div class="axil-product product-style-one mb--30">
-                                     <div class="thumbnail">
-                                         <a href="single-product.html">
-                                             <img src="{{ asset('assets') }}/fe/images/product/electric/product-02.png"
-                                                 alt="Product Images">
-                                         </a>
-                                         <div class="label-block label-right">
-                                             <div class="product-badget">30% OFF</div>
-                                         </div>
-                                         <div class="product-hover-action">
-                                             <ul class="cart-action">
-                                                 <li class="wishlist"><a href="wishlist.html"><i
-                                                             class="far fa-heart"></i></a></li>
-                                                 <li class="select-option"><a href="cart.html">Thêm vào giỏ hàng</a></li>
-                                                 <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                         data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a>
-                                                 </li>
-                                             </ul>
-                                         </div>
-                                     </div>
-                                     <div class="product-content">
-                                         <div class="inner">
-                                             <h5 class="title"><a href="single-product.html">Media remote</a></h5>
-                                             <div class="product-price-variant">
-                                                 <span class="price current-price">$40</span>
-                                                 <span class="price old-price">$50</span>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <!-- End Single Product  -->
+
                          </div>
                          <div class="text-center pt--20">
                              <a href="#" class="axil-btn btn-bg-lighter btn-load-more">Xem thêm</a>

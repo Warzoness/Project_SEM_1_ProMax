@@ -12,6 +12,7 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $fearture = Product::where('fearture',1)->get();
         $categories = Category::all();
         $products = Product::all();
         $productSide1 = Product::skip(0)->take(8)->get();
@@ -20,7 +21,7 @@ class HomeController extends Controller
         $new = Product::all()->sortByDesc('created_at')->take(16);
         $imgProducts = ImgProducts::all();
         $pr = Product::all();
-        return view('fe.home.index',compact('categories','products','banner','new','pr','productSide1','productSide2'));
+        return view('fe.home.index',compact('categories','products','banner','new','pr','productSide1','productSide2','fearture'));
     }
 
     public function aboutUs()
@@ -50,12 +51,14 @@ class HomeController extends Controller
 
     public function cart()
     {
-        return view('fe.home.cart');
+        $products = Product::all();
+        return view('fe.home.cart',compact('products'));
     }
 
     public function checkout()
     {
-        return view('fe.home.checkout');
+        $products = Product::all();
+        return view('fe.home.checkout',compact('products'));
     }
 
     public function privacyPolicy()

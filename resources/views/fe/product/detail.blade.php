@@ -12,58 +12,32 @@
                                 <div class="col-lg-12">
                                     <div class="product-large-thumbnail-4 single-product-thumbnail axil-product">
                                         <div class="thumbnail">
-                                            <img src="{{ asset('assets') }}/fe/images/product/product-big-16.png"
+                                            <img src="{{ asset('storage/upload/admin/products') }}/{{ $product->main_img }}"
                                                 alt="Product Images">
                                         </div>
-                                        <div class="thumbnail">
-                                            <img src="{{ asset('assets') }}/fe/images/product/product-big-16.png"
-                                                alt="Product Images">
-                                        </div>
-                                        <div class="thumbnail">
-                                            <img src="{{ asset('assets') }}/fe/images/product/product-big-16.png"
-                                                alt="Product Images">
-                                        </div>
-                                        <div class="thumbnail">
-                                            <img src="{{ asset('assets') }}/fe/images/product/product-big-16.png"
-                                                alt="Product Images">
-                                        </div>
-                                        <div class="thumbnail">
-                                            <img src="{{ asset('assets') }}/fe/images/product/product-big-16.png"
-                                                alt="Product Images">
-                                        </div>
-                                        <div class="thumbnail">
-                                            <img src="{{ asset('assets') }}/fe/images/product/product-big-16.png"
-                                                alt="Product Images">
-                                        </div>
+                                        @foreach ($imgProducts as $item)
+                                            <div class="thumbnail">
+                                                <img src="{{ asset('storage/upload/admin/productImg') }}/{{ $item->image }}"
+                                                    alt="Product Images">
+                                            </div>
+                                        @endforeach
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div
                                         class="small-thumb-wrapper product-small-thumb-4 slick-layout-wrapper--10 axil-slick-arrow arrow-both-side">
                                         <div class="small-thumb-img">
-                                            <img src="{{ asset('assets') }}/fe/images/product/product-thumb/thumb-16.png"
+                                            <img src="{{ asset('storage/upload/admin/products') }}/{{ $product->main_img }}"
                                                 alt="samll-thumb">
                                         </div>
-                                        <div class="small-thumb-img">
-                                            <img src="{{ asset('assets') }}/fe/images/product/product-thumb/thumb-17.png"
-                                                alt="samll-thumb">
-                                        </div>
-                                        <div class="small-thumb-img active">
-                                            <img src="{{ asset('assets') }}/fe/images/product/product-thumb/thumb-18.png"
-                                                alt="samll-thumb">
-                                        </div>
-                                        <div class="small-thumb-img">
-                                            <img src="{{ asset('assets') }}/fe/images/product/product-thumb/thumb-19.png"
-                                                alt="samll-thumb">
-                                        </div>
-                                        <div class="small-thumb-img">
-                                            <img src="{{ asset('assets') }}/fe/images/product/product-thumb/thumb-20.png"
-                                                alt="samll-thumb">
-                                        </div>
-                                        <div class="small-thumb-img">
-                                            <img src="{{ asset('assets') }}/fe/images/product/product-thumb/thumb-16.png"
-                                                alt="samll-thumb">
-                                        </div>
+                                        @foreach ($imgProducts as $item)
+                                            <div class="small-thumb-img">
+                                                <img src="{{ asset('storage/upload/admin/productImg') }}/{{ $item->image }}"
+                                                    alt="samll-thumb">
+                                            </div>
+                                        @endforeach
+
                                     </div>
                                 </div>
                             </div>
@@ -71,8 +45,12 @@
                         <div class="col-lg-6 mb--40">
                             <div class="single-product-content">
                                 <div class="inner">
-                                    <h2 class="product-title">Echo Dot (4th Gen) | Smart speaker with Alexa</h2>
-                                    <span class="price-amount">$120.00 - $180.00</span>
+                                    <h2 class="product-title">{{ $product->name }}</h2>
+                                    @if ($product->sale_price)
+                                        <del class="price-amount">{{ number_format($product->price) }} VND</del>
+                                        <span class="price-amount">{{ number_format($product->sale_price) }} VND</span>
+                                    @else
+                                    @endif
                                     <div class="product-rating">
                                         <div class="star-rating">
                                             <i class="fas fa-star"></i>
@@ -84,13 +62,6 @@
                                         <div class="review-number">6,405</div>
                                         <div class="total-answerd">2 answered questions</div>
                                     </div>
-                                    <ul class="description">
-                                        <li>Meet Echo Dot - Our most compact smart speaker that fits perfectly into small
-                                            spaces.</li>
-                                        <li>Add rich bass to your music experience. Echo Sub delivers down-firing, 100W deep
-                                            bass sound through a 6” woofer. When paired with Echo Studio, you can feel the
-                                            music as it fills the room</li>
-                                    </ul>
                                     <div class="product-variations-wrapper">
 
                                         <!-- Start Product Variation  -->
@@ -178,27 +149,7 @@
                                         <h5 class="title">
                                             Tính năng chính</h5>
                                         <div class="row">
-                                            <div class="col-lg-6">
-                                                <ul>
-                                                    <li>6.1-inch Super Retina XDR display1</li>
-                                                    <li>Advanced camera system for better photos in any light</li>
-                                                    <li>Cinematic mode now in 4K Dolby Vision up to 30 fps</li>
-                                                    <li>A15 Bionic chip with 5-core GPU for lightning-fast performance.
-                                                        Superfast 5G cellular4</li>
-                                                    <li>Vital safety features Emergency SOS via satellite2 and Crash
-                                                        Detection</li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <ul>
-                                                    <li>Action mode for smooth, steady, handheld videos </li>
-                                                    <li>All-day battery life and up to 20 hours of video playback3</li>
-                                                    <li>Industry-leading durability features with Ceramic Shield and
-                                                        water resistance5</li>
-                                                    <li>iOS 16 offers even more ways to personalize, communicate, and
-                                                        share6</li>
-                                                </ul>
-                                            </div>
+                                            {!! $product->description !!}
                                         </div>
 
                                     </div>

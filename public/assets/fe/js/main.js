@@ -802,6 +802,7 @@
             });
 
             $('#quick-view-modal').on('shown.bs.modal', function (event) {
+                e.preventDefault();
                 $('.slick-slider').slick('setPosition');
             });
 

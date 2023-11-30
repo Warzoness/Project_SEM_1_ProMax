@@ -94,7 +94,7 @@
                             </a>
                         </li>
                         <li class="shopping-cart">
-                            <a href="{{ route('home.cart') }}" class="cart-dropdown-btn">
+                            <a href="{{ route('cart.index') }}" class="cart-dropdown-btn">
                                 <span class="cart-count">3</span>
                                 <i class="flaticon-shopping-cart"></i>
                             </a>

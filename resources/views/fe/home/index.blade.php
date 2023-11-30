@@ -2,7 +2,7 @@
 @section('tittle', 'HOME')
 
 @section('main-content')
-    @foreach ($pr as $items)
+    @foreach ($products as $items)
         <div class="modal fade quick-view-product" id="quick-view-modal-{{ $items->id }}" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -44,14 +44,6 @@
                                                             alt="thumb image">
                                                     </div>
                                                 @endforeach
-                                                {{-- <div class="small-thumb-img">
-                                                    <img src="{{ asset('assets') }}/fe/images/product/product-thumb/thumb-07.png"
-                                                        alt="thumb image">
-                                                </div>
-                                                <div class="small-thumb-img">
-                                                    <img src="{{ asset('assets') }}/fe/images/product/product-thumb/thumb-09.png"
-                                                        alt="thumb image">
-                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -69,8 +61,8 @@
                                                 </div>
                                             </div>
                                             <h3 class="product-title">{{ $items->name }}</h3>
-                                            <del>{{ number_format($items->price) }}</del>
-                                            <p class="price-amount">{{ number_format($items->sale_price) }}</p>
+                                            <del>{{ number_format($items->price) }} VND</del>
+                                            <p class="price-amount">{{ number_format($items->sale_price) }} VND</p>
 
                                             <ul class="product-meta">
                                                 <li><i class="fal fa-check"></i>In stock</li>
@@ -321,7 +313,7 @@
                                 <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
                                     <div class="axil-product product-style-one">
                                         <div class="thumbnail">
-                                            <a href="{{ route('product.detail') }}">
+                                            <a href="{{ route('product.detail', $item) }}">
                                                 <img data-sal="zoom-out" data-sal-delay="200" data-sal-duration="800"
                                                     loading="lazy" class="main-img"
                                                     src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
@@ -337,8 +329,8 @@
                                             @endif
                                             <div class="product-hover-action">
                                                 <ul class="cart-action">
-                                                    <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                            data-bs-target="#quick-view-modal"><i
+                                                    <li class="quickview"><a data-bs-toggle="modal"
+                                                            data-bs-target="#quick-view-modal-{{ $item->id }}"><i
                                                                 class="far fa-eye"></i></a>
                                                     </li>
                                                     <li class="select-option">
@@ -466,105 +458,6 @@
         </div>
         <!-- End Expolre Product Area  -->
 
-        <!-- Start Testimonila Area  -->
-        <div class="axil-testimoial-area axil-section-gap bg-vista-white">
-            <div class="container">
-                <div class="section-title-wrapper">
-                    <h2 class="title">Phản hồi của khách hàng</h2>
-                </div>
-                <!-- End .section-title -->
-                <div
-                    class="testimonial-slick-activation testimonial-style-one-wrapper slick-layout-wrapper--20 axil-slick-arrow arrow-top-slide">
-                    <div class="slick-single-layout testimonial-style-one">
-                        <div class="review-speech">
-                            <p>“ It’s amazing how much easier it has been to
-                                meet new people and create instantly non
-                                connections. I have the exact same personal
-                                the only thing that has changed is my mind
-                                set and a few behaviors. “</p>
-                        </div>
-                        <div class="media">
-                            <div class="thumbnail">
-                                <img src="{{ asset('assets') }}/fe/images/testimonial/image-1.png"
-                                    alt="testimonial image">
-                            </div>
-                            <div class="media-body">
-                                <span class="designation">Head Of Idea</span>
-                                <h6 class="title">James C. Anderson</h6>
-                            </div>
-                        </div>
-                        <!-- End .thumbnail -->
-                    </div>
-                    <!-- End .slick-single-layout -->
-                    <div class="slick-single-layout testimonial-style-one">
-                        <div class="review-speech">
-                            <p>“ It’s amazing how much easier it has been to
-                                meet new people and create instantly non
-                                connections. I have the exact same personal
-                                the only thing that has changed is my mind
-                                set and a few behaviors. “</p>
-                        </div>
-                        <div class="media">
-                            <div class="thumbnail">
-                                <img src="{{ asset('assets') }}/fe/images/testimonial/image-2.png"
-                                    alt="testimonial image">
-                            </div>
-                            <div class="media-body">
-                                <span class="designation">Head Of Idea</span>
-                                <h6 class="title">James C. Anderson</h6>
-                            </div>
-                        </div>
-                        <!-- End .thumbnail -->
-                    </div>
-                    <!-- End .slick-single-layout -->
-                    <div class="slick-single-layout testimonial-style-one">
-                        <div class="review-speech">
-                            <p>“ It’s amazing how much easier it has been to
-                                meet new people and create instantly non
-                                connections. I have the exact same personal
-                                the only thing that has changed is my mind
-                                set and a few behaviors. “</p>
-                        </div>
-                        <div class="media">
-                            <div class="thumbnail">
-                                <img src="{{ asset('assets') }}/fe/images/testimonial/image-3.png"
-                                    alt="testimonial image">
-                            </div>
-                            <div class="media-body">
-                                <span class="designation">Head Of Idea</span>
-                                <h6 class="title">James C. Anderson</h6>
-                            </div>
-                        </div>
-                        <!-- End .thumbnail -->
-                    </div>
-                    <!-- End .slick-single-layout -->
-                    <div class="slick-single-layout testimonial-style-one">
-                        <div class="review-speech">
-                            <p>“ It’s amazing how much easier it has been to
-                                meet new people and create instantly non
-                                connections. I have the exact same personal
-                                the only thing that has changed is my mind
-                                set and a few behaviors. “</p>
-                        </div>
-                        <div class="media">
-                            <div class="thumbnail">
-                                <img src="{{ asset('assets') }}/fe/images/testimonial/image-2.png"
-                                    alt="testimonial image">
-                            </div>
-                            <div class="media-body">
-                                <span class="designation">Head Of Idea</span>
-                                <h6 class="title">James C. Anderson</h6>
-                            </div>
-                        </div>
-                        <!-- End .thumbnail -->
-                    </div>
-                    <!-- End .slick-single-layout -->
-
-                </div>
-            </div>
-        </div>
-        <!-- End Testimonila Area  -->
-
         <!-- Start New Arrivals Product Area  -->
         <div class="axil-new-arrivals-product-area bg-color-white axil-section-gap pb--0">
             <div class="container">
@@ -651,256 +544,48 @@
                         <h2 class="title">Bán chạy nhất ở eTrade Store</h2>
                     </div>
                     <div class="row row-cols-xl-2 row-cols-1 row--15">
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="100" data-sal-duration="1500"
-                                            src="{{ asset('assets') }}/fe/images/product/electric/product-09.png"
-                                            alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>100+</span> Đánh giá</span>
+                        @foreach ($fearture as $item)
+                            <div class="col">
+                                <div class="axil-product-list">
+                                    <div class="thumbnail" class="w-25">
+                                        <a href="single-product.html">
+                                            <img data-sal="zoom-in" data-sal-delay="100" data-sal-duration="1500"
+                                                src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
+                                                alt="Yantiti Leather Bags">
+                                        </a>
                                     </div>
-                                    <h6 class="product-title"><a href="single-product.html">Media Remote</a></h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$29.99</span>
-                                        <span class="price old-price">$49.99</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="cart.html" class="cart-btn"><i class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="200" data-sal-duration="1500"
-                                            src="{{ asset('assets') }}/fe/images/product/electric/product-10.png"
-                                            alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>50+</span> Đánh giá</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">HD Camera</a></h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$49.99</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="cart.html" class="cart-btn"><i class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
+                                    <div class="product-content w-50 ">
+                                        <div class="product-rating">
+                                            <span class="rating-icon">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fal fa-star"></i>
+                                            </span>
+                                            <span class="rating-number"><span>100+</span> Đánh giá</span>
+                                        </div>
+                                        <h6 class="product-title"><a href="single-product.html">Media Remote</a></h6>
+                                        @if ($item->sale_price)
+                                            <div class="product-price-variant">
+                                                <p class="price current-price">{{ number_format($item->sale_price) }}
+                                                    VND</p>
+                                                <p class="price old-price">{{ number_format($item->price) }} VND</p>
+                                            </div>
+                                        @else
+                                            <div class="product-price-variant">
+                                                <p class="price current-price">{{ number_format($item->price) }}
+                                                    VND</p>
+                                            </div>
+                                        @endif
+                                        <div class="product-cart">
+                                            <a href="cart.html" class="cart-btn"><i class="fal fa-shopping-cart"></i></a>
+                                            <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="300" data-sal-duration="1500"
-                                            src="{{ asset('assets') }}/fe/images/product/electric/product-11.png"
-                                            alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>120+</span> Đánh giá</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">Gaming Controller</a></h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$50.00</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="cart.html" class="cart-btn"><i class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="400" data-sal-duration="1500"
-                                            src="{{ asset('assets') }}/fe/images/product/electric/product-12.png"
-                                            alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>30+</span> Đánh giá</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">Wall Mount </a></h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$19.00</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="cart.html" class="cart-btn"><i class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="500" data-sal-duration="1500"
-                                            src="{{ asset('assets') }}/fe/images/product/electric/product-13.png"
-                                            alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>700+</span> Đánh giá</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">Lenevo Laptop</a></h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$999.99</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="cart.html" class="cart-btn"><i class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="600" data-sal-duration="1500"
-                                            src="{{ asset('assets') }}/fe/images/product/electric/product-14.png"
-                                            alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>300+</span> Đánh giá</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">Juice Grinder Machine</a>
-                                    </h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$99.00</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="cart.html" class="cart-btn"><i class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="400" data-sal-duration="1500"
-                                            src="{{ asset('assets') }}/fe/images/product/electric/product-15.png"
-                                            alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>100+</span> Đánh giá</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">Wireless Headphone</a></h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$59.99</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="cart.html" class="cart-btn"><i class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="500" data-sal-duration="1500"
-                                            src="{{ asset('assets') }}/fe/images/product/electric/product-16.png"
-                                            alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>100+</span> Đánh giá</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">Asus Zenbook Laptop</a></h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$899.00</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="cart.html" class="cart-btn"><i class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

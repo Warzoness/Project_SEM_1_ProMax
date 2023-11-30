@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Fe;
 
+use App\Models\Admin\Sales\Category;
+use App\Models\Admin\Sales\Color;
+use App\Models\Admin\Sales\ImgProducts;
+use App\Models\Admin\Sales\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -11,7 +15,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('fe.product.index');
+        $products = Product::all();
+        $colors = Color::all();
+        $categories = Category::all();
+        return view('fe.product.index',compact('products','categories','colors'));
     }
 
     /**
@@ -62,8 +69,11 @@ class ProductController extends Controller
         //
     }
 
-    public function detail()
+    public function detail(Product $product)
     {
-        return view('fe.product.detail');
+        $products = Product::all();
+        $colors = Color::all();
+        $imgProducts = ImgProducts::where('product_id',$product->id)->get();
+        return view('fe.product.detail',compact('products','colors','product','imgProducts'));
     }
 }
