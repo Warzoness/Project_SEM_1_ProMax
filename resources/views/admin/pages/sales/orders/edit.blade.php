@@ -240,17 +240,16 @@
                                             <div class="col-span-1">
                                                 <div class="form-item vertical gap-2">
                                                     <label class="checkbox-label">
-                                                        <input class="checkbox checkbox-product" type="checkbox"
-                                                            name="fearture1" value="1"
-                                                            {{ $product->fearture == 1 ? 'checked' : '' }}>
+                                                        <input class="checkbox" type="checkbox" name="fearture"
+                                                            value="1" {{ $product->fearture == 1 ? 'checked' : '' }}>
                                                         <span>Fearture</span>
                                                     </label>
                                                 </div>
                                                 <div class="form-item vertical gap-2">
                                                     <div class="form-item vertical gap-2">
                                                         <label class="checkbox-label">
-                                                            <input class="checkbox checkbox-product" type="checkbox"
-                                                                name="banner1" value="1"
+                                                            <input class="checkbox" type="checkbox" name="banner"
+                                                                value="1"
                                                                 {{ $product->banner == 1 ? 'checked' : '' }}>
                                                             <span>Banner</span>
                                                         </label>

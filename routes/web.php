@@ -44,13 +44,14 @@ Route::prefix('admin')->group(function () {
 
 
     Route::get('masterview',[ProjectController::class,'masterview'])->name('admin.masterview');
-    // Du Am
+    // Du An
     Route::prefix('project')->group(function () {
         Route::get('/dashboard-project',[ProjectController::class,'projectDashboard'])->name('project.dashboard');
         Route::get('/project-list',[ProjectController::class,'projectList'])->name('project.projectList');
         Route::get('/scrum-board',[ProjectController::class,'scrumBoard'])->name('project.scrumBoard');
         Route::get('/issue',[ProjectController::class,'issue'])->name('project.issue');
     });
+
     // Khach Hang
     Route::prefix('crm')->group(function () {
         Route::get('/calendar',[MainController::class,'calendar'])->name('crm.calendar');
@@ -82,6 +83,12 @@ Route::prefix('admin')->group(function () {
         Route::get('/brand/trash',[BrandsController::class,'trash'])->name('brands.trashIndex');
         Route::get('/brand/restore/{id}',[BrandsController::class,'restore'])->name('brands.restore');
         Route::delete('/brand/forceDelete/{id}',[BrandsController::class,'forceDelete'])->name('brands.forceDelete');
+
+        // Orders
+        Route::get('/orders',[OrdersController::class,'index'])->name('orders.index');
+        Route::get('/orderDetail/{order}',[OrdersController::class,'orderDetails'])->name('orders.detail');
+
+
         // Phương Thức Thanh Toán
         Route::resource('paymentMethods', PaymentMethodsController::class);
         Route::get('/paymentMethod/trash',[PaymentMethodsController::class,'trash'])->name('paymentMethods.trashIndex');
@@ -100,10 +107,10 @@ Route::get('/cart-index',[CartsController::class,'index'])->name('cart.index');
 Route::post('/add-cart',[CartsController::class,'add'])->name('cart.add');
 Route::get('/remove-cart/{id}',[CartsController::class,'remove'])->name('cart.remove');
 // Route::post('/update-cart',[CartsController::class,'update'])->name('cart.update');
+Route::get('', [HomeController::class, 'index'])->name('home.index');
 
 Route::prefix('website')->group(function(){
     Route::resource('user',UserController::class);
-    Route::get('/trang-chu', [HomeController::class, 'index'])->name('home.index');
     Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('home.about');
     Route::get('/blogs', [HomeController::class, 'blog'])->name('home.blogs');
     Route::get('/blog-detail', [HomeController::class, 'blogDetail'])->name('home.blog-detail');
@@ -113,6 +120,11 @@ Route::prefix('website')->group(function(){
     Route::get('/gio-hang', [HomeController::class, 'cart'])->name('home.cart');
     Route::get('/thanh-toan',[HomeController::class,'checkout'])->name('home.checkout');
     
+    Route::post('/san-pham',[ProductController::class,'searchtag'])->name('product.searchtag');
+    Route::post('/san-pham',[ProductController::class,'comment'])->name('comment.add');
+    Route::get('/san-pham/{id}',[ProductController::class,'indexByCategory'])->name('indexByCategory');
+    Route::get('/san-pham',[ProductController::class,'sortByNewest'])->name('sortByNewest');
+
     Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('home.privacy-policy');
     Route::get('/terms-of-service', [HomeController::class, 'termsOfService'])->name('home.terms-of-service');
 
@@ -121,5 +133,6 @@ Route::prefix('website')->group(function(){
     Route::get('/chi-tiet-san-pham/{slug}', [ProductController::class,'detail'])->name('product.detail');
 
     Route::get('/masterview',[Controller::class,'masterview'])->name('okok');
+
 
 });

@@ -32,10 +32,10 @@
             <div class="header-navbar">
                 <div class="header-brand">
                     <a href="{{ route('home.index') }}" class="logo logo-dark">
-                        <img src="assets/images/logo/logo.png" alt="Site Logo">
+                        <img src="{{ asset('assets/fe/images/logo/logo.png') }}" alt="Site Logo">
                     </a>
                     <a href="{{ route('home.index') }}" class="logo logo-light">
-                        <img src="assets/images/logo/logo-light.png" alt="Site Logo">
+                        <img src="{{ asset('assets/fe/images/logo/logo-light.png') }}" alt="Site Logo">
                     </a>
                 </div>
                 <div class="header-main-nav">
@@ -44,7 +44,7 @@
                         <button class="mobile-close-btn mobile-nav-toggler"><i class="fas fa-times"></i></button>
                         <div class="mobile-nav-brand">
                             <a href="index.html" class="logo">
-                                <img src="assets/images/logo/logo.png" alt="Site Logo">
+                                <img src="{{ asset('assets/fe/images/logo.png') }}" alt="Site Logo">
                             </a>
                         </div>
                         <ul class="mainmenu">

@@ -200,7 +200,7 @@
                                         <div class="product-price">
                                             <span class="text">Chỉ từ</span>
                                             <span
-                                                class="price-amount text-danger">{{ $item->price ? number_format($item->sale_price) : number_format($item->price) }}
+                                                class="price-amount text-danger">{{ $item->sale_price ? number_format($item->sale_price) : number_format($item->price) }}
                                                 VND</span>
                                         </div>
                                     </div>
@@ -228,7 +228,7 @@
                         <div class="slick-single-layout">
                             <div class="categrie-product" data-sal="zoom-out" data-sal-delay="200"
                                 data-sal-duration="500">
-                                <a href="#">
+                                <a href="{{ route('indexByCategory', $item->id) }}">
                                     <img class="img-fluid"
                                         src="{{ asset('storage/upload/admin/categories') }}/{{ $item->image }}"
                                         alt="product categorie">
@@ -359,8 +359,9 @@
                                                     </div>
                                                 @else
                                                     <div class="product-price-variant">
-                                                        <p class="price current-price">{{ number_format($item->price) }}
-                                                            VND</p>
+                                                        <strong
+                                                            class="strongrice current-price text-primary text-primary ">{{ number_format($item->price) }}
+                                                            VND</strong>
                                                     </div>
                                                 @endif
                                             </div>
@@ -452,7 +453,8 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12 text-center mt--20 mt_sm--0">
-                        <a href="shop.html" class="axil-btn btn-bg-lighter btn-load-more">Xem tất cả sản phẩm</a>
+                        <a href="{{ route('fe-product.index') }}" class="axil-btn btn-bg-lighter btn-load-more">Xem tất
+                            cả sản phẩm</a>
                     </div>
                 </div>
 
@@ -480,12 +482,14 @@
                                                 src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
                                                 alt="Product Images">
                                         </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">
-                                                {{ number_format((1 - $item->sale_price / $item->price) * 100, 2) }}
-                                                %
-                                                OFF</div>
-                                        </div>
+                                        @if ($item->sale_price)
+                                            <div class="label-block label-right">
+                                                <div class="product-badget">
+                                                    {{ number_format((1 - $item->sale_price / $item->price) * 100, 2) }}
+                                                    %
+                                                    OFF</div>
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="product-content text-center ">
                                         <div class="inner">

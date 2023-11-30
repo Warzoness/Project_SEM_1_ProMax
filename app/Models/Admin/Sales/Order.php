@@ -12,4 +12,10 @@ class Order extends Model
     use SoftDeletes;
 
     protected $fillable = ['fullname','status','phone','address','email','note_checkout','paymentMethod_id','total_price'] ;
+
+    
+    public function paymentMethod()
+    {
+        return $this->belongsTo(paymentMethod::class, 'paymentMethod_id', 'id');
+    }
 }

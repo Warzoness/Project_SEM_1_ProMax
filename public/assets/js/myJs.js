@@ -162,3 +162,5 @@ $('body').on('click', "#close-img-btn", function (e) {
     $(this).parent().parent().remove();
 });
 
+
+

@@ -85,9 +85,30 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user)
     {
-        //
+        $user = Auth::user();
+        $auth = Auth::attempt(['password' => $request->password]);
+        if($auth){
+            $update = Auth::user()->update(['password'=>Hash::make($request->newPassword)]);
+            try {
+                $update = $user->update($request->all());
+                if($update){
+                    alert()->success('Yeah !','Update thông tin thành công');
+                    return redirect()->route('account.index');
+                }else{
+                    alert()->error('Oops !','Update thông tin thất bại');
+                    return redirect()->back();
+                }
+            } catch (\Throwable $th) {
+                    alert()->error('Oops !','Update thông tin thất bại');
+                    return redirect()->back();
+            }
+        }else{
+            alert()->error('Oops','Mật Khẩu Cũ Không Đúng !');
+            return redirect()->back();
+        }
+        
     }
 
     /**

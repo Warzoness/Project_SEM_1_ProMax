@@ -6,7 +6,9 @@
         <div class="axil-single-product-area bg-color-white">
             <div class="single-product-thumb axil-section-gapcommon single-product-modern">
                 <div class="container">
-                    <div class="row row--20">
+                    <form class="row row--20" action="{{ route('cart.add') }}" method="POST">
+                        @csrf
+                        <input type="text" name="id" hidden value="{{ $product->id }}">
                         <div class="col-lg-6 mb--40">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -46,11 +48,6 @@
                             <div class="single-product-content">
                                 <div class="inner">
                                     <h2 class="product-title">{{ $product->name }}</h2>
-                                    @if ($product->sale_price)
-                                        <del class="price-amount">{{ number_format($product->price) }} VND</del>
-                                        <span class="price-amount">{{ number_format($product->sale_price) }} VND</span>
-                                    @else
-                                    @endif
                                     <div class="product-rating">
                                         <div class="star-rating">
                                             <i class="fas fa-star"></i>
@@ -66,17 +63,21 @@
 
                                         <!-- Start Product Variation  -->
                                         <div class="product-variation product-size-variation">
-                                            <h6 class="title">Kích thước:</h6>
-                                            <ul class="range-variant">
-                                                <li class="active">xs</li>
-                                                <li>s</li>
-                                                <li>m</li>
-                                                <li>l</li>
-                                                <li>xl</li>
-                                            </ul>
                                         </div>
                                         <!-- End Product Variation  -->
                                         <!-- Start Product Variation  -->
+                                        @if ($product->sale_price)
+                                            <h6 class="title">Giá : <del>{{ number_format($product->price) }} VND</del>
+                                            </h6>
+                                            <h6 class="title">Giá Khuyến Mãi :
+                                                <span>{{ number_format($product->sale_price) }}
+                                                    VND</span>
+                                            </h6>
+                                        @else
+                                            <h6 class="title">Giá : <span>{{ number_format($product->price) }}
+                                                    VND</span>
+                                            </h6>
+                                        @endif
                                         <div class="product-variation">
                                             <h6 class="title">Màu:</h6>
                                             <div class="color-variant-wrapper">
@@ -96,7 +97,7 @@
                                         <!-- End Product Variation  -->
                                         <div class="product-variation quantity-variant-wrapper">
                                             <h6 class="title">Số lượng: </h6>
-                                            <div class="pro-qty"><input type="text" value="1"></div>
+                                            <div class="pro-qty"><input type="text" value="1" name="quantity"></div>
                                         </div>
 
                                     </div>
@@ -106,12 +107,9 @@
 
                                         <!-- Start Product Action  -->
                                         <ul class="product-action d-flex-center mb--0">
-                                            <li class="add-to-cart"><a href="{{ route('home.checkout') }}"
-                                                    class="axil-btn btn-bg-secondary"><i class="far fa-shopping-bag"></i>
-                                                    Mua Ngay</a></li>
-                                            <li class="add-to-cart"><a href="{{ route('cart.index') }}"
+                                            <li class="add-to-cart"><button type="submit" name="action"
                                                     class="axil-btn btn-bg-primary"><i class="far fa-shopping-cart"></i>
-                                                    Thêm vào giỏ</a></li>
+                                                    Thêm vào giỏ</button></li>
 
                                         </ul>
                                         <!-- End Product Action  -->
@@ -121,7 +119,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <!-- End .single-product-thumb -->
@@ -165,127 +163,32 @@
                                                 <h5 class="title">Đánh giá sản phẩm này</h5>
                                                 <ul class="comment-list">
                                                     <!-- Start Single Comment  -->
-                                                    <li class="comment">
-                                                        <div class="comment-body">
-                                                            <div class="single-comment">
-                                                                <div class="comment-img">
-                                                                    <img src="{{ asset('assets') }}/fe/images/blog/author-image-4.png"
-                                                                        alt="Author Images">
-                                                                </div>
-                                                                <div class="comment-inner">
-                                                                    <h6 class="commenter">
-                                                                        <a class="hover-flip-item-wrapper" href="#">
-                                                                            <span class="hover-flip-item">
-                                                                                <span
-                                                                                    data-text="Cameron Williamson">Eleanor
-                                                                                    Pena</span>
-                                                                            </span>
-                                                                        </a>
-                                                                        <span class="commenter-rating ratiing-four-star">
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star"></i></a>
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star"></i></a>
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star"></i></a>
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star"></i></a>
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star empty-rating"></i></a>
-                                                                        </span>
-                                                                    </h6>
-                                                                    <div class="comment-text">
-                                                                        <p>“We’ve created a full-stack structure for our
-                                                                            working workflow processes, were from the
-                                                                            funny the century initial all the made, have
-                                                                            spare to negatives. ” </p>
+                                                    @foreach ($comments as $item)
+                                                        <li class="comment">
+                                                            <div class="comment-body">
+                                                                <div class="single-comment">
+                                                                    <div class="comment-img">
+                                                                        <img src="{{ asset('assets') }}/fe/images/blog/author-image-5.png"
+                                                                            alt="Author Images">
+                                                                    </div>
+                                                                    <div class="comment-inner">
+                                                                        <h6 class="commenter">
+                                                                            <a class="hover-flip-item-wrapper"
+                                                                                href="#">
+                                                                                <span class="hover-flip-item">
+                                                                                    <span
+                                                                                        data-text="Rahabi Khan">{{ $item->fullname }}</span>
+                                                                                </span>
+                                                                            </a>
+                                                                        </h6>
+                                                                        <div class="comment-text">
+                                                                            <p>“ {{ $item->comment }}” </p>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </li>
-                                                    <!-- End Single Comment  -->
-
-                                                    <!-- Start Single Comment  -->
-                                                    <li class="comment">
-                                                        <div class="comment-body">
-                                                            <div class="single-comment">
-                                                                <div class="comment-img">
-                                                                    <img src="{{ asset('assets') }}/fe/images/blog/author-image-4.png"
-                                                                        alt="Author Images">
-                                                                </div>
-                                                                <div class="comment-inner">
-                                                                    <h6 class="commenter">
-                                                                        <a class="hover-flip-item-wrapper" href="#">
-                                                                            <span class="hover-flip-item">
-                                                                                <span data-text="Rahabi Khan">Courtney
-                                                                                    Henry</span>
-                                                                            </span>
-                                                                        </a>
-                                                                        <span class="commenter-rating ratiing-four-star">
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star"></i></a>
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star"></i></a>
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star"></i></a>
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star"></i></a>
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star"></i></a>
-                                                                        </span>
-                                                                    </h6>
-                                                                    <div class="comment-text">
-                                                                        <p>“We’ve created a full-stack structure for our
-                                                                            working workflow processes, were from the
-                                                                            funny the century initial all the made, have
-                                                                            spare to negatives. ”</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <!-- End Single Comment  -->
-
-                                                    <!-- Start Single Comment  -->
-                                                    <li class="comment">
-                                                        <div class="comment-body">
-                                                            <div class="single-comment">
-                                                                <div class="comment-img">
-                                                                    <img src="{{ asset('assets') }}/fe/images/blog/author-image-5.png"
-                                                                        alt="Author Images">
-                                                                </div>
-                                                                <div class="comment-inner">
-                                                                    <h6 class="commenter">
-                                                                        <a class="hover-flip-item-wrapper" href="#">
-                                                                            <span class="hover-flip-item">
-                                                                                <span data-text="Rahabi Khan">Devon
-                                                                                    Lane</span>
-                                                                            </span>
-                                                                        </a>
-                                                                        <span class="commenter-rating ratiing-four-star">
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star"></i></a>
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star"></i></a>
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star"></i></a>
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star"></i></a>
-                                                                            <a href="#"><i
-                                                                                    class="fas fa-star"></i></a>
-                                                                        </span>
-                                                                    </h6>
-                                                                    <div class="comment-text">
-                                                                        <p>“We’ve created a full-stack structure for our
-                                                                            working workflow processes, were from the
-                                                                            funny the century initial all the made, have
-                                                                            spare to negatives. ” </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
+                                                        </li>
+                                                    @endforeach
                                                     <!-- End Single Comment  -->
                                                 </ul>
                                             </div>
@@ -301,32 +204,37 @@
                                                 <div class="rating-wrapper d-flex-center mb--40">
                                                     Đánh giá của bạn <span class="require">*</span>
                                                     <div class="reating-inner ml--20">
-                                                        <a href="#"><i class="fal fa-star"></i></a>
-                                                        <a href="#"><i class="fal fa-star"></i></a>
-                                                        <a href="#"><i class="fal fa-star"></i></a>
-                                                        <a href="#"><i class="fal fa-star"></i></a>
-                                                        <a href="#"><i class="fal fa-star"></i></a>
+                                                        <a href=""><i class="fal fa-star"></i></a>
+                                                        <a href=""><i class="fal fa-star"></i></a>
+                                                        <a href=""><i class="fal fa-star"></i></a>
+                                                        <a href=""><i class="fal fa-star"></i></a>
+                                                        <a href=""><i class="fal fa-star"></i></a>
                                                     </div>
                                                 </div>
 
-                                                <form action="#">
+                                                <form action="{{ route('comment.add') }}" method="POST">
+                                                    @csrf
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <label>Ghi chú khác (tùy chọn)</label>
-                                                                <textarea name="message" placeholder="Bình luận của bạn"></textarea>
+                                                                <textarea placeholder="Bình luận của bạn" name="comment"></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6 col-md-6 col-12">
                                                             <div class="form-group">
                                                                 <label>Tên <span class="require">*</span></label>
-                                                                <input id="name" type="text">
+                                                                <input id="name" type="text" name="fullname"
+                                                                    value="{{ Auth::user() ? Auth::user()->fullname : '' }}">
                                                             </div>
                                                         </div>
+                                                        <input type="hidden" name="product_id"
+                                                            value="{{ $product->id }}">
                                                         <div class="col-lg-6 col-md-6 col-12">
                                                             <div class="form-group">
                                                                 <label>Email <span class="require">*</span> </label>
-                                                                <input id="email" type="email">
+                                                                <input id="email" type="email" name="email"
+                                                                    value="{{ Auth::user() ? Auth::user()->email : '' }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-12">
@@ -391,7 +299,7 @@
 
         </div>
         <!-- Start Expolre Product Area  -->
-        <div class="axil-new-arrivals-product-area fullwidth-container flash-sale-area section-gap-80-35">
+        {{-- <div class="axil-new-arrivals-product-area fullwidth-container flash-sale-area section-gap-80-35">
             <div class="container ml--xxl-0">
                 <div class="section-title-border slider-section-title">
                     <h2 class="title">Đã xem gần đây 💥</h2>
@@ -734,7 +642,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- End Expolre Product Area  -->
         <div class="sale-banner-area mb-5">
             <div class="container">

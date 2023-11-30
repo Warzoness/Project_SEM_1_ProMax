@@ -110,6 +110,19 @@ class ProductsController extends Controller
      */
     public function update(UpdateProductsRequest $request, Product $product)
     {
+
+        if($request->banner1 == 1){
+            $request->merge(['banner'=>1]);
+        }else{
+            $request->merge(['banner'=> null]);
+        }
+
+        if($request->fearture1 == 1){
+            $request->merge(['fearture'=>1]);
+        }else{
+            $request->merge(['fearture'=> null]);
+        }
+        
         $img_products = ImgProducts::where('product_id',$product->id)->get();
         if($request->photo){
             $filename = $request->photo->getClientOriginalName();

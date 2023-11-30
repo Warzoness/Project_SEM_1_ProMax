@@ -92,8 +92,8 @@
                                 </a>
                             </li>
                             <li data-menu-item="modern-order-details" class="menu-item">
-                                <a class="h-full w-full flex items-center" href="modern-order-details.html">
-                                    <span>Order Details</span>
+                                <a class="h-full w-full flex items-center" href="{{ route('orders.index') }}">
+                                    <span>Orders</span>
                                 </a>
                             </li>
                         </ul>

@@ -13,17 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('order_details', function (Blueprint $table) {
-            $table->unsignedBigInteger('order_id');
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id();
+            $table->string('fullname', 255);
+            $table->string('email',255);
+            $table->string('comment', 255);
             $table->unsignedBigInteger('product_id');
-            $table->integer('quantity')->unsigned();
-            $table->double('total_price', 16, 2);
-            $table->double('price', 16, 2);
-            $table->string('name', 255);
-            $table->string('image', 100);
-            $table->foreign('order_id')->references('id')->on('orders');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -35,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_details');
+        Schema::dropIfExists('comments');
     }
 };

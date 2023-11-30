@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 class OrdersController extends Controller
 {
     public function index(){
-
+        $orders = Order::all();
+        return view('admin.pages.sales.orders.index',compact('orders'));
     }
 
     public function add(cartHelper $cart,Request $request){
@@ -26,11 +27,21 @@ class OrdersController extends Controller
                 'order_id' => $new->id,
                 'product_id'=>$value['product_id'],
                 'quantity' =>$value['quantity'],
+                'price'=>$value['price'],
                 'total_price'=>$value['quantity'] * $value['price'],
-                'image'=>$value['image']
+                'image'=>$value['image'],
+                'name'=>$value['name']
             ]);
         }
         session()->forget('cart');
 
+        alert()->success('Chúc Mừng !','Bạn đã Order thành công !');
+        return redirect()->route('home.index');
+
+    }
+
+    public function orderDetails(Order $order){
+        $orderDetails = OrderDetail::where('order_id',$order->id)->get();
+        return view('admin.pages.sales.orders.orderDetail',compact('orderDetails'));
     }
 }

@@ -34,7 +34,8 @@
              <div class="container">
                  <div class="row">
                      <div class="col-lg-3">
-                         <div class="axil-shop-sidebar">
+                         <form class="axil-shop-sidebar" method="POST" action="">
+                             @csrf
                              <div class="d-lg-none">
                                  <button class="sidebar-close filter-close-btn"><i class="fas fa-times"></i></button>
                              </div>
@@ -43,7 +44,21 @@
                                  <div class="shop-submenu">
                                      <ul>
                                          @foreach ($categories as $item)
-                                             <li><a href="#">{{ $item->name }}</a></li>
+                                             <li>
+                                                 <div class="single-payment">
+                                                     <div class="input-group justify-content-between align-items-center">
+                                                         @if ($id != '')
+                                                             <input type="radio" id="radio{{ $item->id }}"
+                                                                 value="{{ $item->id }}" name="radio"
+                                                                 {{ $item->id == $id ? 'checked' : '' }}>
+                                                         @else
+                                                             <input type="radio" id="radio{{ $item->id }}"
+                                                                 value="{{ $item->id }}" name="radio">
+                                                         @endif
+                                                         <label for="radio{{ $item->id }}">{{ $item->name }}</label>
+                                                     </div>
+                                                 </div>
+                                             </li>
                                          @endforeach
                                      </ul>
                                  </div>
@@ -52,41 +67,28 @@
                                  <h6 class="title">TAG</h6>
                                  <div class="shop-submenu">
                                      <ul>
-                                         <li class="chosen"><a href="#">Thông Thường</a></li>
+                                         <li class=""><a href="#">Thông Thường</a></li>
                                          <li><a href="#">Đang Giảm Giá</a></li>
                                          <li><a href="#">Nổi Bật</a></li>
                                          <li><a href="#">Trending</a></li>
                                      </ul>
                                  </div>
                              </div>
-                             <div class="toggle-list product-color active">
-                                 <h6 class="title">MÀU SẮC</h6>
-                                 <div class="shop-submenu">
-                                     <ul>
-                                         @foreach ($colors as $item)
-                                             <li><a href="#" class="color-extra-06">{{ $item->name }}</a></li>
-                                         @endforeach
-                                     </ul>
-                                 </div>
-                             </div>
                              <div class="toggle-list product-price-range active">
                                  <h6 class="title">GIÁ</h6>
                                  <div class="shop-submenu">
-                                     <ul>
-                                         <li class="chosen"><a href="#">30</a></li>
-                                         <li><a href="#">5000</a></li>
-                                     </ul>
-                                     <form action="#" class="mt--25">
+                                     <div action="#" class="mt--25">
                                          <div id="slider-range"></div>
                                          <div class="flex-center mt--20">
                                              <span class="input-range">giá: </span>
-                                             <input type="text" id="amount" class="amount-range" readonly>
+                                             <input type="text" id="amount" class="amount-range" name="price_search"
+                                                 readonly>
                                          </div>
-                                     </form>
+                                     </div>
                                  </div>
                              </div>
-                             <button class="axil-btn btn-bg-primary">Đặt lại</button>
-                         </div>
+                             <button type="submit" class="axil-btn btn-bg-primary">Tìm</button>
+                         </form>
                          <!-- End .axil-shop-sidebar -->
                      </div>
                      <div class="col-lg-9">
@@ -96,11 +98,15 @@
                                      <div
                                          class="category-select align-items-center justify-content-lg-end justify-content-between">
                                          <!-- Start Single Select  -->
-                                         <span class="filter-results">Hiển thị 1-12 trên 84 kết quả</span>
+                                         <span class="filter-results">Hiển thị 1-12 trên {{ $products->count() }} kết
+                                             quả</span>
                                          <select class="single-select">
-                                             <option>Sắp xếp theo mới nhất</option>
+                                             <option id="newest">
+                                                 <a href="{{ route('sortByNewest') }}">Sắp xếp theo
+                                                     mới nhất
+                                                 </a>
+                                             </option>
                                              <option>Sắp xếp theo cũ nhất</option>
-                                             <option>Sắp xếp theo tên</option>
                                              <option>Sắp xếp theo giá</option>
                                          </select>
                                          <!-- End Single Select  -->
@@ -125,11 +131,13 @@
                                                  <img src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
                                                      alt="Product Images">
                                              </a>
-                                             <div class="label-block label-right">
-                                                 <div class="product-badget">
-                                                     {{ number_format((1 - $item->sale_price / $item->price) * 100, 2) }}%
-                                                     OFF</div>
-                                             </div>
+                                             @if ($item->sale_price)
+                                                 <div class="label-block label-right">
+                                                     <div class="product-badget">
+                                                         {{ number_format((1 - $item->sale_price / $item->price) * 100, 2) }}%
+                                                         OFF</div>
+                                                 </div>
+                                             @endif
                                              <div class="product-hover-action">
                                                  <ul class="cart-action">
                                                      <li class="wishlist"><a href="wishlist.html"><i
@@ -169,13 +177,14 @@
                                  </form>
                              @endforeach
                              <!-- End Single Product  -->
-
                          </div>
-                         <div class="text-center pt--20">
-                             <a href="#" class="axil-btn btn-bg-lighter btn-load-more">Xem thêm</a>
+                         <div class="d-flex justify-content-center" style="font-size: 20px">
+                             {{ $products->links() }}
                          </div>
                      </div>
+
                  </div>
+
              </div>
              <!-- End .container -->
          </div>

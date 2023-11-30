@@ -6,9 +6,11 @@ use App\Helper\cartHelper;
 use App\Models\Admin\Sales\Category;
 use App\Models\Admin\Sales\EachTypeProduct;
 use App\Models\Admin\Sales\ImgProducts;
+use App\Models\Admin\Sales\Order;
 use App\Models\Admin\Sales\paymentMethod;
 use App\Models\Admin\Sales\Product;
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -27,35 +29,45 @@ class HomeController extends Controller
         return view('fe.home.index',compact('categories','products','banner','new','pr','productSide1','productSide2','fearture','cartItems','cart'));
     }
 
-    public function aboutUs()
+    public function aboutUs(cartHelper $cart)
     {
-        return view('fe.home.about-us');
+        $cartItems = $cart->list();
+        return view('fe.home.about-us',compact('cart','cartItems'));
     }
 
-    public function blog()
+    public function blog(cartHelper $cart)
     {
-        return view('fe.home.blogs');
+        $cartItems = $cart->list();
+
+        return view('fe.home.blogs',compact('cart','cartItems'));
     }
 
-    public function contact()
+    public function contact(cartHelper $cart)
     {
-        return view('fe.home.contact');
+        $cartItems = $cart->list();
+
+        return view('fe.home.contact',compact('cart','cartItems'));
     }
 
-    public function myAccount()
+    public function myAccount(cartHelper $cart)
     {
-        return view('fe.home.my-account');
+        $cartItems = $cart->list();
+        $user = Auth::user();
+        $orders = Order::where('email',$user->email)->get();
+        return view('fe.home.my-account',compact('cart','cartItems','orders'));
     }
 
-    public function wishList()
+    public function wishList(cartHelper $cart)
     {
-        return view('fe.home.wishlist');
+        $cartItems = $cart->list();
+
+        return view('fe.home.wishlist',compact('cart','cartItems'));
     }
 
-    public function cart()
+    public function cart(cartHelper $cart)
     {
         $products = Product::all();
-        return view('fe.home.cart',compact('products'));
+        return view('fe.home.cart',compact('cart','cartItems'));
     }
 
     public function checkout(cartHelper $cart)
@@ -66,28 +78,37 @@ class HomeController extends Controller
         return view('fe.home.checkout',compact('products','paymentMethods','cart','cartItems'));
     }
 
-    public function privacyPolicy()
+    public function privacyPolicy(cartHelper $cart)
     {
-        return view('fe.home.privacy-policy');
+        $cartItems = $cart->list();
+
+        return view('fe.home.privacy-policy',compact('cart','cartItems'));
     }
 
-    public function termsOfService()
+    public function termsOfService(cartHelper $cart)
     {
-        return view('fe.home.terms-of-service');
+        $cartItems = $cart->list();
+
+        return view('fe.home.terms-of-service',compact('cart','cartItems'));
     }
 
-    public function signUp()
+    public function signUp(cartHelper $cart)
     {
-        return view('fe.home.sign-up');
+        $cartItems = $cart->list();
+
+        return view('fe.home.sign-up',compact('cart','cartItems'));
     }
 
     public function signIn()
     {
+        
         return view('fe.home.sign-in');
     }
 
-    public function blogDetail()
+    public function blogDetail(cartHelper $cart)
     {
-        return view('fe.home.blog-detail');
+        $cartItems = $cart->list();
+
+        return view('fe.home.blog-detail',compact('cart','cartItems'));
     }
 }
