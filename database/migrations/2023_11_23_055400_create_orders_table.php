@@ -15,10 +15,15 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->string('fullname', 255);
+            $table->string('phone',11);
+            $table->string('address', 255);
+            $table->string('email', 255);
+            $table->text('note_checkout')->nullable();
             $table->tinyInteger('status')->default(1);
+            $table->unsignedBigInteger('paymentMethod_id');
+            $table->foreign('paymentMethod_id')->references('id')->on('payment_methods');
             $table->float('total_price');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -54,24 +54,7 @@
                             <li class="menu-item">
                                 <a href="{{ route('fe-product.index') }}">Cửa hàng</a>
                             </li>
-                            {{-- <li class="menu-item-has-children">
-                                <a href="#">Trang</a>
-                                <ul class="axil-submenu">
-                                    <li><a href="{{ route('home.wishlist') }}">Wishlist</a></li>
-                                    <li><a href="{{ route('home.cart') }}">Cart</a></li>
-                                    <li><a href="{{ route('home.checkout') }}">Checkout</a></li>
-                                    <li><a href="{{ route('home.myAccount') }}">Account</a></li>
-                                    <li><a href="{{ route('home.sign-up') }}">Sign Up</a></li>
-                                    <li><a href="{{ route('user.index') }}">Sign In</a></li>
-                                    <li><a href="forgot-password.html">Forgot Password</a></li>
-                                    <li><a href="reset-password.html">Reset Password</a></li>
-                                    <li><a href="{{ route('home.privacy-policy') }}">Privacy Policy</a></li>
-                                    <li><a href="{{ route('home.terms-of-service') }}">Terms Of Service</a></li>
-                                    <li><a href="coming-soon.html">Coming Soon</a></li>
-                                    <li><a href="404.html">404 Error</a></li>
-                                    <li><a href="typography.html">Typography</a></li>
-                                </ul>
-                            </li> --}}
+
                             <li><a href="{{ route('home.about') }}">Giới thiệu</a></li>
                             <li class="menu-item">
                                 <a href="{{ route('home.blogs') }}">Bài viết</a>
@@ -95,7 +78,7 @@
                         </li>
                         <li class="shopping-cart">
                             <a href="{{ route('cart.index') }}" class="cart-dropdown-btn">
-                                <span class="cart-count">3</span>
+                                <span class="cart-count">{{ $cart->getTotalQuantity() }}</span>
                                 <i class="flaticon-shopping-cart"></i>
                             </a>
                         </li>

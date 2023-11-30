@@ -23,9 +23,14 @@
                                                     <div class="thumbnail">
                                                         <img src="{{ asset('storage/upload/admin/productImg') }}/{{ $item->image }}"
                                                             alt="Product Images">
-                                                        <div class="label-block label-right">
-                                                            <div class="product-badget">20% OFF</div>
-                                                        </div>
+                                                        @if ($item->sale_price)
+                                                            <div class="label-block label-right">
+
+                                                                <div class="product-badget">
+                                                                    {{ number_format((1 - $item->sale_price / $item->price) * 100, 2) }}%
+                                                                    OFF</div>
+                                                            </div>
+                                                        @endif
                                                         <div class="product-quick-view position-view">
                                                             <a href="{{ asset('storage/upload/admin/productImg') }}/{{ $item->image }}"
                                                                 class="popup-zoom">
@@ -188,43 +193,18 @@
                     <div class="col-lg-7 col-sm-6">
                         <div class="main-slider-large-thumb">
                             <div class="slider-thumb-activation-one axil-slick-dots">
-                                {{-- @foreach ($banner as $item)
-                                    <div class="single-slide slick-slide" data-sal-duration="1000">
-                                        <img src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
-                                            alt="Product">
-                                        <div class="product-price">
-                                            <span class="text">Chỉ từ</span>
-                                            @if ($item->sale_price)
-                                                <span class="price-amount">{{ number_format($item->sale_price) }} VND</span>
-                                            @else
-                                                <span class="price-amount">{{ number_format($item->price) }} VND</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                @endforeach --}}
-                                {{-- <div class="single-slide slick-slide" data-sal="slide-up" data-sal-delay="600"
-                                    data-sal-duration="1500">
-                                    <img src="{{ asset('assets') }}/fe/images/product/product-39.png" alt="Product">
-                                    <div class="product-price">
-                                        <span class="text">Chỉ từ</span>
-                                        <span class="price-amount">$49.00</span>
-                                    </div>
-                                </div> --}}
                                 @foreach ($banner as $item)
                                     <div class="single-slide slick-slide">
                                         <img src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
                                             alt="Product">
                                         <div class="product-price">
                                             <span class="text">Chỉ từ</span>
-                                            <span class="price-amount">$49.00</span>
+                                            <span
+                                                class="price-amount text-danger">{{ $item->price ? number_format($item->sale_price) : number_format($item->price) }}
+                                                VND</span>
                                         </div>
                                     </div>
                                 @endforeach
-
-                                <div class="single-slide slick-slide">
-                                    <div class="product-price">
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -310,10 +290,14 @@
                     <div class="slick-single-layout">
                         <div class="row row--15">
                             @foreach ($productSide1 as $item)
-                                <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
+                                <form class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30" method="POST"
+                                    action="{{ route('cart.add') }}">
+                                    @csrf
+                                    <input type="number" name="quantity" hidden value="1">
+                                    <input type="text" name="id" hidden value="{{ $item->id }}">
                                     <div class="axil-product product-style-one">
                                         <div class="thumbnail">
-                                            <a href="{{ route('product.detail', $item) }}">
+                                            <a href="{{ route('product.detail', $item->slug) }}">
                                                 <img data-sal="zoom-out" data-sal-delay="200" data-sal-duration="800"
                                                     loading="lazy" class="main-img"
                                                     src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
@@ -324,7 +308,90 @@
                                             </a>
                                             @if ($item->sale_price)
                                                 <div class="label-block label-right">
-                                                    <div class="product-badget">20% Off</div>
+                                                    <div class="product-badget">
+                                                        {{ number_format((1 - $item->sale_price / $item->price) * 100, 2) }}
+                                                        %
+                                                        OFF</div>
+                                                </div>
+                                            @endif
+                                            <div class="product-hover-action">
+                                                <ul class="cart-action">
+                                                    <li class="quickview"><a data-bs-toggle="modal"
+                                                            data-bs-target="#quick-view-modal-{{ $item->id }}"><i
+                                                                class="far fa-eye"></i></a>
+                                                    </li>
+                                                    <li class="select-option">
+                                                        <a href=""><button class="text-white"
+                                                                style="background: transparent" type="submit"
+                                                                href="{{ route('cart.add') }}">
+                                                                Thêm vào giỏ hàng
+                                                            </button>
+                                                        </a>
+                                                    </li>
+                                                    <li class="wishlist"><a href="wishlist.html"><i
+                                                                class="far fa-heart"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-content text-center ">
+                                            <div class="inner">
+                                                <div class="product-rating">
+                                                    <span class="icon">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </span>
+                                                    <span class="rating-number">(64)</span>
+                                                </div>
+                                                <h5 class="title"><a
+                                                        href="{{ route('product.detail', $item->slug) }}">{{ $item->name }}</a>
+                                                </h5>
+                                                @if ($item->sale_price)
+                                                    <div class="product-price-variant">
+                                                        <strong
+                                                            class="strongrice current-price text-primary text-primary ">{{ number_format($item->sale_price) }}
+                                                            VND</strong>
+                                                        <br>
+                                                        <del class="price old-price">{{ number_format($item->price) }}
+                                                            VND</del>
+                                                    </div>
+                                                @else
+                                                    <div class="product-price-variant">
+                                                        <p class="price current-price">{{ number_format($item->price) }}
+                                                            VND</p>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            @endforeach
+                        </div>
+                    </div>
+                    <!-- End .slick-single-layout -->
+                    <div class="slick-single-layout">
+                        <div class="row row--15">
+                            @foreach ($productSide2 as $item)
+                                <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
+                                    <div class="axil-product product-style-one">
+                                        <div class="thumbnail">
+                                            <a href="{{ route('product.detail', $item->slug) }}">
+                                                <img data-sal="zoom-out" data-sal-delay="200" data-sal-duration="800"
+                                                    loading="lazy" class="main-img"
+                                                    src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
+                                                    alt="Product Images">
+                                                <img class="hover-img"
+                                                    src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
+                                                    alt="Product Images">
+                                            </a>
+                                            @if ($item->sale_price)
+                                                <div class="label-block label-right">
+                                                    <div class="product-badget">
+                                                        {{ number_format((1 - $item->sale_price / $item->price) * 100, 2) }}
+                                                        %
+                                                        OFF</div>
                                                 </div>
                                             @endif
                                             <div class="product-hover-action">
@@ -343,7 +410,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="product-content">
+                                        <div class="product-content text-center ">
                                             <div class="inner">
                                                 <div class="product-rating">
                                                     <span class="icon">
@@ -355,87 +422,22 @@
                                                     </span>
                                                     <span class="rating-number">(64)</span>
                                                 </div>
-                                                <h5 class="title"><a href="single-product.html">{{ $item->name }}</a>
+                                                <h5 class="title"><a
+                                                        href="{{ route('product.detail', $item->slug) }}">{{ $item->name }}</a>
                                                 </h5>
                                                 @if ($item->sale_price)
                                                     <div class="product-price-variant">
-                                                        <span class="price current-price">{{ $item->sale_price }}
-                                                            VND</span>
-                                                        <span class="price old-price">{{ $item->price }} VND</span>
+                                                        <strong
+                                                            class="strongrice current-price text-primary text-primary ">{{ number_format($item->sale_price) }}
+                                                            VND</strong>
+                                                        <br>
+                                                        <del class="price old-price">{{ number_format($item->price) }}
+                                                            VND</del>
                                                     </div>
                                                 @else
                                                     <div class="product-price-variant">
-                                                        <span class="price current-price">{{ $item->price }} VND</span>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-
-                        </div>
-                    </div>
-                    <!-- End .slick-single-layout -->
-                    <div class="slick-single-layout">
-                        <div class="row row--15">
-                            @foreach ($productSide2 as $item)
-                                <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                    <div class="axil-product product-style-one">
-                                        <div class="thumbnail">
-                                            <a href="{{ route('product.detail') }}">
-                                                <img data-sal="zoom-out" data-sal-delay="200" data-sal-duration="800"
-                                                    loading="lazy" class="main-img"
-                                                    src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
-                                                    alt="Product Images">
-                                                <img class="hover-img"
-                                                    src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
-                                                    alt="Product Images">
-                                            </a>
-                                            @if ($item->sale_price)
-                                                <div class="label-block label-right">
-                                                    <div class="product-badget">20% Off</div>
-                                                </div>
-                                            @endif
-                                            <div class="product-hover-action">
-                                                <ul class="cart-action">
-                                                    <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                            data-bs-target="#quick-view-modal"><i
-                                                                class="far fa-eye"></i></a>
-                                                    </li>
-                                                    <li class="select-option">
-                                                        <a href="single-product.html">
-                                                            Thêm vào giỏ hàng
-                                                        </a>
-                                                    </li>
-                                                    <li class="wishlist"><a href="wishlist.html"><i
-                                                                class="far fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-content">
-                                            <div class="inner">
-                                                <div class="product-rating">
-                                                    <span class="icon">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                    </span>
-                                                    <span class="rating-number">(64)</span>
-                                                </div>
-                                                <h5 class="title"><a href="single-product.html">{{ $item->name }}</a>
-                                                </h5>
-                                                @if ($item->sale_price)
-                                                    <div class="product-price-variant">
-                                                        <span class="price current-price">{{ $item->sale_price }}
-                                                            VND</span>
-                                                        <span class="price old-price">{{ $item->price }} VND</span>
-                                                    </div>
-                                                @else
-                                                    <div class="product-price-variant">
-                                                        <span class="price current-price">{{ $item->price }} VND</span>
+                                                        <p class="price current-price">{{ number_format($item->price) }}
+                                                            VND</p>
                                                     </div>
                                                 @endif
                                             </div>
@@ -473,7 +475,7 @@
                             <div class="slick-single-layout">
                                 <div class="axil-product product-style-two">
                                     <div class="thumbnail">
-                                        <a href="single-product.html">
+                                        <a href="{{ route('product.detail', $item->slug) }}">
                                             <img data-sal="zoom-out" data-sal-delay="200" data-sal-duration="500"
                                                 src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
                                                 alt="Product Images">
@@ -485,7 +487,7 @@
                                                 OFF</div>
                                         </div>
                                     </div>
-                                    <div class="product-content">
+                                    <div class="product-content text-center ">
                                         <div class="inner">
                                             <div class="color-variant-wrapper">
                                                 <ul class="color-variant">
@@ -498,16 +500,24 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <h5 class="title"><a href="single-product.html">{{ $item->name }}</a></h5>
+                                            <h5 class="title"><a
+                                                    href="{{ route('product.detail', $item->slug) }}">{{ $item->name }}</a>
+                                            </h5>
                                             <div class="product-price-variant">
                                                 @if ($item->sale_price)
-                                                    <del class="price old-price">{{ number_format($item->price) }}
-                                                        VND</del>
-                                                    <p class="price current-price">{{ number_format($item->sale_price) }}
-                                                        VND</p>
+                                                    <div class="product-price-variant">
+                                                        <strong
+                                                            class="strongrice current-price text-primary text-primary ">{{ number_format($item->sale_price) }}
+                                                            VND</strong>
+                                                        <br>
+                                                        <del class="price old-price">{{ number_format($item->price) }}
+                                                            VND</del>
+                                                    </div>
                                                 @else
-                                                    <p class="price current-price">{{ number_format($item->price) }}
-                                                        VND</p>
+                                                    <div class="product-price-variant">
+                                                        <p class="price current-price">{{ number_format($item->price) }}
+                                                            VND</p>
+                                                    </div>
                                                 @endif
                                             </div>
                                             <div class="product-hover-action">
@@ -546,15 +556,19 @@
                     <div class="row row-cols-xl-2 row-cols-1 row--15">
                         @foreach ($fearture as $item)
                             <div class="col">
-                                <div class="axil-product-list">
-                                    <div class="thumbnail" class="w-25">
-                                        <a href="single-product.html">
-                                            <img data-sal="zoom-in" data-sal-delay="100" data-sal-duration="1500"
+                                <form class="axil-product-list" method="POST" action="{{ route('cart.add') }}">
+                                    @csrf
+                                    <input type="number" name="quantity" hidden value="1">
+                                    <input type="text" name="id" hidden value="{{ $item->id }}">
+                                    <div class="thumbnail" class="">
+                                        <a href="{{ route('product.detail', $item->slug) }}">
+                                            <img width="100px" data-sal="zoom-in" data-sal-delay="100"
+                                                data-sal-duration="1500"
                                                 src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
                                                 alt="Yantiti Leather Bags">
                                         </a>
                                     </div>
-                                    <div class="product-content w-50 ">
+                                    <div class="product-content ">
                                         <div class="product-rating">
                                             <span class="rating-icon">
                                                 <i class="fas fa-star"></i>
@@ -565,12 +579,14 @@
                                             </span>
                                             <span class="rating-number"><span>100+</span> Đánh giá</span>
                                         </div>
-                                        <h6 class="product-title"><a href="single-product.html">Media Remote</a></h6>
+                                        <h4 class="product-title title-highlighter highlighter-primary"><a
+                                                href="{{ route('product.detail', $item->slug) }}">{{ $item->name }}</a>
+                                        </h4>
                                         @if ($item->sale_price)
                                             <div class="product-price-variant">
-                                                <p class="price current-price">{{ number_format($item->sale_price) }}
-                                                    VND</p>
-                                                <p class="price old-price">{{ number_format($item->price) }} VND</p>
+                                                <strong class="price current-price">{{ number_format($item->sale_price) }}
+                                                    VND</strong>
+                                                <del class="price old-price">{{ number_format($item->price) }} VND</del>
                                             </div>
                                         @else
                                             <div class="product-price-variant">
@@ -579,11 +595,11 @@
                                             </div>
                                         @endif
                                         <div class="product-cart">
-                                            <a href="cart.html" class="cart-btn"><i class="fal fa-shopping-cart"></i></a>
+                                            <button class="cart-btn"><i class="fal fa-shopping-cart"></i></button>
                                             <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         @endforeach
                     </div>

@@ -7,6 +7,8 @@ use App\Http\Requests\Admin\Sales\StoreCategoriesRequest;
 use App\Http\Requests\Admin\Sales\UpdateCategoriesRequest;
 use App\Models\Admin\Sales\Brand;
 use App\Models\Admin\Sales\Category;
+use App\Models\Admin\Sales\ImgProducts;
+use App\Models\Admin\Sales\Product;
 use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -134,7 +136,9 @@ class CategoriesController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
+        
         try {
+            Product::where('category_id',$category->id)->delete();
             if($category->delete()) {
                 alert()->success('success','Chuyển thành công vào thùng rác !');
                 return redirect()->route('category.index');
@@ -155,42 +159,48 @@ class CategoriesController extends Controller
     }
 
     public function restore($id){
-        $category = Category::onlyTrashed()->where('id',$id)->first();
-        $brand = Brand::withTrashed()->where('id',$category->brand_id)->first();
-        if($brand->trashed()){
-            alert()->error('Lỗi','Vui lòng khôi phục nhãn hàng trước !');
-            return redirect()->back();
-        }else{
-            $restore = Category::withTrashed()->find($id)->restore();
-            try {
-                if($restore){
-                    alert()->success('Congratulations','Restore Item Successfully !');
-                    return redirect()->route('categories.trashIndex');
-                }else{
-                    alert()->error('Fail','Restore Item Fail !');
-                    return redirect()->back();
-                }
-            } catch (\Throwable $th) {
-                    alert()->error('Fail','Restore Item Fail !');
-                    return redirect()->back();
-            }
-        }  
-    }
-
-    public function forceDelete($id){
-        $delete = Category::withTrashed()->find($id)->forceDelete();
+        
+        $restore = Category::withTrashed()->find($id)->restore();
+        Product::withTrashed()->where('category_id',$id)->restore();
         try {
-            if($delete){
-                alert()->success('Thành Công','Xóa vĩnh viễn thành công !');
+            if($restore){
+                alert()->success('Congratulations','Restore Item Successfully !');
                 return redirect()->route('categories.trashIndex');
             }else{
-                alert()->error('Lỗi !','Xóa vĩnh viễn thất bại !');
+                alert()->error('Fail','Restore Item Fail !');
                 return redirect()->back();
             }
         } catch (\Throwable $th) {
-                alert()->error('Lỗi !','Xóa vĩnh viễn thất bại !');
+                alert()->error('Fail','Restore Item Fail !');
                 return redirect()->back();
         }
+    }
 
+    public function forceDelete($id){
+        $categoriesSub = Category::where('parent_id',$id)->get();
+        if(!empty($categoriesSub->all())){
+            alert()->error('Lỗi !','Vui lòng xóa danh mục phụ trước !');
+            return redirect()->back();
+        }else{
+            $products = Product::withTrashed()->where('category_id',$id)->get();
+            if(!empty($products->all())){
+                alert()->error('Lỗi !','Vui lòng xóa sản phẩm trước !');
+                return redirect()->back();
+            }else{
+                $delete = Category::withTrashed()->find($id)->forceDelete();
+                try {
+                    if($delete){
+                        alert()->success('Thành Công','Xóa vĩnh viễn thành công !');
+                        return redirect()->route('categories.trashIndex');
+                    }else{
+                        alert()->error('Lỗi !','Xóa vĩnh viễn thất bại !');
+                        return redirect()->back();
+                    }
+                } catch (\Throwable $th) {
+                        alert()->error('Lỗi !','Xóa vĩnh viễn thất bại !');
+                        return redirect()->back();
+                }
+            }
+        }
     }
 }

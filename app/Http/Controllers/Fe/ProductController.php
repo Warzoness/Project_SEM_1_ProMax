@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fe;
 
+use App\Helper\cartHelper;
 use App\Models\Admin\Sales\Category;
 use App\Models\Admin\Sales\Color;
 use App\Models\Admin\Sales\ImgProducts;
@@ -13,12 +14,13 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(cartHelper $cart)
     {
+        $cartItems = $cart->list();
         $products = Product::all();
         $colors = Color::all();
         $categories = Category::all();
-        return view('fe.product.index',compact('products','categories','colors'));
+        return view('fe.product.index',compact('products','categories','colors','cart','cartItems'));
     }
 
     /**
@@ -69,11 +71,13 @@ class ProductController extends Controller
         //
     }
 
-    public function detail(Product $product)
+    public function detail($slug,cartHelper $cart)
     {
+        $cartItems = $cart->list();
+        $product = Product::where('slug',$slug)->first();
         $products = Product::all();
         $colors = Color::all();
         $imgProducts = ImgProducts::where('product_id',$product->id)->get();
-        return view('fe.product.detail',compact('products','colors','product','imgProducts'));
+        return view('fe.product.detail',compact('products','colors','product','imgProducts','cart','cartItems'));
     }
 }

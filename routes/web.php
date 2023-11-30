@@ -8,9 +8,11 @@ use App\Http\Controllers\Admin\Sales\BrandsController;
 use App\Http\Controllers\Admin\Sales\CategoriesController;
 use App\Http\Controllers\Admin\Sales\ColorsController;
 use App\Http\Controllers\Admin\Sales\EachTypeProductsController;
+use App\Http\Controllers\Admin\Sales\OrdersController;
 use App\Http\Controllers\Admin\Sales\PaymentMethodsController;
 use App\Http\Controllers\Admin\Sales\ProductsController;
 use App\Http\Controllers\Fe\CartsController;
+use App\Http\Controllers\Fe\CheckoutsController;
 use App\Http\Controllers\Fe\Controller;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -88,6 +90,8 @@ Route::prefix('admin')->group(function () {
     });
 });
 
+Route::post('/orders',[OrdersController::class,'add'])->name('orders.add');
+
 
 Route::post('user',[UserController::class,'login'])->name('login');
 Route::get('user',[UserController::class,'logout'])->name('user.logout');
@@ -95,25 +99,26 @@ Route::get('user',[UserController::class,'logout'])->name('user.logout');
 Route::get('/cart-index',[CartsController::class,'index'])->name('cart.index');
 Route::post('/add-cart',[CartsController::class,'add'])->name('cart.add');
 Route::get('/remove-cart/{id}',[CartsController::class,'remove'])->name('cart.remove');
-Route::post('/update-cart',[CartsController::class,'update'])->name('cart.update');
+// Route::post('/update-cart',[CartsController::class,'update'])->name('cart.update');
 
-Route::prefix('customer')->group(function(){
+Route::prefix('website')->group(function(){
     Route::resource('user',UserController::class);
-    Route::get('/', [HomeController::class, 'index'])->name('home.index');
+    Route::get('/trang-chu', [HomeController::class, 'index'])->name('home.index');
     Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('home.about');
     Route::get('/blogs', [HomeController::class, 'blog'])->name('home.blogs');
     Route::get('/blog-detail', [HomeController::class, 'blogDetail'])->name('home.blog-detail');
     Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
-    Route::get('/my-account', [HomeController::class, 'myAccount'])->name('home.myAccount');
-    Route::get('/wishlist', [HomeController::class, 'wishList'])->name('home.wishlist');
-    Route::get('/cart', [HomeController::class, 'cart'])->name('home.cart');
-    Route::get('/checkout', [HomeController::class, 'checkout'])->name('home.checkout');
+    Route::get('/tai-khoan-cua-toi', [HomeController::class, 'myAccount'])->name('home.myAccount');
+    Route::get('/danh-sach-uoc', [HomeController::class, 'wishList'])->name('home.wishlist');
+    Route::get('/gio-hang', [HomeController::class, 'cart'])->name('home.cart');
+    Route::get('/thanh-toan',[HomeController::class,'checkout'])->name('home.checkout');
+    
     Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('home.privacy-policy');
     Route::get('/terms-of-service', [HomeController::class, 'termsOfService'])->name('home.terms-of-service');
 
     Route::resource('fe-category', CategoryController::class);
     Route::resource('fe-product', ProductController::class);
-    Route::get('/product-detail/{product}', [ProductController::class,'detail'])->name('product.detail');
+    Route::get('/chi-tiet-san-pham/{slug}', [ProductController::class,'detail'])->name('product.detail');
 
     Route::get('/masterview',[Controller::class,'masterview'])->name('okok');
 

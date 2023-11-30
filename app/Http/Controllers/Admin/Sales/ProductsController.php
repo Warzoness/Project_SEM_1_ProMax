@@ -22,7 +22,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::where('category_id','!=','')->get();
         $categories = Category::all();
         return view("admin.pages.sales.products.index", compact("products","categories"));
     }

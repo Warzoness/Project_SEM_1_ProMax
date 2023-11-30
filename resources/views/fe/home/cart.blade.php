@@ -23,7 +23,6 @@
     </div>
 
     <main class="main-wrapper">
-
         <!-- Start Cart Area  -->
         <div class="axil-product-cart-area axil-section-gap">
             <div class="container">
@@ -32,65 +31,64 @@
                         <h4 class="title">Giỏ hàng của bạn</h4>
                         <a href="#" class="cart-clear">Clear Shoping Cart</a>
                     </div>
-                    <form action="{{ route('cart.update') }}" method="POST">
-                        @csrf
-                        <div class="table-responsive">
-                            <table class="table axil-product-table axil-cart-table mb--40">
-                                <thead>
+                    @csrf
+                    <div class="table-responsive">
+                        <table class="table axil-product-table axil-cart-table mb--40">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="product-remove"></th>
+                                    <th scope="col" class="product-thumbnail">Sản phẩm</th>
+                                    <th scope="col" class="product-title"></th>
+                                    <th scope="col" class="product-price">Giá</th>
+                                    <th scope="col" class="product-quantity">Số lượng</th>
+                                    <th scope="col" class="product-subtotal">Tổng tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($cartItems as $key => $value)
                                     <tr>
-                                        <th scope="col" class="product-remove"></th>
-                                        <th scope="col" class="product-thumbnail">Sản phẩm</th>
-                                        <th scope="col" class="product-title"></th>
-                                        <th scope="col" class="product-price">Giá</th>
-                                        <th scope="col" class="product-quantity">Số lượng</th>
-                                        <th scope="col" class="product-subtotal">Tổng tiền</th>
+                                        <td class="product-remove">
+                                            <form action="{{ route('cart.remove', $value['product_id']) }}">
+                                                @csrf
+                                                <button> X </button>
+                                            </form>
+                                        </td>
+                                        <td class="product-thumbnail"><a href="single-product-2.html"><img
+                                                    src="{{ asset('storage/upload/admin/products') }}/{{ $value['image'] }}"
+                                                    alt="Digital Product"></a></td>
+                                        <td class="product-title"><a href="single-product.html">{{ $value['name'] }}</a>
+                                        </td>
+                                        <td class="product-price" data-title="Price">
+                                            {{ number_format($value['price']) }}
+                                            <span class="currency-symbol">VND</span>
+                                        </td>
+                                        <td class="product-quantity" data-title="Qty">
+                                            <div class="pro-qty">
+                                                <input type="number" class="quantity-input qty"
+                                                    data-id="{{ $value['product_id'] }}" value="{{ $value['quantity'] }}"
+                                                    name="quantity">
+                                            </div>
+                                        </td>
+                                        <td class="product-subtotal" data-title="Subtotal">
+                                            {{ number_format($value['price'] * $value['quantity']) }}
+                                            VND
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($cartItems as $key => $value)
-                                        <tr>
-                                            <td class="product-remove">
-                                                <form action="{{ route('cart.remove', $value['product_id']) }}">
-                                                    @csrf
-                                                    <button> X </button>
-                                                </form>
-                                            </td>
-                                            <td class="product-thumbnail"><a href="single-product-2.html"><img
-                                                        src="{{ asset('storage/upload/admin/products') }}/{{ $value['image'] }}"
-                                                        alt="Digital Product"></a></td>
-                                            <td class="product-title"><a href="single-product.html">{{ $value['name'] }}</a>
-                                            </td>
-                                            <td class="product-price" data-title="Price">
-                                                {{ number_format($value['price']) }}
-                                                <span class="currency-symbol">VND</span>
-                                            </td>
-                                            <td class="product-quantity" data-title="Qty">
-                                                <div class="pro-qty">
-                                                    <input type="number" class="quantity-input qty"
-                                                        data-id="{{ $value['product_id'] }}"
-                                                        value="{{ $value['quantity'] }}" name="quantity">
-                                                </div>
-                                            </td>
-                                            <td class="product-subtotal" data-title="Subtotal">
-                                                {{ number_format($value['price'] * $value['quantity']) }}
-                                                VND
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="cart-update-btn-area">
-                            <div class="input-group product-cupon">
-                                <input placeholder="Nhập mã giảm giá" type="text">
-                                <div class="product-cupon-btn">
-                                    <button type="submit" class="axil-btn btn-outline">Apply</button>
-                                </div>
-                            </div>
-                            <div class="update-btn">
-                                <a href="{{ route('cart.index') }}" class="axil-btn btn-outline">Cập nhật giỏ hàng</a>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart-update-btn-area">
+                        <div class="input-group product-cupon">
+                            <input placeholder="Nhập mã giảm giá" type="text">
+                            <div class="product-cupon-btn">
+                                <button type="submit" class="axil-btn btn-outline">Apply</button>
                             </div>
                         </div>
+                        <div class="update-btn">
+                            <a href="{{ route('cart.index') }}" class="axil-btn btn-outline">Cập nhật giỏ hàng</a>
+                        </div>
+                    </div>
 
                     </form>
                     <div class="row">
@@ -102,7 +100,7 @@
                                         <tbody>
                                             <tr class="order-subtotal">
                                                 <td>Tổng tiền</td>
-                                                <td>{{ number_format($cart->getTotalPrice()) }}</td>
+                                                <td>{{ number_format($cart->getTotalPrice()) }} VND</td>
                                             </tr>
                                             <tr>
                                                 <td>Tổng số sản phẩm</td>
@@ -111,7 +109,8 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <a href="checkout.html" class="axil-btn btn-bg-primary checkout-btn">Tiến hành thanh
+                                <a href="{{ route('home.checkout') }}" class="axil-btn btn-bg-primary checkout-btn">Tiến
+                                    hành thanh
                                     toán</a>
                             </div>
                         </div>
@@ -119,7 +118,6 @@
                 </div>
             </div>
         </div>
-        </form>
         <!-- End Cart Area  -->
 
     </main>

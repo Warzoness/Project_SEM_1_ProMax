@@ -26,7 +26,7 @@ class CartsController extends Controller
         $product = Product::find($request->id);
         $quantity = $request->quantity;
         $cart->add($product,$quantity);
-
+        toast('Thêm mới 1 sản phẩm vào giỏ hàng thành công !','success','top-right');
         return redirect()->route('cart.index');
     }
 
@@ -36,10 +36,9 @@ class CartsController extends Controller
         return redirect()->back();
     }
 
-    public function update(cartHelper $cart,Request $request){
-        dd($request->all());
-        $cart->updateCart($request->id,$request->quantity);
-        alert()->success('Update giỏ hàng thành công !');
-        return redirect()->back();
-    }
+    // public function update(cartHelper $cart,Request $request){
+    //     $cart->updateCart($request->id,$request->quantity);
+    //     alert()->success('Update giỏ hàng thành công !');
+    //     return redirect()->back();
+    // }
 }

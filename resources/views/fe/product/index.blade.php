@@ -69,22 +69,6 @@
                                      </ul>
                                  </div>
                              </div>
-
-                             <div class="toggle-list product-size active">
-                                 <h6 class="title">KÍCH THƯỚC</h6>
-                                 <div class="shop-submenu">
-                                     <ul>
-                                         <li class="chosen"><a href="#">XS</a></li>
-                                         <li><a href="#">S</a></li>
-                                         <li><a href="#">M</a></li>
-                                         <li><a href="#">L</a></li>
-                                         <li><a href="#">XL</a></li>
-                                         <li><a href="#">XXL</a></li>
-                                         <li><a href="#">3XL</a></li>
-                                         <li><a href="#">4XL</a></li>
-                                     </ul>
-                                 </div>
-                             </div>
                              <div class="toggle-list product-price-range active">
                                  <h6 class="title">GIÁ</h6>
                                  <div class="shop-submenu">
@@ -137,19 +121,21 @@
                                      <input type="text" name="id" hidden value="{{ $item->id }}">
                                      <div class="axil-product product-style-one mb--30">
                                          <div class="thumbnail">
-                                             <a href="{{ route('product.detail', $item) }}">
+                                             <a href="{{ route('product.detail', $item->slug) }}">
                                                  <img src="{{ asset('storage/upload/admin/products') }}/{{ $item->main_img }}"
                                                      alt="Product Images">
                                              </a>
                                              <div class="label-block label-right">
-                                                 <div class="product-badget">10% OFF</div>
+                                                 <div class="product-badget">
+                                                     {{ number_format((1 - $item->sale_price / $item->price) * 100, 2) }}%
+                                                     OFF</div>
                                              </div>
                                              <div class="product-hover-action">
                                                  <ul class="cart-action">
                                                      <li class="wishlist"><a href="wishlist.html"><i
                                                                  class="far fa-heart"></i></a></li>
                                                      <li class="select-option">
-                                                         <a href="#"><button class="text-white"
+                                                         <a href=""><button class="text-white"
                                                                  style="background: transparent" type="submit"
                                                                  href="{{ route('cart.add') }}">
                                                                  Thêm vào giỏ hàng
@@ -163,13 +149,15 @@
                                                  </ul>
                                              </div>
                                          </div>
-                                         <div class="product-content">
+                                         <div class="product-content text-center ">
                                              <div class="inner">
-                                                 <h5 class="title"><a href="single-product.html">{{ $item->name }}</a>
+                                                 <h5 class=""><a
+                                                         href="{{ route('product.detail', $item->slug) }}">{{ $item->name }}</a>
                                                  </h5>
                                                  <div class="product-price-variant">
                                                      @if ($item->sale_price)
                                                          <del>{{ number_format($item->price) }} VND</del>
+                                                         <br>
                                                          <strong>{{ number_format($item->sale_price) }} VND</strong>
                                                      @else
                                                          <strong>{{ number_format($item->price) }} VND</strong>

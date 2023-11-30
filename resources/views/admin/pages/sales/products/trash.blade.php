@@ -55,11 +55,11 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                {{ $item->category->name }}
+                                                {{ $item->category->name ?? '' }}
                                             </td>
 
                                             <td>
-                                                {{ $item->products ? $item->products->count() : 0 }}
+                                                {{ $item->quantity }}
                                             </td>
                                             <td>
                                                 <div class="flex justify-end text-lg align-center items-center gap-3">

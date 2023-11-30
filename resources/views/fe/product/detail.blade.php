@@ -109,7 +109,7 @@
                                             <li class="add-to-cart"><a href="{{ route('home.checkout') }}"
                                                     class="axil-btn btn-bg-secondary"><i class="far fa-shopping-bag"></i>
                                                     Mua Ngay</a></li>
-                                            <li class="add-to-cart"><a href="{{ route('home.cart') }}"
+                                            <li class="add-to-cart"><a href="{{ route('cart.index') }}"
                                                     class="axil-btn btn-bg-primary"><i class="far fa-shopping-cart"></i>
                                                     Thêm vào giỏ</a></li>
 

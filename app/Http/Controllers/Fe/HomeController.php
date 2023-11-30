@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\Fe;
 
+use App\Helper\cartHelper;
 use App\Models\Admin\Sales\Category;
 use App\Models\Admin\Sales\EachTypeProduct;
 use App\Models\Admin\Sales\ImgProducts;
+use App\Models\Admin\Sales\paymentMethod;
 use App\Models\Admin\Sales\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(cartHelper $cart)
     {
         $fearture = Product::where('fearture',1)->get();
+        $cartItems = $cart->list();
         $categories = Category::all();
         $products = Product::all();
         $productSide1 = Product::skip(0)->take(8)->get();
@@ -21,7 +24,7 @@ class HomeController extends Controller
         $new = Product::all()->sortByDesc('created_at')->take(16);
         $imgProducts = ImgProducts::all();
         $pr = Product::all();
-        return view('fe.home.index',compact('categories','products','banner','new','pr','productSide1','productSide2','fearture'));
+        return view('fe.home.index',compact('categories','products','banner','new','pr','productSide1','productSide2','fearture','cartItems','cart'));
     }
 
     public function aboutUs()
@@ -55,10 +58,12 @@ class HomeController extends Controller
         return view('fe.home.cart',compact('products'));
     }
 
-    public function checkout()
+    public function checkout(cartHelper $cart)
     {
+        $cartItems = $cart->list();
+        $paymentMethods = paymentMethod::where('name','!=','Thanh Toán Khi Nhận Hàng')->get();
         $products = Product::all();
-        return view('fe.home.checkout',compact('products'));
+        return view('fe.home.checkout',compact('products','paymentMethods','cart','cartItems'));
     }
 
     public function privacyPolicy()

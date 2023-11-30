@@ -11,5 +11,5 @@ class Order extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['user_id','status','total_price'] ;
+    protected $fillable = ['fullname','status','phone','address','email','note_checkout','paymentMethod_id','total_price'] ;
 }
